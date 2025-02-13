@@ -190,13 +190,13 @@ public class PlayerController : Loadable
             if (Input.GetKeyDown("left ctrl"))
             {
                 transform.localScale = new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
-                rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
+                //rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
             }
             else if (Input.GetKeyUp("left ctrl"))
             {
                 speed = standard_speed;
                 transform.localScale = new Vector3(transform.localScale.x, yscale, transform.localScale.z);
-                rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
+                //rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
             }
         }
 
