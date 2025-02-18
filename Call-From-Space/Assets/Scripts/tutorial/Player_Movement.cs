@@ -107,7 +107,8 @@ public class Player_Movement : MonoBehaviour
         HorizInput = Input.GetAxisRaw("Horizontal");
         VertInput = Input.GetAxisRaw("Vertical");
 
-        
+        if (!MovementIsLocked)
+        {
             if (Input.GetKeyDown("left shift"))
             {
                 if (movementstate == MovementStates.crouch)
@@ -125,42 +126,27 @@ public class Player_Movement : MonoBehaviour
                 ToggleCrouchCollider();
                 movementstate = (movementstate == MovementStates.crouch) ? MovementStates.walk : MovementStates.crouch;
             }
-            
+    
 
-            //for the actual scale of the crouch collider
-            /*
-            if (Input.GetKeyDown("left ctrl"))
-            {
-                transform.localScale = new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
-                rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
-            }
-            else if (Input.GetKeyUp("left ctrl"))
-            {
-                speed = standard_speed;
-                transform.localScale = new Vector3(transform.localScale.x, yscale, transform.localScale.z);
-                rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
-            }*/
-
-        //SweepTest(Vector3 direction, out RaycastHit hitInfo, float maxDistance = Mathf.Infinity, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal);
-        RaycastHit hit;
-        //if (rb.SweepTest(transform.up, out hit, 5f))
-        //{
-        //    Debug.Log("TOUCH");
-        //}
-        Debug.DrawRay(transform.position, transform.up*2f, Color.green);
-        if(Physics.Raycast(transform.position, transform.up, out hit, 2.05f, PlayerLayer))
-        {
-            Debug.Log("Hit");
+        
         }
-        //Debug.Log(CrouchCollider.bounds.size);
-        //Debug.Log(transform.position);
-        //Debug.Log(CrouchCollider.bounds.min);
+        
+        
 
     }
 
     void ToggleCrouchCollider()
     {
-        transform.localScale = (movementstate == MovementStates.crouch) ? new Vector3(transform.localScale.x, yscale, transform.localScale.z) : new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
+        RaycastHit hit;
+        if (movementstate == MovementStates.crouch && !Physics.Raycast(transform.position, transform.up, out hit, 2.05f, PlayerLayer))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, yscale, transform.localScale.z);
+        }
+        else
+        {
+            transform.localScale = new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
+        }
+        //transform.localScale = (movementstate == MovementStates.crouch) ? new Vector3(transform.localScale.x, yscale, transform.localScale.z) : new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
     }
 
 
