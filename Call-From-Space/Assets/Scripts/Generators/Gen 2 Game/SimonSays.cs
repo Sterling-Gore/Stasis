@@ -156,7 +156,7 @@ public class SimonSays : MonoBehaviour
                 audioSource.PlayOneShot(valid);
                 gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
                 gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
-                player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(6);
+                player.GetComponent<UI_Controller>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(6);
             }
             else
             {

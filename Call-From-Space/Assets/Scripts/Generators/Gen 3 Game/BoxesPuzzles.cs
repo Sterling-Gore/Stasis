@@ -194,7 +194,7 @@ public class BoxesPuzzle : MonoBehaviour
         //sparkle controller
         FuelDepositSparkle.SetActive(true);
         ScreenSparkle.SetActive(false);
-        player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(2);
+        player.GetComponent<UI_Controller>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(2);
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
         gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
         TurnInteractableButtons(false);

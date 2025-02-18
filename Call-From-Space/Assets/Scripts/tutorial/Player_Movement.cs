@@ -33,6 +33,8 @@ public class Player_Movement : MonoBehaviour
 
     public LayerMask PlayerLayer;
 
+    [Header("Interactor")]
+    Interactor interactor;
 
     public enum MovementStates
     {
@@ -58,6 +60,8 @@ public class Player_Movement : MonoBehaviour
 
         PlayerLayer = ~(PlayerLayer);
 
+        interactor = gameObject.GetComponent<Interactor>();
+
     }
 
     void FixedUpdate()
@@ -71,6 +75,7 @@ public class Player_Movement : MonoBehaviour
         MyInput();
         SpeedControl();
         rb.drag = groundDrag;
+        MovementIsLocked = interactor.inUI;
 
         /*if (oxygenSystem != null)
         {
