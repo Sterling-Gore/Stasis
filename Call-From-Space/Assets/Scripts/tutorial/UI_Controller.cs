@@ -21,6 +21,8 @@ public class UI_Controller : MonoBehaviour
     private bool showInventory;
 
     [Header("Screens UI")]
+    public GameObject astronautOverlay;
+    public GameObject preSuitScreen;
     public GameObject pauseMenuUI;
     public GameObject optionsMenu;
     public GameObject controlsMenu;
@@ -28,6 +30,8 @@ public class UI_Controller : MonoBehaviour
 
     [Header("Interactor")]
     Interactor interactor;
+    public bool IsSpaceSuitOn;
+
 
 
 
@@ -51,6 +55,8 @@ public class UI_Controller : MonoBehaviour
         uiInventory.setInventory(inventory);
 
         interactor = gameObject.GetComponent<Interactor>();
+        astronautOverlay.SetActive(IsSpaceSuitOn);
+        preSuitScreen.SetActive(!IsSpaceSuitOn);
     }
 
     // Update is called once per frame
@@ -63,7 +69,7 @@ public class UI_Controller : MonoBehaviour
     void MyInput()
     {
         //toggles inventory
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && IsSpaceSuitOn)
         {
             if(UI_Value == UI_Types.standard)
             {
@@ -83,6 +89,13 @@ public class UI_Controller : MonoBehaviour
             ESCAPE();
         }
 
+    }
+
+    public void PutOnSuit()
+    {
+        astronautOverlay.SetActive(true);
+        preSuitScreen.SetActive(false);
+        IsSpaceSuitOn = true;
     }
 
     public void ESCAPE()
@@ -161,14 +174,14 @@ public class UI_Controller : MonoBehaviour
         if (turnOn)
         {
             standardScreen.SetActive(true);
-            TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(true);
-            TaskList_UI_Object.GetComponent<TaskList>().Refresh();
+            //TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(true);
+            //TaskList_UI_Object.GetComponent<TaskList>().Refresh();
             interactor.inUI = false;
         }
         else
         {
             standardScreen.SetActive(false);
-            TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(false);
+            //TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(false);
             interactor.inUI = true;
         }
     }

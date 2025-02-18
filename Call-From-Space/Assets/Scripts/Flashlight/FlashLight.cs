@@ -12,6 +12,7 @@ public class Flashlight : Loadable
     public AudioSource audioSource;
     public AudioClip flashlightSoundOn;
     public AudioClip flashlightSoundOff;
+    public UI_Controller ui_controller;
 
     public float flashlightTimer;
     bool isOn;
@@ -28,7 +29,7 @@ public class Flashlight : Loadable
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.F) && ui_controller.IsSpaceSuitOn)
         {
             toggleLight();
         }
