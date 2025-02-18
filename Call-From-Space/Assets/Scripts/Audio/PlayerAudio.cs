@@ -64,20 +64,25 @@ public class PlayerAudio : MonoBehaviour
         }
 
         //breathing.volume = Mathf.Clamp(((1 - O2System.oxygenLevel / 100) - .50f) / 1.5f, 0, 1);
-        if(O2System.oxygenLevel == 0)
+        if(O2System.LosingOxygen)
         {
-            breathing.volume = 0;
+            if(O2System.oxygenLevel == 0)
+            {
+                breathing.volume = 0;
 
-            if(startChoke)
-                choking.Play();
-                startChoke = false;
+                if(startChoke)
+                    choking.Play();
+                    startChoke = false;
+            }
+            else
+            {
+                startChoke = true;
+                choking.Stop();
+                breathing.volume = Mathf.Clamp(((1 - O2System.oxygenLevel / 100) - .50f) / 1.5f, 0, 1);
+            }
         }
         else
-        {
-            startChoke = true;
-            choking.Stop();
-            breathing.volume = Mathf.Clamp(((1 - O2System.oxygenLevel / 100) - .50f) / 1.5f, 0, 1);
-        }
+            breathing.volume = 0;
 
         //starts at 50% oxygen, and the volume is divided by 1.5
 

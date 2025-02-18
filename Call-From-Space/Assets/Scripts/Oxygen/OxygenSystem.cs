@@ -40,30 +40,34 @@ public class OxygenSystem : Loadable
         oxygenBar.fillAmount = oxygenLevel / 100;
         oxygenRadial.fillAmount = oxygenLevel / 100;
 
-        // Adjust the particle effect based on the oxygen level
-        if (breathEffect != null)
+        if(LosingOxygen)
         {
-            var emission = breathEffect.emission;
-            float threshold = 30f; // Start the particle effect when oxygen level is below this threshold
-            if (oxygenLevel < threshold)
+            // Adjust the particle effect based on the oxygen level
+            if (breathEffect != null)
             {
-                emission.rateOverTime = Mathf.Lerp(0, 50, 1 - (oxygenLevel / threshold)); // Increase emission rate as oxygen level decreases below the threshold
+                var emission = breathEffect.emission;
+                float threshold = 30f; // Start the particle effect when oxygen level is below this threshold
+                if (oxygenLevel < threshold)
+                {
+                    emission.rateOverTime = Mathf.Lerp(0, 50, 1 - (oxygenLevel / threshold)); // Increase emission rate as oxygen level decreases below the threshold
+                }
+                else
+                {
+                    emission.rateOverTime = 0; // No emission when oxygen level is above the threshold
+                }
             }
-            else
+            if (oxygenLevel == 0 && Time.time - timeOfDamage > damageCooldown)
             {
-                emission.rateOverTime = 0; // No emission when oxygen level is above the threshold
+                healthSystem.TakeDamage(damageAmount);
+                timeOfDamage = Time.time;
             }
+
+
+
+            LowOxygen.enabled = (oxygenLevel < 40f); //enabled when oxygen is less than 40
+            CriticalOxygen.enabled = (oxygenLevel < 20f); //enabled when oxygen is less than 20
         }
-        if (oxygenLevel == 0 && Time.time - timeOfDamage > damageCooldown)
-        {
-            healthSystem.TakeDamage(damageAmount);
-            timeOfDamage = Time.time;
-        }
-
-
-
-        LowOxygen.enabled = (oxygenLevel < 40f); //enabled when oxygen is less than 40
-        CriticalOxygen.enabled = (oxygenLevel < 20f); //enabled when oxygen is less than 20
+        
 
 
 
