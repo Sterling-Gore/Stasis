@@ -8,6 +8,11 @@ public class Ship_button_interaction : Interactable
     public string Specialty_button_text;
     public bool off_until_special;
     public Ship_door_and_button_controller door_controller;
+    public bool isEngineButton = false;
+    public bool buttonUnlocksBothButtons = false;
+
+
+    public OxygenSystem oxygenSystem;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +32,11 @@ public class Ship_button_interaction : Interactable
 
     public override string GetDescription()
     {
+        if (isEngineButton && oxygenSystem.oxygenLevel >= 50f)
+        {
+            off_until_special = false;
+        }
+
         if (off_until_special)
         {
             return (Specialty_button_text);
@@ -44,7 +54,7 @@ public class Ship_button_interaction : Interactable
     {
         if (!off_until_special)
         {
-           door_controller.ToggleDoor();
+           door_controller.ToggleDoor(isEngineButton, buttonUnlocksBothButtons);
         }
     }
 }

@@ -25,6 +25,13 @@ public class OxygenSystem : Loadable
     public float damageCooldown = 1.5f;
     float timeOfDamage = 0;
 
+    [Header("Player Movement")]
+    public Player_Movement player_movement;
+    public float SprintOxygenCost = 3f;
+    public float WalkOxygenCost = .75f;
+    public float CrouchOxygenCost = 0.5f;
+    public float StillOxygenCost = 0.25f;
+
     void Start()
     {
         LosingOxygen = false;
@@ -42,6 +49,29 @@ public class OxygenSystem : Loadable
 
         if(LosingOxygen)
         {
+            if (player_movement.rb.velocity.magnitude > 0.1f)
+            {
+                switch (player_movement.movementstate)
+                {
+                    case Player_Movement.MovementStates.walk:
+                        DecreaseOxygen(WalkOxygenCost);
+                        break;
+                    case Player_Movement.MovementStates.sprint:
+                        DecreaseOxygen(SprintOxygenCost);
+                        break;
+                    case Player_Movement.MovementStates.crouch:
+                        DecreaseOxygen(CrouchOxygenCost);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+            else
+                DecreaseOxygen(StillOxygenCost);
+
+
+
             // Adjust the particle effect based on the oxygen level
             if (breathEffect != null)
             {

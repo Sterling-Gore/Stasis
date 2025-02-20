@@ -18,7 +18,7 @@ public class Player_Movement : MonoBehaviour
     float HorizInput;
     float VertInput;
     Vector3 moveDirection;
-    Rigidbody rb;
+    public Rigidbody rb;
     public float groundDrag;
     public bool MovementIsLocked;
     public Collider CrouchCollider;
@@ -116,20 +116,33 @@ public class Player_Movement : MonoBehaviour
         {
             if (Input.GetKeyDown("left shift"))
             {
+                //if im crouched
                 if (movementstate == MovementStates.crouch)
                 {
-                    ToggleCrouchCollider();
+                    //if I can stand up
+                    bool standUp = ToggleCrouchCollider();
+                    if (standUp)
+                        movementstate = MovementStates.sprint;
                 }
-                movementstate = MovementStates.sprint;
+                else
+                    movementstate = MovementStates.sprint;
             }
             else if (Input.GetKeyUp("left shift"))
             {
-                movementstate = MovementStates.walk;
+                if (movementstate == MovementStates.crouch)
+                {
+                    //if I can stand up
+                    bool standUp = ToggleCrouchCollider();
+                    if (standUp)
+                        movementstate = MovementStates.walk;
+                }
+                else
+                    movementstate = MovementStates.walk;
             }
             else if (Input.GetKeyDown("left ctrl"))
             {
-                ToggleCrouchCollider();
-                movementstate = (movementstate == MovementStates.crouch) ? MovementStates.walk : MovementStates.crouch;
+                bool standUp = ToggleCrouchCollider();
+                movementstate = (movementstate == MovementStates.crouch && standUp) ? MovementStates.walk : MovementStates.crouch;
             }
     
 
@@ -140,16 +153,20 @@ public class Player_Movement : MonoBehaviour
 
     }
 
-    void ToggleCrouchCollider()
+
+    bool ToggleCrouchCollider()
     {
         RaycastHit hit;
         if (movementstate == MovementStates.crouch && !Physics.Raycast(transform.position, transform.up, out hit, 2.05f, PlayerLayer))
         {
             transform.localScale = new Vector3(transform.localScale.x, yscale, transform.localScale.z);
+            return true;
         }
         else
         {
             transform.localScale = new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
+            return false;
+
         }
         //transform.localScale = (movementstate == MovementStates.crouch) ? new Vector3(transform.localScale.x, yscale, transform.localScale.z) : new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
     }

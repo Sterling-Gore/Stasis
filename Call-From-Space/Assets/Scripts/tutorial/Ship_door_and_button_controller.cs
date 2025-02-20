@@ -22,6 +22,9 @@ public class Ship_door_and_button_controller : MonoBehaviour
     public Renderer button1Renderer;
     public Renderer button2Renderer;
 
+    public warp_drive_lockdown warpdrive_lockdown_controller;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,29 +68,33 @@ public class Ship_door_and_button_controller : MonoBehaviour
     }
 
 
-    public void ToggleDoor()
+    public void ToggleDoor(bool BrokenOpen, bool unlock_buttons)
     {
         DoorIsOpen = !DoorIsOpen;
-        //if (DoorIsOpen)
-        //{
-        //    button1Renderer.material.SetTexture("ON", greenTexture);
-        //    button2Renderer.material.SetTexture("ON", greenTexture);
-        //}
-        //else
-        //{
-        //    button1Renderer.material.SetTexture("OFF", redTexture);
-        //    button2Renderer.material.SetTexture("OFF", redTexture);
-        //}
+        if (BrokenOpen)
+        {
+            _doorAnimator.SetTrigger("half-open");
+            button1.isEngineButton = false;
+            button2.isEngineButton = false;
+            warpdrive_lockdown_controller.Start_Lockdown();
+        }
+        else
+            _doorAnimator.SetTrigger(DoorIsOpen ? "open" : "closed");
+        
+
         button1Renderer.material =  DoorIsOpen ? greenMaterial : redMaterial;
         button2Renderer.material =  DoorIsOpen ? greenMaterial : redMaterial;
-        _doorAnimator.SetTrigger(DoorIsOpen ? "open" : "closed");
+        
 
         PlaySound(buttonClickSound);
             
         StartCoroutine(PlayDelayedSound(doorOpenSound, 0.5f));
 
-        button1.off_until_special = false;
-        button2.off_until_special = false;
+        if (unlock_buttons)
+        {
+            button1.off_until_special = false;
+            button2.off_until_special = false;
+        }
     }
 
 
