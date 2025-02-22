@@ -12,6 +12,7 @@ public class warp_drive_lockdown : Interactable
     public Ship_door_and_button_controller LeftHallwayDoor;
     public Ship_door_and_button_controller RightHallwayDoor;
     public Ship_door_and_button_controller EngineDoor;
+    public ConsoleInteraction consoleInteractable;
 
     public OxygenSystem oxygenSystem; 
     public bool Open = false;
@@ -41,6 +42,7 @@ public class warp_drive_lockdown : Interactable
         {
             End_Lockdown();
             finished = true;
+            consoleInteractable.IsAvailable = true;
         }
     }
 
