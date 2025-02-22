@@ -12,7 +12,7 @@ public abstract class Holdable : Interactable
     public Transform holdPos;
     public Camera cam;
     //private bool currentlyHolding;
-    private Rigidbody ObjRb;
+    [SerializeField] private Rigidbody ObjRb;
 
     protected bool localHold; //checks if you are holding object locally attached to script
     public bool hasBeenMoved;
@@ -27,14 +27,21 @@ public abstract class Holdable : Interactable
 
     public Interactor interactor;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
         originalHolder = transform.parent;
         DoneGlowing = false;
+        if(HoldObject.GetComponent<Collider>() == null)
+        {
+            Debug.Log("BROKEN GAMEOBJECT");
+        }
         Physics.IgnoreCollision(HoldObject.GetComponent<Collider>(), player.transform.Find("Player Model").GetComponent<Collider>(), true);
         //currentlyHolding = false;
-        ObjRb = HoldObject.GetComponent<Rigidbody>();
+        if(ObjRb == null)
+            ObjRb = HoldObject.GetComponent<Rigidbody>();
 
         //this gets the interactor script from the player, that way we can turn off interactins while holding an object
         interactor = player.GetComponent<Interactor>();
@@ -66,7 +73,7 @@ public abstract class Holdable : Interactable
     {
         if (!DoneGlowing)
             ItemGlow.SetActive(false);
-        GameObject screen = player.GetComponent<PlayerController>().standardScreen;
+        GameObject screen = player.GetComponent<UI_Controller>().standardScreen;
         screen.transform.Find("Controls").gameObject.SetActive(false);
         screen.transform.Find("ControlsHolding").gameObject.SetActive(true);
 
@@ -98,7 +105,7 @@ public abstract class Holdable : Interactable
     {
         if (!DoneGlowing)
             ItemGlow.SetActive(true);
-        GameObject screen = player.GetComponent<PlayerController>().standardScreen;
+        GameObject screen = player.GetComponent<UI_Controller>().standardScreen;
         screen.transform.Find("Controls").gameObject.SetActive(true);
         screen.transform.Find("ControlsHolding").gameObject.SetActive(false);
         screen.transform.Find("ControlsHolding").Find("SPECIAL_EFFECTS").Find("Lighter").gameObject.SetActive(false);
