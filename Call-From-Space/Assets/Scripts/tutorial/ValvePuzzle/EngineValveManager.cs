@@ -6,6 +6,7 @@ public class EngineValveManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public engine_valve_interaction[] valves;
+    public engine_valve_interaction SpecialValve;
     bool PuzzleComplete = false;
 
 
@@ -16,27 +17,7 @@ public class EngineValveManager : MonoBehaviour
 
     void Start()
     {
-        int count = 0;
-        int numBroken = 0;
-        float random_range = .5f;
-        foreach(engine_valve_interaction valve in valves)
-        {
-            if(count >= valves.Length / 2 &&  numBroken <= 1)
-            {
-                random_range = .25f;
-            }
-            if( count == valves.Length-1 && numBroken == 0)
-            {
-                random_range = 0f;
-            }
-            if (Random.value > random_range)
-            {
-                valve.isBroken = true;
-                valve.smoke.SetActive(true);
-                numBroken += 1;
-            }
-            count += 1;
-        }
+        StartCoroutine(StartSequence());
     }
 
     // Update is called once per frame
@@ -61,7 +42,7 @@ public class EngineValveManager : MonoBehaviour
                 count += 1;
             }
         }
-        if (count == valves.Length)
+        if (count == valves.Length && !SpecialValve.smoke.activeSelf)
             CompletePuzzle();
     }
 
@@ -75,6 +56,35 @@ public class EngineValveManager : MonoBehaviour
         foreach(engine_valve_interaction valve in valves)
         {
             valve.isComplete = true;
+        }
+        SpecialValve.isComplete = true;
+    }
+
+
+    private IEnumerator StartSequence()
+    {
+        int count = 0;
+        int numBroken = 0;
+        float random_range = .5f;
+        yield return new WaitForSeconds(0.5f);
+        foreach(engine_valve_interaction valve in valves)
+        {
+            if(count >= valves.Length / 2 &&  numBroken <= 1)
+            {
+                random_range = .25f;
+            }
+            if( count == valves.Length-1 && numBroken == 0)
+            {
+                random_range = 0f;
+            }
+            if (Random.value > random_range)
+            {
+                valve.isBroken = true;
+                valve.smoke.SetActive(true);
+                numBroken += 1;
+            }
+            count += 1;
+            yield return new WaitForSeconds(Random.Range(2, 5) / 4f);
         }
     }
 

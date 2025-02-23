@@ -62,6 +62,7 @@ public class ShipConsolePuzzle : MonoBehaviour
     public Color red = new Color32(8, 248, 255, 255);
     public Color green = new Color32(8, 248, 255, 255);
     public Color white = new Color32(8, 248, 255, 255);
+    public Color yellow = new Color32(8, 248, 255, 255);
 
     public bool finished;
     public ConsoleInteraction interactor;
@@ -201,18 +202,6 @@ public class ShipConsolePuzzle : MonoBehaviour
 
     void ChangeColor(Color newColor)
     {
-        foreach (Transform line in GridLeft.AllLines)
-        {
-            line.GetComponent<Image>().color = newColor;
-        }
-        foreach (Transform line in GridMiddle.AllLines)
-        {
-            line.GetComponent<Image>().color = newColor;
-        }
-        foreach (Transform line in GridRight.AllLines)
-        {
-            line.GetComponent<Image>().color = newColor;
-        }
 
         foreach (RectTransform dot in GridLeft.dots)
         {
@@ -225,6 +214,22 @@ public class ShipConsolePuzzle : MonoBehaviour
         foreach (RectTransform dot in GridRight.dots)
         {
             dot.transform.GetComponent<Image>().color = newColor;
+        }
+
+        if (newColor == white)
+            newColor = yellow;
+        
+        foreach (Transform line in GridLeft.AllLines)
+        {
+            line.GetComponent<Image>().color = newColor;
+        }
+        foreach (Transform line in GridMiddle.AllLines)
+        {
+            line.GetComponent<Image>().color = newColor;
+        }
+        foreach (Transform line in GridRight.AllLines)
+        {
+            line.GetComponent<Image>().color = newColor;
         }
     }
 
