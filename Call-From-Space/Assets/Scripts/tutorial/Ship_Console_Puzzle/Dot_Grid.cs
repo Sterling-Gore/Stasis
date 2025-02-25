@@ -136,6 +136,11 @@ public class Dot_Grid : MonoBehaviour
             }
         }
     }
+
+    void OnEnable() 
+    {
+        Clear_Current_Lines();
+    }
        
 
     public void Clear_Current_Lines()

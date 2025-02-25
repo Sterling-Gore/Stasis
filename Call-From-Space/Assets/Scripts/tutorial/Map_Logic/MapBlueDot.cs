@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class MapBlueDot : MonoBehaviour
 {
-    public Transform originPos;
-    public Transform playerPos;
+    [SerializeField] public Transform originPos;
+    [SerializeField] public Transform playerPos;
     Vector3 relativePos;
-    public RectTransform dot;
-    public RectTransform UI_Origin;
-    public float mapScale = 1f;
+    [SerializeField] public RectTransform dot;
+    [SerializeField] public RectTransform UI_Origin;
+    [SerializeField] public float mapScale = 1f;
     // Start is called before the first frame update
     void Start()
     {
