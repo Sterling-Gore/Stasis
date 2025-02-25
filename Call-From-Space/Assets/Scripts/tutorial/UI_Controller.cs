@@ -104,7 +104,7 @@ public class UI_Controller : MonoBehaviour
         {
             Set_UI_Value(UI_Types.inventory_or_puzzle);
             Inspector_UI_Object.GetComponent<Inspector>().unloadInspector();
-            Inventory_and_Map_UI.SetActive(true);
+            Inventory_UI_Object.SetActive(true);
         }
         else if (UI_Value == UI_Types.inventory_or_puzzle)
         {
@@ -139,8 +139,13 @@ public class UI_Controller : MonoBehaviour
         UI_Value = value;
         if (UI_Value == UI_Types.standard) 
             ToggleStandardScreen(true);
-        else
+        else 
+        {
+            if(UI_Value == UI_Types.inventory_or_puzzle)
+                uiInventory.refresh();
             ToggleStandardScreen(false);
+        }
+
     }
 //------------------------------------------------------
     public void OnClickInspector()

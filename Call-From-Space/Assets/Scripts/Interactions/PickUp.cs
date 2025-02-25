@@ -7,7 +7,7 @@ public class PickUp : Interactable
 {
     Item item;
     public GameObject player;
-    PlayerController pc;
+    UI_Controller ui_controller;
     public GameObject JournalPlayer;
     public GameObject ItemGlow;
     public AudioClip PickUpSound;
@@ -20,7 +20,7 @@ public class PickUp : Interactable
     {
         base.Awake();
         item = GetComponent<Item>();
-        pc = player.GetComponent<PlayerController>();
+        ui_controller = player.GetComponent<UI_Controller>();
 
         //Physics.IgnoreCollision(transform.Find("Collider").GetComponent<Collider>(), player.transform.Find("Player Model").GetComponent<Collider>(), true);
     }
@@ -62,14 +62,14 @@ public class PickUp : Interactable
         gameObject.SetActive(false);
         if (item.isItem)
         {
-            pc.inventory.AddItem(item);
+            ui_controller.inventory.AddItem(item);
         }
         else
         {
-            pc.inventory.AddJournal(item);
+            ui_controller.inventory.AddJournal(item);
         }
 
-        //pc.uiInvetory.RefreshInventoryItems();
+        //ui_controller.uiInvetory.RefreshInventoryItems();
 
     }
 

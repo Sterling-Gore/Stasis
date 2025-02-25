@@ -46,10 +46,10 @@ public class PlayerAudio : MonoBehaviour
         if(!walking.isPlaying)
         {
             walking.PlayOneShot(FootSteps[Random.Range(0, FootSteps.Length)]);
-            Debug.Log("PLAY");
+            //Debug.Log("PLAY");
         }
         else{
-            Debug.Log("STOP");
+            //Debug.Log("STOP");
         }
 /*
        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))

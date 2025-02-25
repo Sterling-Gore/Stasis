@@ -19,6 +19,7 @@ public class Inventory
     public void AddItem(Item item)
     {
         itemList.Add(item);
+        Debug.Log("ITEM ADDED");
     }
 
     public void DeleteItem(Item item)

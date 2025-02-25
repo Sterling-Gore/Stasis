@@ -5,26 +5,34 @@ using UnityEngine.UI;
 
 public class UI_Inventory : MonoBehaviour
 {
-    private Inventory inventory;
-    private Transform itemSlotContainer;
-    private Transform itemSlotTemplate;
-    private Transform journalSlotContainer;
-    private Transform journalSlotTemplate;
-    bool onItemScreen;
+    public Inventory inventory;
+    public Transform itemSlotContainer;
+    public Transform itemSlotTemplate;
+    public Transform journalSlotContainer;
+    public Transform journalSlotTemplate;
+    public bool onItemScreen = true;
 
     
 
-    private void Awake()
+    private void Start()
     {
-        itemSlotContainer = transform.Find("itemSlotContainer");
-        itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
-        journalSlotContainer = transform.Find("journalSlotContainer");
-        journalSlotTemplate = journalSlotContainer.Find("journalSlotTemplate");
-        onItemScreen = true;
+        if (itemSlotContainer == null)
+            itemSlotContainer = transform.Find("itemSlotContainer");
+        if (itemSlotTemplate == null)
+            itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
+        if (journalSlotContainer == null)
+            journalSlotContainer = transform.Find("journalSlotContainer");
+        if (journalSlotTemplate == null)
+            journalSlotTemplate = journalSlotContainer.Find("journalSlotTemplate");
+        //itemSlotContainer = transform.Find("itemSlotContainer");
+        //itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
+        //journalSlotContainer = transform.Find("journalSlotContainer");
+        //journalSlotTemplate = journalSlotContainer.Find("journalSlotTemplate");
+        
 
     }
     
-
+ 
     public void setInventory(Inventory inventory )
     {
         this.inventory = inventory;
@@ -34,6 +42,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void refresh()
     {
+        Debug.Log("REFRESH");
         Debug.Log("refreshing");
         if(onItemScreen)
         {
@@ -98,6 +107,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void RefreshInventoryJournals()
     {
+        Debug.Log("ERROR");
         foreach( Transform child in journalSlotContainer)
         {
             if (child == journalSlotTemplate) continue;
