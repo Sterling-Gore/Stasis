@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour
     float xRotation;
     float yRotation;
 
+    public Transform cameraPosition;
+
     [Header("UI")]
     //this grabs the player object which has the interactor script on it
     //the interactor script hold the bool value for if in UI
@@ -31,6 +33,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        transform.position = cameraPosition.position;
         if(interactor.inUI)
         {
             Cursor.visible = true;

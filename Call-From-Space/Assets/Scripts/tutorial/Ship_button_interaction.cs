@@ -11,6 +11,10 @@ public class Ship_button_interaction : Interactable
     public bool isEngineButton = false;
     public bool buttonUnlocksBothButtons = false;
 
+    public bool HelpTextFlashlight = false;
+    public bool HelpTextCrouch = false;
+    public HelpTexts helptexts;
+
 
     public OxygenSystem oxygenSystem;
     // Start is called before the first frame update
@@ -55,6 +59,16 @@ public class Ship_button_interaction : Interactable
         if (!off_until_special)
         {
            door_controller.ToggleDoor(isEngineButton, buttonUnlocksBothButtons);
+           if(HelpTextFlashlight)
+           {
+                HelpTextFlashlight = false;
+                helptexts.PressF = true;
+           }
+           if(HelpTextCrouch)
+           {
+                HelpTextCrouch = false;
+                helptexts.PressCTRL = true;
+           }
         }
     }
 }

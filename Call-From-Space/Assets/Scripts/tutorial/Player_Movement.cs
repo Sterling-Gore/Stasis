@@ -36,6 +36,9 @@ public class Player_Movement : MonoBehaviour
     [Header("Interactor")]
     Interactor interactor;
 
+
+    public HelpTexts helptexts;
+
     public enum MovementStates
     {
         walk,
@@ -141,6 +144,7 @@ public class Player_Movement : MonoBehaviour
             }
             else if (Input.GetKeyDown("left ctrl"))
             {
+                helptexts.PressCTRL = false;
                 bool standUp = ToggleCrouchCollider();
                 movementstate = (movementstate == MovementStates.crouch && standUp) ? MovementStates.walk : MovementStates.crouch;
             }

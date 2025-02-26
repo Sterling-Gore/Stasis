@@ -17,6 +17,8 @@ public class Flashlight : Loadable
     public float flashlightTimer;
     bool isOn;
 
+    public HelpTexts helptexts;
+
 
     void Start()
     {
@@ -66,9 +68,15 @@ public class Flashlight : Loadable
             audioSource.PlayOneShot(clip: audioSource.clip);
         }
         if (isOn)
+        {
             light.enabled = false;
+        }
         else
+        {
             light.enabled = true;
+            if(helptexts != null)
+                helptexts.PressF = false;
+        }
         isOn = !isOn;
     }
 
