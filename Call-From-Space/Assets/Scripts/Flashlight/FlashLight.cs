@@ -17,8 +17,6 @@ public class Flashlight : Loadable
     public float flashlightTimer;
     bool isOn;
 
-    public HelpTexts helptexts;
-
 
     void Start()
     {
@@ -74,8 +72,6 @@ public class Flashlight : Loadable
         else
         {
             light.enabled = true;
-            if(helptexts != null)
-                helptexts.PressF = false;
         }
         isOn = !isOn;
     }

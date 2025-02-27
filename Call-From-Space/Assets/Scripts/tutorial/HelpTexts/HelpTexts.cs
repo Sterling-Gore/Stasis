@@ -19,6 +19,20 @@ public class HelpTexts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("left ctrl"))
+        {
+            PressCTRL = false;
+        }
+        else if(Input.GetKeyUp(KeyCode.F))
+        {
+            PressF = false;
+        }
+        else if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            PressTAB = false;
+        }
+
+
         if(PressTAB)
         {
             text.text = "<color=red>Press [TAB]</color=red> to open inventory and map";

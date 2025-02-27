@@ -9,7 +9,8 @@ public class MapBlueDot : MonoBehaviour
     Vector3 relativePos;
     [SerializeField] public RectTransform dot;
     [SerializeField] public RectTransform UI_Origin;
-    [SerializeField] public float mapScale = 1f;
+    [SerializeField] public float XmapScale = 1f;
+    [SerializeField] public float YmapScale = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,7 @@ public class MapBlueDot : MonoBehaviour
         //dot.position = dot.position + UI_Origin.position;
 
 
-        Vector2 uiPosition = new Vector2(relativePos.x, relativePos.z) * mapScale;
+        Vector2 uiPosition = new Vector2(relativePos.x * XmapScale, relativePos.z * YmapScale);
 
         // Set the dot's anchored position relative to the UI origin
         dot.anchoredPosition = UI_Origin.anchoredPosition + uiPosition;

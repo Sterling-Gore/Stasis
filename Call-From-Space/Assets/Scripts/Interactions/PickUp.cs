@@ -14,6 +14,9 @@ public class PickUp : Interactable
 
     public AudioSource audioSource;
 
+    [Header("Help Text For Tutorial Radio")]
+    public HelpTexts helptext;
+
 
 
     override protected void Awake()
@@ -49,6 +52,9 @@ public class PickUp : Interactable
                 break;
             case "Locker Key":
                 player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(2);
+                break;
+            case "Radio Transmitter":
+                helptext.PressTAB = true;
                 break;
             default:
                 break;
