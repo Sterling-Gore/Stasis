@@ -21,14 +21,15 @@ public class Player_Movement : MonoBehaviour
     public Rigidbody rb;
     public float groundDrag;
     public bool MovementIsLocked;
-    public Collider CrouchCollider;
+    public Transform FootPosition;
+    public float GroundCheckRadius = 0.1f;
 
     [Header("Camera attributes")]
     public Transform orientation;
 
     [Header("Slope handler")]
     public float maxSlope;
-    public float playerHeight = 5;
+    public float playerHeight = 4;
     private RaycastHit slopeHit;
 
     public LayerMask PlayerLayer;
@@ -69,6 +70,26 @@ public class Player_Movement : MonoBehaviour
     {
         if (!MovementIsLocked)
             MovePlayer();
+        
+        if (IsGrounded())
+        {
+
+            Debug.Log("Player is on the ground");
+        }
+        else
+        {
+            rb.AddForce(Vector3.down * 50f, ForceMode.Force);
+            Debug.Log("Player is in the air");
+        }
+    }
+
+    bool IsGrounded()
+    {
+
+        return(Physics.Raycast(FootPosition.position, -transform.up, GroundCheckRadius, PlayerLayer));
+        
+        //return(Physics.CheckSphere(FootPosition.position, GroundCheckRadius));
+        //return Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f);
     }
 
     void Update()
