@@ -13,7 +13,8 @@ public class HealthSystem : Loadable
     public GameObject gameOverScreen;
     public RectTransform healthBarRectTransform; // Assign this in the Inspector
 
-    public AudioSource[] playerTakeDamageSounds;
+    [Header("Audio")]
+    public PlayerAudio playeraudio;
     public CameraShakeGeneral cameraShake;
     public VHSPostProcessEffectCamera cameraVHS;
     public int randomIndex;
@@ -86,14 +87,13 @@ public class HealthSystem : Loadable
     {
         HealthDelay = true;
         HealthDelayTimer = 2.5f;
-        healthLevel -= damageAmount;
+        //healthLevel -= damageAmount;
         healthLevel = Mathf.Clamp(healthLevel, 0, maxHealth); // Ensure health level stays within bounds
         Debug.Log("DAMAGED: " + damageAmount);
 
-        int randomIndex = Random.Range(0, playerTakeDamageSounds.Length);
-        AudioSource playerHurtSound = playerTakeDamageSounds[randomIndex];
-        if( damageAmount != 10f) //this is when oxygen gone
-            playerHurtSound.Play();
+        //plays damage audio
+        damageAmount = 10f;
+        playeraudio.AudibleDamage(damageAmount);
 
         if (cameraShake != null)
         {

@@ -6,21 +6,19 @@ public class CameraShakeGeneral : MonoBehaviour
 {
     [SerializeField] private float shakeDuration = 0.05f; // Duration of the shake
     [SerializeField] private float shakeMagnitude = 0.1f; // Magnitude of the shake
-    private Vector3 originalLocalPos; // Store the original local position of the camera
+    public Transform CameraPosition;
     public bool isShaking = false;
 
-    void Start()
-    {
-        originalLocalPos = transform.localPosition;
-    }
+
 
     void Update()
     {
         if (isShaking)
         {
             // Apply random shake within a sphere of shakeMagnitude
-            transform.localPosition = originalLocalPos + Random.insideUnitSphere * shakeMagnitude;
+            transform.localPosition = CameraPosition.position + Random.insideUnitSphere * shakeMagnitude;
         }
+
     }
 
     public void StartShake(float duration, float magnitude)
@@ -38,6 +36,6 @@ public class CameraShakeGeneral : MonoBehaviour
         isShaking = true;
         yield return new WaitForSeconds(shakeDuration);
         isShaking = false;
-        transform.localPosition = originalLocalPos; // Reset position after shaking
+        transform.localPosition = CameraPosition.position; // Reset position after shaking
     }
 }
