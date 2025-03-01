@@ -7,10 +7,13 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/Scenes/Start.unity
-    guid: 704f4cb7a3f21e44099da5b7da45d5d9
+    guid: e6bd12fc7c84d43d3896ecb57e3c4aab
   - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: e6bd12fc7c84d43d3896ecb57e3c4aab
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: c12e22eaa54d73c4295a90c328c0a606
   - enabled: 0
     path: Assets/Scenes/Ship (old).unity
     guid: 5f28f4f45c9671145a30e5210e8a5e6d

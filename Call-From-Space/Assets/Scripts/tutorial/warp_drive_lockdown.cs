@@ -17,10 +17,22 @@ public class warp_drive_lockdown : Interactable
     public OxygenSystem oxygenSystem; 
     public bool Open = false;
     bool finished = false;
+
+    public GameObject[] lightCones_and_light_objects;
+    public Light[] lights;
+    public Color poweredOnLightColor;
+
+    [Header("Animator")]
+    public Animator _WarpDriveAnimator;
+
+    [Header("Audios")]
+    public AudioSource engineLoop;
+    public AudioSource WarpDrive;
     // Start is called before the first frame update
     void Start()
     {
-        
+        engineLoop.enabled = false;
+        WarpDrive.enabled = false;
     }
 
     // Update is called once per frame
@@ -36,7 +48,7 @@ public class warp_drive_lockdown : Interactable
             return ("Restabalize Pressure Valves First");
         }
         else if (Open && !finished)
-            return ("Plug in Damaged Warp Drive");
+            return ("<color=red>Press [E]</color=red>to Plug in Damaged Warp Drive");
         return ("");
     }
 
@@ -80,5 +92,33 @@ public class warp_drive_lockdown : Interactable
         EngineButton1.off_until_special = false;
         EngineButton2.off_until_special = false;
         EngineDoor.ToggleDoor(false, false);
+
+        _WarpDriveAnimator.SetTrigger("Plugged");
+
+        StartCoroutine(turnOnLights());
+
+        WarpDrive.enabled = true;
+        StartCoroutine(PauseBeforeEnginePlay());
+    }
+
+    IEnumerator PauseBeforeEnginePlay()
+    {
+        yield return new WaitForSeconds(6f);
+        WarpDrive.enabled = false;
+        engineLoop.enabled = true;
+    }
+
+    IEnumerator turnOnLights()
+    {
+        foreach(GameObject obj in lightCones_and_light_objects)
+        {
+            obj.SetActive(true);
+        }
+        foreach(Light light in lights)
+        {
+            light.color = poweredOnLightColor;
+        }
+        yield return null;
+
     }
 }

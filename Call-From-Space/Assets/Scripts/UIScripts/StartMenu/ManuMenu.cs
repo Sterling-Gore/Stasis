@@ -7,7 +7,7 @@ public class StartingMenu : MonoBehaviour
     public void PlayGame()
     {
         GameStateManager.instance.NewGame();
-        SceneManager.LoadSceneAsync("Intro_scene");
+        SceneManager.LoadSceneAsync("Tutorial");
     }
 
     public void LoadGame()

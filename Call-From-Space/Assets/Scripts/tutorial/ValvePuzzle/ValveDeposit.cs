@@ -40,6 +40,7 @@ public class ValveDeposit : Interactable
             sparkle.SetActive(false);
             fixedValve.SetActive(true);
             ValvePlugin.Play();
+            gameObject.SetActive(false);
             
         }
     }

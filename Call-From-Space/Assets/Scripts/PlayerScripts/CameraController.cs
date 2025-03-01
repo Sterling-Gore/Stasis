@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
 
     public Transform orientation;
     public GameObject PlayerModel;
+    public Transform PhysicalCamera;
     float xRotation;
     float yRotation;
 
@@ -33,7 +34,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        transform.position = cameraPosition.position;
+        PhysicalCamera.transform.position = cameraPosition.position;
         if(interactor.inUI)
         {
             Cursor.visible = true;
@@ -50,7 +51,7 @@ public class CameraController : MonoBehaviour
             xRotation -= inputY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-            transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+            PhysicalCamera.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
             orientation.rotation = Quaternion.Euler(0, yRotation, 0);
             PlayerModel.transform.rotation = Quaternion.Euler(0, yRotation, 0);
         }
