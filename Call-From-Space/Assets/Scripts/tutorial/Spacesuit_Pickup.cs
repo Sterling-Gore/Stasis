@@ -6,6 +6,9 @@ public class Spacesuit_Pickup : Interactable
 {
     public UI_Controller ui_controller;
     public Ship_button_interaction Ship_Button;
+    public AudioClip PickUpSound;
+
+    public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,7 @@ public class Spacesuit_Pickup : Interactable
     {
         ui_controller.PutOnSuit();
         Ship_Button.toggle_specialty();
+        audioSource.PlayOneShot(PickUpSound);
         gameObject.SetActive(false);
     }
 }

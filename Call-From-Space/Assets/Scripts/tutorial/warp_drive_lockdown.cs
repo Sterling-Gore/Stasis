@@ -31,13 +31,18 @@ public class warp_drive_lockdown : Interactable
 
     public override string GetDescription()
     {
-        if (Open && !finished)
+        if(!finished && !Open)
+        {
+            return ("Restabalize Pressure Valves First");
+        }
+        else if (Open && !finished)
             return ("Plug in Damaged Warp Drive");
         return ("");
     }
 
     public override void Interact()
     {
+
         if (Open && !finished)
         {
             End_Lockdown();
