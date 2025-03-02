@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
     float xRotation;
     float yRotation;
 
-    public Transform cameraPosition;
+    //public Transform cameraPosition;
 
     [Header("UI")]
     //this grabs the player object which has the interactor script on it
@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        PhysicalCamera.transform.position = cameraPosition.position;
+        //PhysicalCamera.transform.position = cameraPosition.position;
         if(interactor.inUI)
         {
             Cursor.visible = true;

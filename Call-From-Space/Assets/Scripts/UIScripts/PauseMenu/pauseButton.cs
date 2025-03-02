@@ -35,7 +35,7 @@ public class PauseButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void LeaveGame()
     {
-        GameStateManager.instance.SaveGame(GameStateManager.saveFilePath);
+        //GameStateManager.instance.SaveGame(GameStateManager.saveFilePath);
         SceneManager.LoadSceneAsync("Start");
     }
 

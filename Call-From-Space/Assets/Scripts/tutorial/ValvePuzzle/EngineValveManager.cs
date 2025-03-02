@@ -15,6 +15,9 @@ public class EngineValveManager : MonoBehaviour
     public warp_drive_lockdown warp_drive;
     public OxygenSystem oxygenSystem; 
 
+    [Header("AI Sounds")]
+    public AI_Tutorial_Sounds AI_Sounds;
+
     void Start()
     {
         StartCoroutine(StartSequence());
@@ -53,6 +56,7 @@ public class EngineValveManager : MonoBehaviour
         engine_button.off_until_special = true;
         warp_drive.Open = true;
         oxygenSystem.LosingOxygen = false;
+        AI_Sounds.Playoxygen_online();
         foreach(engine_valve_interaction valve in valves)
         {
             valve.isComplete = true;

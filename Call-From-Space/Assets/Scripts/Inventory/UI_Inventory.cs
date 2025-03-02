@@ -12,6 +12,10 @@ public class UI_Inventory : MonoBehaviour
     public Transform journalSlotTemplate;
     public bool onItemScreen = true;
 
+    [Header("Audio")]
+    public AudioClip enableSound;
+    public AudioSource audioSource;
+
     
 
     private void Start()
@@ -30,6 +34,11 @@ public class UI_Inventory : MonoBehaviour
         //journalSlotTemplate = journalSlotContainer.Find("journalSlotTemplate");
         
 
+    }
+
+    void OnEnable()
+    {
+        audioSource.PlayOneShot(enableSound);
     }
     
  

@@ -10,6 +10,9 @@ public class Item_interaction : MonoBehaviour , IPointerEnterHandler, IPointerEx
     public Item item;
     public GameObject inspectorObj;
     bool mouse_over = false;
+    [Header("Audio")]
+    public AudioClip hover;
+    public AudioSource audioSource;
 
     void Update()
     {
@@ -26,6 +29,7 @@ public class Item_interaction : MonoBehaviour , IPointerEnterHandler, IPointerEx
     public void OnPointerEnter(PointerEventData eventData)
     {
         mouse_over = true;
+        audioSource.PlayOneShot(hover);
     }
 
     public void OnPointerExit(PointerEventData eventData)

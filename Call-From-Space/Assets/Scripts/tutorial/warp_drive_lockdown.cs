@@ -25,20 +25,28 @@ public class warp_drive_lockdown : Interactable
     [Header("Animator")]
     public Animator _WarpDriveAnimator;
 
+    [Header("Sparkle")]
+    public GameObject sparkle;
+
     [Header("Audios")]
     public AudioSource engineLoop;
     public AudioSource WarpDrive;
+
+    [Header("AI Sounds")]
+    public AI_Tutorial_Sounds AI_Sounds;
     // Start is called before the first frame update
     void Start()
     {
-        engineLoop.enabled = false;
-        WarpDrive.enabled = false;
+        engineLoop.enabled = true;
+        WarpDrive.enabled = true;
+        engineLoop.Pause();
+        WarpDrive.Pause();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public override string GetDescription()
@@ -96,20 +104,23 @@ public class warp_drive_lockdown : Interactable
         _WarpDriveAnimator.SetTrigger("Plugged");
 
         StartCoroutine(turnOnLights());
-
-        WarpDrive.enabled = true;
         StartCoroutine(PauseBeforeEnginePlay());
     }
 
     IEnumerator PauseBeforeEnginePlay()
     {
+        WarpDrive.Play();
         yield return new WaitForSeconds(6f);
-        WarpDrive.enabled = false;
-        engineLoop.enabled = true;
+        engineLoop.Play();
+        yield return null;
+
     }
 
     IEnumerator turnOnLights()
     {
+        yield return new WaitForSeconds(1f);
+        AI_Sounds.PlayEndLockDown();
+        sparkle.SetActive(false);
         foreach(GameObject obj in lightCones_and_light_objects)
         {
             obj.SetActive(true);

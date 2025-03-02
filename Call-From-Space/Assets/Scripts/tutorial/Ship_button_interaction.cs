@@ -17,6 +17,10 @@ public class Ship_button_interaction : Interactable
 
 
     public OxygenSystem oxygenSystem;
+
+    [Header("AI Sounds")]
+    public AI_Tutorial_Sounds AI_Sounds;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +62,10 @@ public class Ship_button_interaction : Interactable
     {
         if (!off_until_special)
         {
+            if(isEngineButton)
+            {
+                AI_Sounds.PlayInitiateLockDown();
+            }
            door_controller.ToggleDoor(isEngineButton, buttonUnlocksBothButtons);
            if(HelpTextFlashlight)
            {
