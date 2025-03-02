@@ -90,12 +90,18 @@ public class warp_drive_lockdown : Interactable
         EngineButton1.Specialty_button_text = "Not Available During Lockdown";
         EngineButton2.Specialty_button_text = "Not Available During Lockdown";
 
+        LeftHallwayButton.SpecialType = Ship_button_interaction.SpeicalButtonType.NeedsPower;
+        RightHallwayButton.SpecialType = Ship_button_interaction.SpeicalButtonType.NeedsPower;
+        EngineButton1.SpecialType = Ship_button_interaction.SpeicalButtonType.NeedsPower;
+        EngineButton2.SpecialType = Ship_button_interaction.SpeicalButtonType.NeedsPower;
+
         oxygenSystem.LosingOxygen = true;
     }
 
     public void End_Lockdown()
     {
-        LeftHallwayButton.off_until_special = false;
+        LeftHallwayButton.Specialty_button_text = "Wrong Way";
+        LeftHallwayButton.SpecialType = Ship_button_interaction.SpeicalButtonType.WrongWay;
         RightHallwayButton.off_until_special = false;
         EngineButton1.off_until_special = false;
         EngineButton2.off_until_special = false;

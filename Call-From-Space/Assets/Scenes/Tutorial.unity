@@ -1755,15 +1755,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audiosource: {fileID: 737133482}
-  ExplosionSpawn: {fileID: 8300000, guid: 6a12469017bb72944ae92591b0e731ff, type: 3}
-  InitiateLockDown: {fileID: 8300000, guid: cebe3dac27c5de145bcef53b56046bef, type: 3}
+  ExplosionSpawn: {fileID: 8300000, guid: 652e769405bcd9147a7b826591c21f44, type: 3}
+  InitiateLockDown: {fileID: 8300000, guid: 46eaa3db90b0d3144913580ae1dec9d7, type: 3}
   WarnLockDown: {fileID: 8300000, guid: 3cfb265929e101f4b816115b3e8b167f, type: 3}
-  EndLockDown: {fileID: 8300000, guid: 2cf8779cfd3032148bb4e256995aa83c, type: 3}
+  EndLockDown: {fileID: 8300000, guid: 6ba3857c05c33334bb0c14cf219cf17a, type: 3}
   oxygen_online: {fileID: 8300000, guid: 4b777bcc3ece4d84eb596e3b84130d1c, type: 3}
   low_oxygen: {fileID: 8300000, guid: e37452621fef7b543a727358d077616e, type: 3}
   critical_oxygen: {fileID: 8300000, guid: 7fc47e494177b734b9abc0b1333bce24, type: 3}
-  AutopilotEnganged: {fileID: 8300000, guid: 3a6860f2fcb6cc14c956ceeb12a808e2, type: 3}
-  StasisDestination: {fileID: 8300000, guid: 4942115712d8fb745aae61e39e0249f5, type: 3}
+  AutopilotEnganged: {fileID: 8300000, guid: 621b34ad208f9044a99e39c830537914, type: 3}
+  StasisDestination: {fileID: 8300000, guid: d675ae765de98ba4eb624816979269f9, type: 3}
+  INeedMySuit: {fileID: 8300000, guid: 1ed9cb892f2444f4b96723cbba568273, type: 3}
+  INeedPower: {fileID: 8300000, guid: f8444297f6a5254418fc33074aea27b1, type: 3}
+  INeedRadio: {fileID: 8300000, guid: c707029b9b4a64a48ad3454dca521630, type: 3}
+  WrongWay: {fileID: 8300000, guid: 58eb6a61f2051ed41952dbbba9abed81, type: 3}
+  RefillOxygen: {fileID: 8300000, guid: 5600f9c162a70fd4b9b2722978128147, type: 3}
 --- !u!4 &53608844
 Transform:
   m_ObjectHideFlags: 0
@@ -2620,6 +2625,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  SpecialType: 0
   Specialty_button_text: First Put On Your Spacesuit
   off_until_special: 1
   door_controller: {fileID: 79529399}
@@ -2629,7 +2635,7 @@ MonoBehaviour:
   HelpTextCrouch: 0
   helptexts: {fileID: 860000283}
   oxygenSystem: {fileID: 0}
-  AI_Sounds: {fileID: 0}
+  AI_Sounds: {fileID: 53608843}
 --- !u!1 &90821700
 GameObject:
   m_ObjectHideFlags: 0
@@ -7879,7 +7885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &252763160
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17114,8 +17120,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
-  Specialty_button_text: 
-  off_until_special: 0
+  SpecialType: 2
+  Specialty_button_text: Grab The Radio First
+  off_until_special: 1
   door_controller: {fileID: 1561579359}
   isEngineButton: 0
   buttonUnlocksBothButtons: 0
@@ -17123,7 +17130,7 @@ MonoBehaviour:
   HelpTextCrouch: 0
   helptexts: {fileID: 0}
   oxygenSystem: {fileID: 0}
-  AI_Sounds: {fileID: 0}
+  AI_Sounds: {fileID: 53608843}
 --- !u!1 &376071568
 GameObject:
   m_ObjectHideFlags: 0
@@ -17808,6 +17815,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  SpecialType: 4
   Specialty_button_text: Unavailable Until Oxygen Reserves is at Least 50%
   off_until_special: 1
   door_controller: {fileID: 1468831179}
@@ -24093,9 +24101,9 @@ MonoBehaviour:
   damageAmount: 10
   damageCooldown: 2.5
   player_movement: {fileID: 362943819}
-  SprintOxygenCost: 3
-  WalkOxygenCost: 0.75
-  CrouchOxygenCost: 0.5
+  SprintOxygenCost: 2.5
+  WalkOxygenCost: 0.6
+  CrouchOxygenCost: 0.45
   StillOxygenCost: 0.25
 --- !u!4 &664309185
 Transform:
@@ -25967,6 +25975,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  SpecialType: 1
   Specialty_button_text: Door Needs Power From The Other Side
   off_until_special: 1
   door_controller: {fileID: 1561579359}
@@ -25976,7 +25985,7 @@ MonoBehaviour:
   HelpTextCrouch: 0
   helptexts: {fileID: 0}
   oxygenSystem: {fileID: 0}
-  AI_Sounds: {fileID: 0}
+  AI_Sounds: {fileID: 53608843}
 --- !u!1 &737133480
 GameObject:
   m_ObjectHideFlags: 0
@@ -32464,6 +32473,76 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 863739012}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &790699643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 790699646}
+  - component: {fileID: 790699645}
+  - component: {fileID: 790699644}
+  m_Layer: 0
+  m_Name: CockPitFinaleTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &790699644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790699643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98921cf6e4771de439a780d90ab1ea61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftHallwayButton: {fileID: 958063905}
+  RightHallwayButton: {fileID: 735960082}
+  LeftHallwayDoor: {fileID: 973755547}
+  RightHallwayDoor: {fileID: 1561579359}
+--- !u!65 &790699645
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790699643}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &790699646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790699643}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 32.78, y: 3.1, z: 22.31}
+  m_LocalScale: {x: 9.086011, y: 1, z: 5.4662952}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &790771921
@@ -51440,6 +51519,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  SpecialType: 3
   Specialty_button_text: 
   off_until_special: 0
   door_controller: {fileID: 973755547}
@@ -51449,7 +51529,7 @@ MonoBehaviour:
   HelpTextCrouch: 0
   helptexts: {fileID: 0}
   oxygenSystem: {fileID: 0}
-  AI_Sounds: {fileID: 0}
+  AI_Sounds: {fileID: 53608843}
 --- !u!1 &961809484
 GameObject:
   m_ObjectHideFlags: 0
@@ -64272,6 +64352,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  SpecialType: 1
   Specialty_button_text: Needs Power From Engine
   off_until_special: 0
   door_controller: {fileID: 1468831179}
@@ -64281,7 +64362,7 @@ MonoBehaviour:
   HelpTextCrouch: 0
   helptexts: {fileID: 0}
   oxygenSystem: {fileID: 0}
-  AI_Sounds: {fileID: 0}
+  AI_Sounds: {fileID: 53608843}
 --- !u!1 &1210943260
 GameObject:
   m_ObjectHideFlags: 0
@@ -65786,6 +65867,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  SpecialType: 0
   Specialty_button_text: 
   off_until_special: 0
   door_controller: {fileID: 2052237988}
@@ -65795,7 +65877,7 @@ MonoBehaviour:
   HelpTextCrouch: 0
   helptexts: {fileID: 0}
   oxygenSystem: {fileID: 0}
-  AI_Sounds: {fileID: 0}
+  AI_Sounds: {fileID: 53608843}
 --- !u!1 &1257512978
 GameObject:
   m_ObjectHideFlags: 0
@@ -75857,6 +75939,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  SpecialType: 1
   Specialty_button_text: 
   off_until_special: 0
   door_controller: {fileID: 79529399}
@@ -75866,7 +75949,7 @@ MonoBehaviour:
   HelpTextCrouch: 0
   helptexts: {fileID: 0}
   oxygenSystem: {fileID: 0}
-  AI_Sounds: {fileID: 0}
+  AI_Sounds: {fileID: 53608843}
 --- !u!1001 &1455993933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94312,6 +94395,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  SpecialType: 1
   Specialty_button_text: Requires Engine To Be Powered On
   off_until_special: 1
   door_controller: {fileID: 2052237988}
@@ -94321,7 +94405,7 @@ MonoBehaviour:
   HelpTextCrouch: 0
   helptexts: {fileID: 0}
   oxygenSystem: {fileID: 0}
-  AI_Sounds: {fileID: 0}
+  AI_Sounds: {fileID: 53608843}
 --- !u!1 &1679702772
 GameObject:
   m_ObjectHideFlags: 0
@@ -95868,9 +95952,11 @@ MonoBehaviour:
   player: {fileID: 362943805}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1455993934}
-  PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
+  PickUpSound: {fileID: 8300000, guid: 3d4b0021d7f2c704f8b71ecd90119675, type: 3}
   audioSource: {fileID: 1612930178}
-  helptext: {fileID: 860000283}
+  helptextForRadio: {fileID: 860000283}
+  ButtonForRadio: {fileID: 375460205}
+  TriggerForCockpit: {fileID: 790699643}
 --- !u!114 &1748433634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96883,6 +96969,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  SpecialType: 0
   Specialty_button_text: 
   off_until_special: 0
   door_controller: {fileID: 973755547}
@@ -96892,7 +96979,7 @@ MonoBehaviour:
   HelpTextCrouch: 0
   helptexts: {fileID: 0}
   oxygenSystem: {fileID: 0}
-  AI_Sounds: {fileID: 0}
+  AI_Sounds: {fileID: 53608843}
 --- !u!1 &1778508153
 GameObject:
   m_ObjectHideFlags: 0
@@ -120588,3 +120675,4 @@ SceneRoots:
   - {fileID: 745901591}
   - {fileID: 507998944}
   - {fileID: 2021777773}
+  - {fileID: 790699646}

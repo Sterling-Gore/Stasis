@@ -5,6 +5,17 @@ using UnityEngine;
 public class Ship_button_interaction : Interactable
 {
 
+    public enum SpeicalButtonType
+    {
+        NeedsSuit,
+        NeedsPower,
+        NeedsRadio,
+        WrongWay,
+        NeedsOxygen
+    }
+
+    public SpeicalButtonType SpecialType;
+
     public string Specialty_button_text;
     public bool off_until_special;
     public Ship_door_and_button_controller door_controller;
@@ -20,6 +31,8 @@ public class Ship_button_interaction : Interactable
 
     [Header("AI Sounds")]
     public AI_Tutorial_Sounds AI_Sounds;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +90,29 @@ public class Ship_button_interaction : Interactable
                 HelpTextCrouch = false;
                 helptexts.PressCTRL = true;
            }
+        }
+        else
+        {
+            switch(SpecialType)
+            {
+                case SpeicalButtonType.NeedsSuit:
+                    AI_Sounds.PlayINeedMySuit();
+                    break;
+                case SpeicalButtonType.WrongWay:
+                    AI_Sounds.PlayWrongWay();
+                    break;
+                case SpeicalButtonType.NeedsPower:
+                    AI_Sounds.PlayINeedPower();
+                    break;
+                case SpeicalButtonType.NeedsRadio:
+                    AI_Sounds.PlayINeedRadio();
+                    break;
+                case SpeicalButtonType.NeedsOxygen:
+                    AI_Sounds.PlayRefillOxygen();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

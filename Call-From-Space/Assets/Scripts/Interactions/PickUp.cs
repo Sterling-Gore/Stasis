@@ -14,8 +14,11 @@ public class PickUp : Interactable
 
     public AudioSource audioSource;
 
-    [Header("Help Text For Tutorial Radio")]
-    public HelpTexts helptext;
+
+    [Header("TUTORIAL")]
+    public HelpTexts helptextForRadio;
+    public Ship_button_interaction ButtonForRadio;
+    public GameObject TriggerForCockpit;
 
 
 
@@ -54,7 +57,9 @@ public class PickUp : Interactable
                 player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(2);
                 break;
             case "Radio Transmitter":
-                helptext.PressTAB = true;
+                helptextForRadio.PressTAB = true;
+                ButtonForRadio.off_until_special = false;
+                TriggerForCockpit.SetActive(true);
                 break;
             default:
                 break;
