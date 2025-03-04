@@ -10,11 +10,13 @@ public class TutorialStart : MonoBehaviour
     public CameraShakeGeneral cameraShake;
     public AI_Tutorial_Sounds AI_Sounds;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         AI_Sounds.PlayExplosionSpawn();
+        Debug.Log("JELLO");
         StartCoroutine(FadeIn());
         StartCoroutine(Shake());
+        Debug.Log("JELLO2");
         
     }
 

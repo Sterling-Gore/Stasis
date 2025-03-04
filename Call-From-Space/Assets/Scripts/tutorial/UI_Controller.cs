@@ -78,8 +78,11 @@ public class UI_Controller : MonoBehaviour
             }
             else if(UI_Value == UI_Types.inventory_or_puzzle)
             {
-                Set_UI_Value(UI_Types.standard);
-                Inventory_and_Map_UI.SetActive(false);
+                if(Inventory_and_Map_UI.activeSelf)
+                {
+                    Set_UI_Value(UI_Types.standard);
+                    Inventory_and_Map_UI.SetActive(false);
+                }
             }
 
         }

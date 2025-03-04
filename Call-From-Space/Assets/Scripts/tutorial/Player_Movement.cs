@@ -74,12 +74,12 @@ public class Player_Movement : MonoBehaviour
         if (IsGrounded())
         {
 
-            Debug.Log("Player is on the ground");
+            //Debug.Log("Player is on the ground");
         }
         else
         {
             rb.AddForce(Vector3.down * 50f, ForceMode.Force);
-            Debug.Log("Player is in the air");
+            //Debug.Log("Player is in the air");
         }
     }
 
