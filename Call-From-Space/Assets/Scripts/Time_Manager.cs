@@ -9,7 +9,6 @@ public class Time_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1f;
         Current_UI = ui_controller.UI_Value;
     }
 
