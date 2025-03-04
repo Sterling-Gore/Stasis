@@ -117,6 +117,8 @@ public class ShipConsolePuzzle : MonoBehaviour
 
     }
 
+   
+
 
     void OnEnable() 
     {

@@ -13,10 +13,8 @@ public class TutorialStart : MonoBehaviour
     void Awake()
     {
         AI_Sounds.PlayExplosionSpawn();
-        Debug.Log("JELLO");
         StartCoroutine(FadeIn());
         StartCoroutine(Shake());
-        Debug.Log("JELLO2");
         
     }
 
