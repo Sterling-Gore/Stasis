@@ -15,6 +15,7 @@ public class AmbianceAudio : MonoBehaviour
     {
         ambiance.Pause();
         VHSstatic.Pause();
+        VHSstatic.ignoreListenerPause = true;
     }
 
     // Update is called once per frame

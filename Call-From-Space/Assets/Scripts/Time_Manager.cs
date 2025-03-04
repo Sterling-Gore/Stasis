@@ -20,9 +20,15 @@ public class Time_Manager : MonoBehaviour
         {
             Current_UI = ui_controller.UI_Value;
             if( Current_UI ==  UI_Controller.UI_Types.escape_menu || Current_UI ==  UI_Controller.UI_Types.options_menu)
+            {
                 Time.timeScale = 0f;
+                AudioListener.pause = true;
+            }
             else   
+            {
                 Time.timeScale = 1f;
+                AudioListener.pause = false;
+            }
         }
     }
 }
