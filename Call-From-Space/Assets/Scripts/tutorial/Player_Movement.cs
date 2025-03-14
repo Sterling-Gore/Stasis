@@ -42,7 +42,8 @@ public class Player_Movement : MonoBehaviour
     {
         walk,
         sprint,
-        crouch
+        crouch,
+        still
     }
 
     public MovementStates movementstate;

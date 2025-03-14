@@ -81,7 +81,6 @@ public class PlayerController : Loadable
     public AudioSource ambiance;
     public AudioSource VHSstatic;
 
-
     void Start()
     {
         ambiance.enabled = true;
@@ -110,7 +109,6 @@ public class PlayerController : Loadable
 
         interactor = gameObject.GetComponent<Interactor>();
 
-
         if (heartbeat != null)
             heartbeatAudioSource = heartbeat.GetComponent<AudioSource>();
     }
@@ -138,6 +136,11 @@ public class PlayerController : Loadable
                     if (oxygenSystem.LosingOxygen)
                         oxygenSystem.DecreaseOxygen(runningOxygenCost);
                     SoundSourcesController.instance.CreateNewSoundSource(transform.position, runningSoundRadius);
+                }
+                else if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    if (oxygenSystem.LosingOxygen)
+                        oxygenSystem.DecreaseOxygen(walkingOxygenCost);
                 }
                 else
                 {

@@ -9,6 +9,7 @@ TagManager:
   - SecurityCamera
   - FuelCell
   - Alien
+  - Pathnode
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - whatIsGround
   - PlayeyLayer
   - FogLayer
-  - 
+  - Surfaces
   - 
   - 
   - 

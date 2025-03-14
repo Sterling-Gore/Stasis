@@ -1,8 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using SoundSource = PathNode;
 
+//THIS NEEDS A LOOOOOT OF CLEANUP
 public class AlienController : Loadable
 {
     public SoundSource curTarget;
@@ -70,7 +74,39 @@ public class AlienController : Loadable
 
     public bool isAwareOfPlayer = false;
 
+    enum State
+    {
+        Hunting,
+        Roaming,
+        Alert
+    }
 
+    [SerializeField]
+    State currentState;
+
+    public bool withoutModification;
+
+    NavMeshAgent NMA;
+    [SerializeField]
+    Transform previousNode;
+    Vector3 endNodePosition;
+    [SerializeField]
+    Vector3[] nodePositions;
+
+    public int CurrentAttention;
+
+    bool isTrackingSound;
+    float angryTimer = 0;
+    float pathPauseTimer = 0;
+
+    Queue<Vector3> pathQueue;
+
+    int attentionDecayPerSecond;
+
+    readonly int roamingSpeed = 5;
+    readonly int chasingSpeed = 20;
+
+    IEnumerator attentionDecayFunc;
 
     void Start()
     {
@@ -93,44 +129,116 @@ public class AlienController : Loadable
         walkingAudio = sounds.Find("WalkSounds").gameObject.GetComponent<AudioSource>();
         attackAudio = sounds.Find("AttackSounds").gameObject.GetComponent<AudioSource>();
 
-        aliens.Add(this);
-        ignoreAlienLayer = ~(
-            1 << LayerMask.NameToLayer("AlienLayer")
-        );
-        groundLayer = 1 << LayerMask.NameToLayer("whatIsGround");
+        //aliens.Add(this);
+        //ignoreAlienLayer = ~(
+        //    1 << LayerMask.NameToLayer("AlienLayer")
+        //);
+        //groundLayer = 1 << LayerMask.NameToLayer("whatIsGround");
 
         playerHealthSystem = player.GetComponent<HealthSystem>();
         lastAttackTime = -attackCooldown;
+
+        NMA = GetComponent<NavMeshAgent>();
+        nodePositions = GameObject.FindGameObjectsWithTag("Pathnode").Select(node => node.transform.position).ToArray();
+
+        pathQueue = new Queue<Vector3>();
+        currentState = State.Roaming;
+
+        if (withoutModification) NMA.SetDestination(endNodePosition);
+
+        attentionDecayFunc = AttentionDecay();
+        StartCoroutine(attentionDecayFunc);
+
+        attentionDecayPerSecond = 5;
     }
 
     void Update()
     {
-        if (!isAwareOfPlayer)
-            return;
-
-        soundSource.transform.position = curTarget.pos;
-
-        KeepUpright();
-        animator.SetBool("isWalking", true);
-        animator.SetBool("isRunning", false);
-        if (!heardSomething)
+        if (currentState == State.Hunting || currentState == State.Alert)
         {
-            if (nextTarget != SoundSource.None)
+
+            if (currentState == State.Hunting && NMA.remainingDistance <= NMA.stoppingDistance)
             {
-                curTarget = nextTarget;
-                nextTarget = SoundSource.None;
-                AnnounceHeardSomething();
+                NMA.ResetPath();
+                //Vector3 nearest = findNearestNode(transform.position, true);
+                //setEndDestination(nearest);
             }
-            nextSpeed = walkSpeed;
-            roamer.RoamAround();
+
+            //NavMeshHit hit;
+            //if(NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.AllAreas) && hit.distance < 0.01f)
+            //{
+            //   // Debug.Log("edge reached");
+
+            //    //me trying to full stop the agent when it hits a wall, really not working properly
+            //    NMA.destination = transform.position;
+            //    float tempAcc = NMA.acceleration;
+            //    float tempSpeed = NMA.speed;
+            //    NMA.angularSpeed = 0;
+            //    NMA.acceleration = 1000000;
+            //    NMA.speed = 0;
+            //    NMA.stoppingDistance = 0;
+            //    StartCoroutine(ResetValues(tempAcc, tempSpeed));
+            //}
+            if(NMA.remainingDistance < NMA.stoppingDistance)
+                angryTimer += Time.deltaTime;
+            if (angryTimer > 5)
+            {
+                angryTimer = 0;
+                if (currentState == State.Hunting)
+                {
+                    wanderSoundPoop(5, 10);
+                    goRoaming();
+                }
+                else
+                {
+                    goRoaming();
+                }
+            }
+
         }
-        else
+        else if (pathQueue.Count == 0)
         {
-            if (Time.time - lastAttackTime >= attackCooldown)
-                HuntPlayer();
-            else
-                RunFromPlayer();
+            pathPauseTimer += Time.deltaTime;
+            if (pathPauseTimer < 2) return;
+            pathPauseTimer = 0;
+
+            Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
+            
+            setEndDestination(newEndNode);
+
         }
+        else if (NMA.remainingDistance <= NMA.stoppingDistance)
+        {
+            pathQueue.Dequeue();
+            if (pathQueue.Count != 0)
+                NMA.SetDestination(pathQueue.Peek());
+        }
+
+        //if (!isAwareOfPlayer)
+        //    return;
+
+        //soundSource.transform.position = curTarget.pos;
+
+        //animator.SetBool("isWalking", true);
+        //animator.SetBool("isRunning", false);
+        //if (!heardSomething)
+        //{
+        //    if (nextTarget != SoundSource.None)
+        //    {
+        //        curTarget = nextTarget;
+        //        nextTarget = SoundSource.None;
+        //        AnnounceHeardSomething();
+        //    }
+        //    nextSpeed = walkSpeed;
+        //    roamer.RoamAround();
+        //}
+        //else
+        //{
+        //    if (Time.time - lastAttackTime >= attackCooldown)
+        //        HuntPlayer();
+        //    else
+        //        RunFromPlayer();
+        //}
         // Debug.DrawRay(transform.position + Vector3.up, player.transform.position - transform.position + Vector3.up);
     }
 
@@ -172,35 +280,35 @@ public class AlienController : Loadable
 
         Physics.Raycast(pos, directionToPlayer.normalized, out RaycastHit j, distanceToPlayer, ignoreAlienLayer);
         // Debug.Log(j.rigidbody);
-        Debug.DrawRay(pos, directionToPlayer, Color.green);
-        if (j.rigidbody == playerRb)
-        {
-            // if (curSpeed == runSpeed)
-            animator.SetBool("isRunning", true);
-            nextSpeed = runSpeed;
-            if (distanceToPlayer < attackRadius)
-                AttackPlayer();
-            else
-                GoStraightToPlayer();
-        }
-        else if (!justHeardSomething && pathFinder.HasArrived())
-        {
-            blackListedSoundSources.Add(curTarget);
-            if (blackListedSoundSources.Count > soundSourcesMemory)
-                blackListedSoundSources.RemoveAt(0);
+        //Debug.DrawRay(pos, directionToPlayer, Color.green);
+        //if (j.rigidbody == playerRb)
+        //{
+        //    // if (curSpeed == runSpeed)
+        //    animator.SetBool("isRunning", true);
+        //    nextSpeed = runSpeed;
+        //    if (distanceToPlayer < attackRadius)
+        //        AttackPlayer();
+        //    else
+        //        GoStraightToPlayer();
+        //}
+        //else if (!justHeardSomething && pathFinder.HasArrived())
+        //{
+        //    blackListedSoundSources.Add(curTarget);
+        //    if (blackListedSoundSources.Count > soundSourcesMemory)
+        //        blackListedSoundSources.RemoveAt(0);
 
-            roamer.FindCurrentRoom();
-            heardSomething = false;
-            if (nextTarget == SoundSource.None)
-                Debug.Log("no longer heard anything");
-        }
-        else
-        {
-            nextSpeed = walkSpeed;
-            pathFinder.CalculatePathPeriodically(curTarget.pos);
-            pathFinder.FollowPath();
-        }
-        justHeardSomething = false;
+        //    roamer.FindCurrentRoom();
+        //    heardSomething = false;
+        //    if (nextTarget == SoundSource.None)
+        //        Debug.Log("no longer heard anything");
+        //}
+        //else
+        //{
+        //    nextSpeed = walkSpeed;
+        //    pathFinder.CalculatePathPeriodically(curTarget.pos);
+        //    pathFinder.FollowPath();
+        //}
+        //justHeardSomething = false;
     }
 
     void RunFromPlayer()
@@ -229,7 +337,7 @@ public class AlienController : Loadable
                     break;
             }
 
-            ReloadPathGraph();
+            //ReloadPathGraph();
             curPowerLevel = powerLevel;
             roamer.UpdateRooms(curSections);
         }
@@ -265,7 +373,7 @@ public class AlienController : Loadable
         pathFinder.WillRecalculate();
     }
 
-    /// <returns>true if reached target </returns>
+    // <returns>true if reached target</returns>
     public bool MoveTowards(Vector3 target)
     {
         CheckStayingStill();
@@ -390,7 +498,176 @@ public class AlienController : Loadable
 
     public override void Save(ref JObject state) =>
         SaveTransform(ref state);
+
+
+    //IEnumerator ResetValues(float tempAcc, float tempSpeed)
+    //{
+    //    yield return new WaitForSeconds(0.1f);
+    //    NMA.speed = roamingSpeed;
+    //    NMA.acceleration = 50;
+    //    NMA.angularSpeed = 120;
+    //    NMA.stoppingDistance = 10;
+    //    //NMA.ResetPath();
+    //}
+
+    //pathfinding functions
+    void setEndDestination(Vector3 endDestination)
+    {
+        NavMeshPath navMeshPath = new NavMeshPath();
+        NMA.CalculatePath(endDestination, navMeshPath);
+
+        Vector3[] corners = navMeshPath.corners;
+        if (corners.Length == 0)
+            Debug.Log("No corners found on path");
+
+        pathQueue = calculatePathQueue(corners);
+        NMA.SetDestination(pathQueue.Peek());
+
+        //foreach (Vector3 corner in corners)
+        //{
+        //    Debug.DrawLine(corner, corner + Vector3.up * 100, Color.blue, Mathf.Infinity);
+        //}
+    }
+
+    Queue<Vector3> calculatePathQueue(Vector3[] corners)
+    {
+        Queue<Vector3> pathQueue = new Queue<Vector3>();
+
+        foreach (Vector3 corner in corners)
+        {
+            Vector3 closestNode = findNearestNode(corner);
+            if (!pathQueue.Contains(closestNode))
+                pathQueue.Enqueue(closestNode);
+        }
+
+        return pathQueue;
+    }
+
+    Vector3 findNearestNode(Vector3 position, bool mustBeVisible = false)
+    {
+
+        Vector3 closest = Vector3.one * Mathf.Infinity;
+        Vector3 positionToClosest = closest - position;
+
+        foreach (Vector3 nodePosition in nodePositions)
+        {
+            Vector3 positionToNode = nodePosition - position;
+
+            //REFACTOR THESE CONDITIONALS, I HATE THEM this might not even be necessary
+            if (positionToClosest.sqrMagnitude > positionToNode.sqrMagnitude)
+            {
+                if ((mustBeVisible && Physics.Raycast(transform.position, positionToNode.normalized, positionToNode.magnitude)) || !mustBeVisible)
+                {
+                    closest = nodePosition;
+                    positionToClosest = positionToNode;
+                }
+            }
+        }
+
+        return closest;
+    }
+
+    //-------------------------------------------------------------------------------------------
+
+    //attention functions
+    IEnumerator AttentionDecay()
+    {
+        while (true)
+        {
+            CurrentAttention = Mathf.Clamp(CurrentAttention - attentionDecayPerSecond, 0, 100);
+            yield return new WaitForSeconds(1f);
+        }
+    }
+    //Make a gameObject at the last known "sound"
+    GameObject generateSoundPoop(Vector3 attentionLocation)
+    {
+        GameObject otherPoop = GameObject.Find("Sound Poop");
+        if (otherPoop != null) Destroy(otherPoop);
+
+        GameObject soundPoop = new GameObject("Sound Poop");
+
+        soundPoop.transform.position = attentionLocation;
+        return soundPoop;
+    }
+
+    public void IncreaseAttention(int attention, Vector3 attentionLocation)
+    {
+        //if (currentState == State.Hunting) return;
+
+        CurrentAttention = Mathf.Clamp(CurrentAttention + attention, 0, 100);
+
+        //ranges 10-60 approaches 10 as attention gets higher
+        int alertAttentionThreshold = 61 - (CurrentAttention / 2 + 1);
+
+        Debug.Log("Current attention: " + CurrentAttention);
+
+        if (CurrentAttention == 100 && attention > 10)
+            goHunting(attentionLocation);
+        else if (attention > alertAttentionThreshold || (CurrentAttention > 80 && attention > 0))
+            goAlert(attentionLocation);
+    }
+
+    void goHunting(Vector3 attentionLocation)
+    {
+        angryTimer = 0f;
+        StopCoroutine(attentionDecayFunc);
+        NMA.ResetPath();
+
+        GameObject soundPoop = generateSoundPoop(attentionLocation);
+        currentState = State.Hunting;
+        //NMA.velocity = (attentionLocation - transform.position).normalized * 100;
+        NMA.speed = chasingSpeed;
+        NMA.SetDestination(soundPoop.transform.position);
+    }
+
+    void goAlert(Vector3 attentionLocation)
+    {
+        angryTimer = 0f;
+        StopCoroutine(attentionDecayFunc);
+        GameObject soundPoop = generateSoundPoop(attentionLocation);
+        currentState = State.Alert;
+        NMA.ResetPath();
+        transform.LookAt(soundPoop.transform.position);
+    }
+
+    void wanderSoundPoop(int times, float range)
+    {
+        NMA.speed = roamingSpeed;
+        //i dont really wanna do this
+        GameObject soundPoop = GameObject.Find("Sound Poop");
+        Vector3 position = soundPoop.transform.position;
+
+        pathQueue.Clear();
+
+        int iterationLimit = 100;
+        int iterations = 0;
+
+        while (pathQueue.Count < times && iterations < iterationLimit)
+        {
+            iterations++;
+            Vector3 randomCirclePointXY = Random.insideUnitCircle;
+            Vector3 randomCirclePointXZ = new Vector3(randomCirclePointXY.x, 0f, randomCirclePointXY.y);
+            Vector3 randomPoint = position + randomCirclePointXZ * range;
+            Debug.Log(randomPoint);
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, 5f, NavMesh.AllAreas))
+            {
+                pathQueue.Enqueue(hit.position);
+                Debug.DrawLine(randomPoint, randomPoint + Vector3.up * 100, Color.yellow, Mathf.Infinity);
+            }
+        }
+    }
+
+    void goRoaming()
+    {
+        StartCoroutine(attentionDecayFunc);
+        NMA.speed = roamingSpeed;
+        currentState = State.Roaming;
+        NMA.SetDestination(pathQueue.Peek());
+    }
 }
+
+
 /*
  * Ideas:
  * To save on CPU usage, only run A* every now and then
@@ -408,3 +685,4 @@ public class AlienController : Loadable
  pathing to player-> pathing to room
  
  */
+
