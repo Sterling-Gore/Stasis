@@ -2,6 +2,7 @@ using System.Collections;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthSystem : Loadable
 {
@@ -52,8 +53,9 @@ public class HealthSystem : Loadable
         if (healthLevel <= 0)
         {
             // Call animation here
-            gameOverScreen.SetActive(true);
-            healthLevel = maxHealth;
+            //gameOverScreen.SetActive(true);
+            //healthLevel = maxHealth;
+            SceneManager.LoadScene("Death");
         }
     }
 
@@ -87,7 +89,7 @@ public class HealthSystem : Loadable
     {
         HealthDelay = true;
         HealthDelayTimer = 2.5f;
-        //healthLevel -= damageAmount;
+        healthLevel -= damageAmount;
         healthLevel = Mathf.Clamp(healthLevel, 0, maxHealth); // Ensure health level stays within bounds
         Debug.Log("DAMAGED: " + damageAmount);
 

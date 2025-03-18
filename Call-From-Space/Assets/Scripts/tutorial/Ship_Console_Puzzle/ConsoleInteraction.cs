@@ -22,6 +22,9 @@ public class ConsoleInteraction : Interactable
     [Header("AI Sounds")]
     public AI_Tutorial_Sounds AI_Sounds;
 
+    [Header("Game Manager")]
+    public SaveManager saveManager;
+
 
     
 
@@ -78,6 +81,7 @@ public class ConsoleInteraction : Interactable
         cameraShake.StartShake(13f, 0.1f);
         yield return new WaitForSeconds(11f);
         interactor.inUI = true;
-        SceneManager.LoadSceneAsync("TOBECONTINUED");
+        saveManager.UpdateSave(SavePointID.tutorial);
+        SceneManager.LoadSceneAsync("Workshop");
     }
 }

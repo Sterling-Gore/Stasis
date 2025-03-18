@@ -10,35 +10,25 @@ public class DeathMenu : MonoBehaviour
     //public AudioMixer audioMixer;
     float volume = 100f;
 
-    void OnEnable()
-    {
-        Debug.Log("DeathMenu enabled");
-        var player = GameObject.Find("player");
-        interactor = player.GetComponent<Interactor>();
-        interactor.inUI = true;
-        ambiance.enabled = false;
-        VHSstatic.enabled = true;
-        Time.timeScale = 0f;
-    }
+    public SceneLoader sceneLoader;
 
-    void OnDisable()
+    void Start()
     {
-        Time.timeScale = 1f;
-        //audioMixer.SetFloat("volume", volume);
-        ambiance.enabled = true;
-        VHSstatic.enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public void GoToCheckPoint()
     {
-        GameStateManager.instance.LoadGame(GameStateManager.checkPointFilePath);
-        gameObject.SetActive(false);
-        interactor.inUI = false;
+        //GameStateManager.instance.LoadGame(GameStateManager.checkPointFilePath);
+        //gameObject.SetActive(false);
+        //interactor.inUI = false;
+        sceneLoader.LoadSceneFromSavePoint();
     }
 
     public void ExitGame()
     {
-        gameObject.SetActive(false);
-        SceneManager.LoadSceneAsync("Start");
+        //gameObject.SetActive(false);
+        SceneManager.LoadScene("Start");
     }
 }
