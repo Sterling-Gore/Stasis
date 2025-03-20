@@ -166269,7 +166269,7 @@ MonoBehaviour:
   itemTag: 4
   isItem: 1
   AudioLog: 0
-  itemName: Locker Key
+  itemName: Orange Key Card
   itemImage: {fileID: 21300000, guid: 0171765866a3a144fa8f7fcb60693e43, type: 3}
   obj: {fileID: 1328691712}
 --- !u!54 &1328691715
