@@ -5,6 +5,7 @@ public class StartingMenu : MonoBehaviour
 {
     public SceneLoader sceneLoader;
     public SaveManager saveManager;
+    public SavePointID TestSavePoint;
 
     void Start()
     {
@@ -26,6 +27,12 @@ public class StartingMenu : MonoBehaviour
         //if (GameStateManager.startedNewGame)
         //    GameStateManager.instance.LoadGame(GameStateManager.checkPointFilePath);
         //SceneManager.LoadSceneAsync("Ship");
+    }
+
+    public void TestSave()
+    {
+        saveManager.UpdateSave(TestSavePoint);
+        sceneLoader.LoadSceneFromSavePoint();
     }
 
     public void ExitGame()

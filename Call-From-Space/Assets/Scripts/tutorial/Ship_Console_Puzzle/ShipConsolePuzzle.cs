@@ -185,7 +185,8 @@ public class ShipConsolePuzzle : MonoBehaviour
 
         yield return new WaitForSeconds(0.5F);
 
-        PlayerUI.ESCAPE();
+        if(PlayerUI.UI_Value  == UI_Controller.UI_Types.inventory_or_puzzle)
+            PlayerUI.ESCAPE();
 
         //ChangeColor(white);
     }

@@ -24,6 +24,9 @@ public class GenScreenInteraction : Interactable
     public GameObject FuelDepositSparkle;
     public Animator genDoorAnimator;
     public Collider FuelDepositCollider;
+    public FuelCellHoldable FuelCell;
+    public AudioSource genRepeatingAudio;
+    public GameObject particles;
 
     void Awake()
     {
@@ -40,12 +43,12 @@ public class GenScreenInteraction : Interactable
                 if(generatorType == Generator.A)
                 {
                     FinishPuzzle();
-                    FinishGenerator();
+                    FinishGenerator(true);
                 }
                 break;
             case SavePointID.workshop4:
                 FinishPuzzle();
-                FinishGenerator();
+                FinishGenerator(true);
                 break;
             default:
                 finished = false;
@@ -90,12 +93,19 @@ public class GenScreenInteraction : Interactable
         FuelDepositSparkle.SetActive(true);
         genDoorAnimator.SetTrigger("Open");
         FuelDepositCollider.enabled = true;  
+        gameObject.GetComponent<Collider>().enabled = false;
     }
 
-    public void FinishGenerator()
+    public void FinishGenerator(bool FromSavePoint = false)
     {
         FuelDepositSparkle.SetActive(false);
         FuelDepositCollider.enabled = false; 
         genDoorAnimator.SetTrigger("Closed"); 
+        FuelCell.deposit();
+        if(FromSavePoint)
+        {
+            genRepeatingAudio.enabled = true;
+            particles.SetActive(true);
+        }
     }
 }

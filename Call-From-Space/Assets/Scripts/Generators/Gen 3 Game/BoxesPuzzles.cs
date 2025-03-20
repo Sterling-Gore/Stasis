@@ -41,6 +41,11 @@ public class BoxesPuzzle : MonoBehaviour
 
     
     public AudioSource audioSource;
+
+    [Header("GenScreen")]
+    public GenScreenInteraction GenScreen;
+    public UI_Controller PlayerUI;
+
     void Start()
     {
         answerArray = new int[] 
@@ -191,16 +196,25 @@ public class BoxesPuzzle : MonoBehaviour
         Debug.Log("All elements match.");
         won = true;
 
-        //sparkle controller
-        FuelDepositSparkle.SetActive(true);
-        ScreenSparkle.SetActive(false);
-        player.GetComponent<UI_Controller>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(2);
-        gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
-        gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
+        if(GenScreen)
+            GenScreen.FinishPuzzle();
+        if(PlayerUI != null )
+        {
+            StartCoroutine(FinishingPuzzle());
+        }
+
         TurnInteractableButtons(false);
         StartCoroutine(GreenOrder());
     }
     }
 }
+
+    IEnumerator FinishingPuzzle()
+    {
+        yield return new WaitForSeconds(1.5F);
+
+        if(PlayerUI.UI_Value  == UI_Controller.UI_Types.inventory_or_puzzle)
+            PlayerUI.ESCAPE();
+    }
    
 }

@@ -24,8 +24,7 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public GameObject gen;
     public GeneratorAudio generatorAudio;
 
-    public GameObject ScreenSparkle;
-    public GameObject FuelDepositSparkle;
+    
 
 
 
@@ -38,6 +37,10 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     
     public AudioSource audioSource;
+
+    [Header("GenScreen")]
+    public GenScreenInteraction GenScreen;
+    public UI_Controller PlayerUI;
 
 
     void Awake() {
@@ -124,12 +127,21 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         updateImage(true);
         audioSource.PlayOneShot(valid);
         //updates the sparkle effect
+
+        if(GenScreen)
+            GenScreen.FinishPuzzle();
+        if(PlayerUI != null )
+        {
+            StartCoroutine(FinishingPuzzle());
+        }
+        //this is now being done by the FinishPuzzle on GenScreenInteraction
+        /*
         ScreenSparkle.SetActive(false);
         FuelDepositSparkle.SetActive(true);
-        
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
         gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
-        Player_for_interactor.GetComponent<UI_Controller>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(4);
+        */
+        //Player_for_interactor.GetComponent<UI_Controller>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(4);
 
         //generatorUI.SetActive(false);
         //interactor.inUI = false;
@@ -148,6 +160,15 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             defaultMessage.sprite = incorrectMessage;
         }
       }
+    }
+
+
+    IEnumerator FinishingPuzzle()
+    {
+        yield return new WaitForSeconds(1F);
+
+        if(PlayerUI.UI_Value  == UI_Controller.UI_Types.inventory_or_puzzle)
+            PlayerUI.ESCAPE();
     }
 
 

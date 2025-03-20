@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class FuelDeposit : Interactable
 {
-    public GameObject FuelCell;
     public GameObject player;
     public PowerLevel powerLevel;
-    public float soundRadius;
-    public Vector3 rotation;
-    public Vector3 position;
     public GameObject particles;
     public GenScreenInteraction gen;
     public AudioSource genPowerAudio;
     public AudioSource genRepeatingAudio;
-    public GameObject Sparkle;
 
 
 
@@ -63,8 +58,7 @@ public class FuelDeposit : Interactable
         if (powerLevel != null)
             {
                 Debug.Log("Fuel cell deposited");
-                powerLevel.GeneratorActivated();
-                SoundSourcesController.instance.CreateNewSoundSource(transform.position, soundRadius);
+                //powerLevel.GeneratorActivated();
             }
         yield return new WaitForSeconds(3);
         genRepeatingAudio.enabled = true;
@@ -82,6 +76,8 @@ public class FuelDeposit : Interactable
     {
         if (player.GetComponent<Interactor>().holdingName == "Fuel Cell")
         {
+            //implemented in the deposit function which is called in the gen.FinishGenerator
+            /*
             FuelCell.GetComponent<FuelCellHoldable>().DropObject();
             FuelCell.GetComponent<Rigidbody>().useGravity = false;
             FuelCell.GetComponent<Rigidbody>().isKinematic = true;
@@ -89,7 +85,7 @@ public class FuelDeposit : Interactable
             FuelCell.transform.position = position;
             FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
             FuelCell.GetComponent<FuelCellHoldable>().StopGlowEffect();
-            FuelCell.GetComponent<Collider>().enabled = false;
+            FuelCell.GetComponent<Collider>().enabled = false;*/
             genPowerAudio.enabled = true;
             //genRepeatingAudio.enabled = true;
             //lights.SetActive(true);
@@ -97,20 +93,21 @@ public class FuelDeposit : Interactable
             switch (gen.generatorType)
             {
                 case GenScreenInteraction.Generator.A:
-                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(5);
+                    //player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(5);
                     break;
                 case GenScreenInteraction.Generator.B:
-                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(7);
+                    //player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(7);
                     break;
                 case GenScreenInteraction.Generator.C:
-                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(3);
+                    //player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(3);
                     break;
                 default:
                     break;
             }
-            gameObject.GetComponent<Collider>().enabled = false;
-
-            Sparkle.SetActive(false);
+            gen.FinishGenerator();
+            //these lines should now be included in the FinishGenerator script
+            //gameObject.GetComponent<Collider>().enabled = false;
+            //Sparkle.SetActive(false);
             StartCoroutine(waiter());
         }
     }
