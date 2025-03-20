@@ -47,14 +47,13 @@ public class PickUp : Interactable
     {
         //inventory.AddItem(item);
         audioSource.PlayOneShot(PickUpSound);
-        ItemGlow.SetActive(false);
         switch (item.itemName)
         {
             case "Sticky Note":
-                player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(2);
+                //player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(2);
                 break;
             case "Locker Key":
-                player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(2);
+                //player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(2);
                 break;
             case "Radio Transmitter":
                 helptextForRadio.PressTAB = true;
@@ -70,6 +69,15 @@ public class PickUp : Interactable
             JournalPlayer.GetComponent<PlayJournal>().PlayAudioOnPickUp(item);
         }
 
+        pickUp();
+
+
+        //ui_controller.uiInvetory.RefreshInventoryItems();
+
+    }
+
+    public void pickUp()
+    {
         gameObject.SetActive(false);
         if (item.isItem)
         {
@@ -79,22 +87,28 @@ public class PickUp : Interactable
         {
             ui_controller.inventory.AddJournal(item);
         }
+        ItemGlow.SetActive(false);
+    }
 
-        //ui_controller.uiInvetory.RefreshInventoryItems();
-
+    public void deletedPickUp()
+    {
+        gameObject.SetActive(false);
+        ItemGlow.SetActive(false);
     }
 
     public override void Load(JObject state)
     {
+        /*
         var active = (bool)state[fullName]["isActive"];
         gameObject.SetActive(active);
         ItemGlow.SetActive(active);
-        base.Load(state);
+        base.Load(state); */
     }
 
     public override void Save(ref JObject state)
     {
+        /*
         base.Save(ref state);
-        state[fullName]["isActive"] = gameObject.activeSelf;
+        state[fullName]["isActive"] = gameObject.activeSelf; */
     }
 }

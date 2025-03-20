@@ -28,6 +28,9 @@ public class GenScreenInteraction : Interactable
     public AudioSource genRepeatingAudio;
     public GameObject particles;
 
+    [Header("PowerManager")]
+    public PowerManager powerManager;
+
     void Awake()
     {
         SavePointID savePoint = saveManager.LoadSave();
@@ -107,5 +110,23 @@ public class GenScreenInteraction : Interactable
             genRepeatingAudio.enabled = true;
             particles.SetActive(true);
         }
+
+        if(generatorType == Generator.A)
+        {
+            powerManager.turnOnGenA();
+            if(!FromSavePoint)
+            {
+                saveManager.UpdateSave(SavePointID.workshop3);
+            }
+        }
+        else
+        {
+            powerManager.turnOnGenB();
+            if(!FromSavePoint)
+            {
+                saveManager.UpdateSave(SavePointID.workshop4);
+            }
+        }
+        
     }
 }
