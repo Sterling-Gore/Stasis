@@ -14,14 +14,14 @@ public abstract class Holdable : Interactable
     //private bool currentlyHolding;
     [SerializeField] private Rigidbody ObjRb;
 
-    protected bool localHold; //checks if you are holding object locally attached to script
+    protected bool localHold = false; //checks if you are holding object locally attached to script
     public bool hasBeenMoved;
 
     public string objName = "";
     public float weight = 0;
 
     public GameObject ItemGlow;
-    bool DoneGlowing;
+    bool DoneGlowing = false;
 
 
 
@@ -30,22 +30,18 @@ public abstract class Holdable : Interactable
     
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         originalHolder = transform.parent;
-        DoneGlowing = false;
-        if(HoldObject.GetComponent<Collider>() == null)
-        {
-            Debug.Log("BROKEN GAMEOBJECT");
-        }
+        //DoneGlowing = false;
         Physics.IgnoreCollision(HoldObject.GetComponent<Collider>(), player.transform.Find("Player Model").GetComponent<Collider>(), true);
         //currentlyHolding = false;
         if(ObjRb == null)
             ObjRb = HoldObject.GetComponent<Rigidbody>();
 
         //this gets the interactor script from the player, that way we can turn off interactins while holding an object
-        interactor = player.GetComponent<Interactor>();
-        localHold = false;
+        if(interactor == null)
+            interactor = player.GetComponent<Interactor>();
     }
 
 

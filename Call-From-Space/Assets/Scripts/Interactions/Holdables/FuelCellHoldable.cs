@@ -5,6 +5,8 @@ using UnityEngine;
 public class FuelCellHoldable : Holdable
 {
     public AudioSource audioSource;
+    public Vector3 DepositRotation;
+    public Vector3 DepositPosition;
 
     void Update()
     {
@@ -20,6 +22,18 @@ public class FuelCellHoldable : Holdable
                 audioSource.Play();
             }
         }
+    }
+
+    public void deposit()
+    {
+        DropObject();
+        gameObject.GetComponent<Rigidbody>().useGravity = false;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        gameObject.GetComponent<Holdable>().enabled = false;
+        transform.position = DepositPosition;
+        transform.rotation = Quaternion.Euler(DepositRotation.x, DepositRotation.y, DepositRotation.z);
+        StopGlowEffect();
+        gameObject.GetComponent<Collider>().enabled = false;
     }
 
 

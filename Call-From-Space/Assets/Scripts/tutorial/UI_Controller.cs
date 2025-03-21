@@ -32,6 +32,8 @@ public class UI_Controller : MonoBehaviour
     Interactor interactor;
     public bool IsSpaceSuitOn;
 
+    
+
 
 
 
@@ -47,10 +49,13 @@ public class UI_Controller : MonoBehaviour
     public UI_Types UI_Value;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        inventory = new Inventory();
+    }
     void Start()
     {
         UI_Value = UI_Types.standard;
-        inventory = new Inventory();
         uiInventory = Inventory_UI_Object.GetComponent<UI_Inventory>();
         uiInventory.setInventory(inventory);
 
