@@ -1,10 +1,14 @@
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using System.Linq;
+using Random = UnityEngine.Random;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.AI;
 using SoundSource = PathNode;
+using UnityEditor.Search;
 
 //THIS NEEDS A LOOOOOT OF CLEANUP
 public class AlienController : Loadable
@@ -74,6 +78,7 @@ public class AlienController : Loadable
 
     public bool isAwareOfPlayer = false;
 
+
     enum State
     {
         Hunting,
@@ -83,8 +88,6 @@ public class AlienController : Loadable
 
     [SerializeField]
     State currentState;
-
-    public bool withoutModification;
 
     NavMeshAgent NMA;
     [SerializeField]
@@ -103,10 +106,16 @@ public class AlienController : Loadable
 
     int attentionDecayPerSecond;
 
-    readonly int roamingSpeed = 5;
-    readonly int chasingSpeed = 20;
+    [SerializeField]
+    int roamingSpeed, huntingSpeed;
 
     IEnumerator attentionDecayFunc;
+    [SerializeField] 
+    float roamingAttentionTickRate, alertAttentionTickRate, huntingAttentionTickRate;
+    [NonSerialized] 
+    public float currentAttentionTickRate;
+
+    float lookingAroundLength;
 
     void Start()
     {
@@ -144,12 +153,15 @@ public class AlienController : Loadable
         pathQueue = new Queue<Vector3>();
         currentState = State.Roaming;
 
-        if (withoutModification) NMA.SetDestination(endNodePosition);
-
         attentionDecayFunc = AttentionDecay();
         StartCoroutine(attentionDecayFunc);
 
         attentionDecayPerSecond = 5;
+        currentAttentionTickRate = roamingAttentionTickRate;
+
+        Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
+        SetEndDestination(newEndNode);
+        GoRoaming();
     }
 
     void Update()
@@ -179,32 +191,46 @@ public class AlienController : Loadable
             //    NMA.stoppingDistance = 0;
             //    StartCoroutine(ResetValues(tempAcc, tempSpeed));
             //}
-            if(NMA.remainingDistance < NMA.stoppingDistance)
+            if (NMA.remainingDistance < NMA.stoppingDistance)
+            {
                 angryTimer += Time.deltaTime;
+                if(currentState != State.Alert)
+                    animator.SetBool("isLookingAround", true);
+                animator.SetBool("isRunning", false);
+            }
             if (angryTimer > 5)
             {
                 angryTimer = 0;
                 if (currentState == State.Hunting)
                 {
-                    wanderSoundPoop(5, 10);
-                    goRoaming();
+                    WanderSoundPoop(5, 10);
+                    GoRoaming();
                 }
                 else
                 {
-                    goRoaming();
+                    WanderSoundPoop(3, 5);
+                    GoRoaming();
                 }
             }
 
         }
         else if (pathQueue.Count == 0)
         {
-            pathPauseTimer += Time.deltaTime;
-            if (pathPauseTimer < 2) return;
+            
+            animator.SetBool("isWalking", false);
+            if (pathPauseTimer < 5)
+            {
+                pathPauseTimer += Time.deltaTime;
+                return;
+            }
+
             pathPauseTimer = 0;
 
             Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
-            
-            setEndDestination(newEndNode);
+
+            animator.SetBool("isWalking", true);
+
+            SetEndDestination(newEndNode);
 
         }
         else if (NMA.remainingDistance <= NMA.stoppingDistance)
@@ -279,36 +305,36 @@ public class AlienController : Loadable
         var distanceToPlayer = directionToPlayer.magnitude;
 
         Physics.Raycast(pos, directionToPlayer.normalized, out RaycastHit j, distanceToPlayer, ignoreAlienLayer);
-        // Debug.Log(j.rigidbody);
-        //Debug.DrawRay(pos, directionToPlayer, Color.green);
-        //if (j.rigidbody == playerRb)
-        //{
-        //    // if (curSpeed == runSpeed)
-        //    animator.SetBool("isRunning", true);
-        //    nextSpeed = runSpeed;
-        //    if (distanceToPlayer < attackRadius)
-        //        AttackPlayer();
-        //    else
-        //        GoStraightToPlayer();
-        //}
-        //else if (!justHeardSomething && pathFinder.HasArrived())
-        //{
-        //    blackListedSoundSources.Add(curTarget);
-        //    if (blackListedSoundSources.Count > soundSourcesMemory)
-        //        blackListedSoundSources.RemoveAt(0);
+        Debug.Log(j.rigidbody);
+        Debug.DrawRay(pos, directionToPlayer, Color.green);
+        if (j.rigidbody == playerRb)
+        {
+            // if (curSpeed == runSpeed)
+            animator.SetBool("isRunning", true);
+            nextSpeed = runSpeed;
+            if (distanceToPlayer < attackRadius)
+                AttackPlayer();
+            else
+                GoStraightToPlayer();
+        }
+        else if (!justHeardSomething && pathFinder.HasArrived())
+        {
+            blackListedSoundSources.Add(curTarget);
+            if (blackListedSoundSources.Count > soundSourcesMemory)
+                blackListedSoundSources.RemoveAt(0);
 
-        //    roamer.FindCurrentRoom();
-        //    heardSomething = false;
-        //    if (nextTarget == SoundSource.None)
-        //        Debug.Log("no longer heard anything");
-        //}
-        //else
-        //{
-        //    nextSpeed = walkSpeed;
-        //    pathFinder.CalculatePathPeriodically(curTarget.pos);
-        //    pathFinder.FollowPath();
-        //}
-        //justHeardSomething = false;
+            roamer.FindCurrentRoom();
+            heardSomething = false;
+            if (nextTarget == SoundSource.None)
+                Debug.Log("no longer heard anything");
+        }
+        else
+        {
+            nextSpeed = walkSpeed;
+            pathFinder.CalculatePathPeriodically(curTarget.pos);
+            pathFinder.FollowPath();
+        }
+        justHeardSomething = false;
     }
 
     void RunFromPlayer()
@@ -511,7 +537,7 @@ public class AlienController : Loadable
     //}
 
     //pathfinding functions
-    void setEndDestination(Vector3 endDestination)
+    void SetEndDestination(Vector3 endDestination)
     {
         NavMeshPath navMeshPath = new NavMeshPath();
         NMA.CalculatePath(endDestination, navMeshPath);
@@ -520,7 +546,7 @@ public class AlienController : Loadable
         if (corners.Length == 0)
             Debug.Log("No corners found on path");
 
-        pathQueue = calculatePathQueue(corners);
+        pathQueue = CalculatePathQueue(corners);
         NMA.SetDestination(pathQueue.Peek());
 
         //foreach (Vector3 corner in corners)
@@ -529,7 +555,7 @@ public class AlienController : Loadable
         //}
     }
 
-    Queue<Vector3> calculatePathQueue(Vector3[] corners)
+    Queue<Vector3> CalculatePathQueue(Vector3[] corners)
     {
         Queue<Vector3> pathQueue = new Queue<Vector3>();
 
@@ -579,7 +605,7 @@ public class AlienController : Loadable
         }
     }
     //Make a gameObject at the last known "sound"
-    GameObject generateSoundPoop(Vector3 attentionLocation)
+    GameObject GenerateSoundPoop(Vector3 attentionLocation)
     {
         GameObject otherPoop = GameObject.Find("Sound Poop");
         if (otherPoop != null) Destroy(otherPoop);
@@ -596,41 +622,50 @@ public class AlienController : Loadable
 
         CurrentAttention = Mathf.Clamp(CurrentAttention + attention, 0, 100);
 
-        //ranges 10-60 approaches 10 as attention gets higher
-        int alertAttentionThreshold = 61 - (CurrentAttention / 2 + 1);
+        //ranges 40-0 as attention gets higher
+        int alertAttentionThreshold = (int) (40-0.5f * attention);
 
         Debug.Log("Current attention: " + CurrentAttention);
 
         if (CurrentAttention == 100 && attention > 10)
-            goHunting(attentionLocation);
-        else if (attention > alertAttentionThreshold || (CurrentAttention > 80 && attention > 0))
-            goAlert(attentionLocation);
+            GoHunting(attentionLocation);
+        else if (currentState != State.Hunting && attention > alertAttentionThreshold)
+            GoAlert(attentionLocation);
     }
 
-    void goHunting(Vector3 attentionLocation)
+    void GoHunting(Vector3 attentionLocation)
     {
+        animator.SetBool("isRunning", true);
+
         angryTimer = 0f;
         StopCoroutine(attentionDecayFunc);
         NMA.ResetPath();
 
-        GameObject soundPoop = generateSoundPoop(attentionLocation);
+        GameObject soundPoop = GenerateSoundPoop(attentionLocation);
         currentState = State.Hunting;
         //NMA.velocity = (attentionLocation - transform.position).normalized * 100;
-        NMA.speed = chasingSpeed;
+        NMA.speed = huntingSpeed;
+        currentAttentionTickRate = huntingAttentionTickRate;
+        NMA.angularSpeed = 360;
         NMA.SetDestination(soundPoop.transform.position);
     }
 
-    void goAlert(Vector3 attentionLocation)
+    void GoAlert(Vector3 attentionLocation)
     {
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isLookingAround", false);
+
         angryTimer = 0f;
         StopCoroutine(attentionDecayFunc);
-        GameObject soundPoop = generateSoundPoop(attentionLocation);
+        currentAttentionTickRate = alertAttentionTickRate;
+        GameObject soundPoop = GenerateSoundPoop(attentionLocation);
         currentState = State.Alert;
         NMA.ResetPath();
         transform.LookAt(soundPoop.transform.position);
     }
 
-    void wanderSoundPoop(int times, float range)
+    void WanderSoundPoop(int times, float range)
     {
         NMA.speed = roamingSpeed;
         //i dont really wanna do this
@@ -658,10 +693,15 @@ public class AlienController : Loadable
         }
     }
 
-    void goRoaming()
+    void GoRoaming()
     {
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isWalking", true);
+        animator.SetBool("isLookingAround", true);
         StartCoroutine(attentionDecayFunc);
         NMA.speed = roamingSpeed;
+        NMA.angularSpeed = 120;
+        currentAttentionTickRate = roamingAttentionTickRate;
         currentState = State.Roaming;
         NMA.SetDestination(pathQueue.Peek());
     }

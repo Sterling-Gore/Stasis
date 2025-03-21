@@ -67,8 +67,6 @@ public class PlayerAttention : MonoBehaviour
     }
     IEnumerator InSoundBubble()
     {
-        var wait = new WaitForSeconds(1);
-
         while (true)
         {
             Vector3 alienPosition = alienController.gameObject.transform.position;
@@ -80,7 +78,7 @@ public class PlayerAttention : MonoBehaviour
 
             //Debug.Log(attentionIncrease);
             alienController.IncreaseAttention(attentionIncrease, this.transform.position);
-            yield return wait;
+            yield return new WaitForSeconds(alienController.currentAttentionTickRate);
         }
     }
 }

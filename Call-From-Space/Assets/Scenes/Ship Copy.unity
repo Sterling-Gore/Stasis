@@ -50626,7 +50626,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.11000001
+  m_VoxelSize: 0.16333334
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 75133b53df438e64aa1a91d7fb349434, type: 2}
   m_BuildHeightMesh: 0
@@ -115573,6 +115573,94 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1767421129}
     m_Modifications:
+    - target: {fileID: -5538985522780130180, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: RoomC
+      objectReference: {fileID: 0}
+    - target: {fileID: -4560396753889398336, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
+    - target: {fileID: -3690676483951470995, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: RoomB2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2551024801322289709, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
+    - target: {fileID: -2384658835620542840, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: RoomB
+      objectReference: {fileID: 0}
+    - target: {fileID: -1891630423312683343, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: Shuttle
+      objectReference: {fileID: 0}
+    - target: {fileID: -390467250922167010, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
+    - target: {fileID: -383518810844267698, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
+    - target: {fileID: 26844662620191305, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: HallwayIntersection1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945454400225530728, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
+    - target: {fileID: 1845659267115267424, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
+    - target: {fileID: 2664315668225096746, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: RoomB1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5511774174995466309, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: Main_Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 5666858511584735161, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: RoomC2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169906289649396933, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
+    - target: {fileID: 6294062970213516557, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
+    - target: {fileID: 6510112150598826555, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: RoomA1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806708169297508064, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: RoomC1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109989669349563735, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: RoomA_and_hallway
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917349904687423284, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: HallwayIntersection2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7964157543444745748, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Name
+      value: RoomA2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012127091042276642, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
     - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.165
@@ -115777,94 +115865,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    - target: {fileID: -5538985522780130180, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: RoomC
-      objectReference: {fileID: 0}
-    - target: {fileID: -4560396753889398336, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
-    - target: {fileID: -3690676483951470995, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: RoomB2
-      objectReference: {fileID: 0}
-    - target: {fileID: -2551024801322289709, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
-    - target: {fileID: -2384658835620542840, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: RoomB
-      objectReference: {fileID: 0}
-    - target: {fileID: -1891630423312683343, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: Shuttle
-      objectReference: {fileID: 0}
-    - target: {fileID: -390467250922167010, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
-    - target: {fileID: -383518810844267698, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
-    - target: {fileID: 26844662620191305, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: HallwayIntersection1
-      objectReference: {fileID: 0}
-    - target: {fileID: 945454400225530728, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
-    - target: {fileID: 1845659267115267424, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
-    - target: {fileID: 2664315668225096746, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: RoomB1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5511774174995466309, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: Main_Room
-      objectReference: {fileID: 0}
-    - target: {fileID: 5666858511584735161, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: RoomC2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169906289649396933, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
-    - target: {fileID: 6294062970213516557, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
-    - target: {fileID: 6510112150598826555, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: RoomA1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6806708169297508064, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: RoomC1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7109989669349563735, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: RoomA_and_hallway
-      objectReference: {fileID: 0}
-    - target: {fileID: 7917349904687423284, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: HallwayIntersection2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7964157543444745748, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Name
-      value: RoomA2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8012127091042276642, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -160532,6 +160532,37 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1281797812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1281797813}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1281797813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281797812}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.9176955, y: 31.589935, z: 35.033512}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1282759427
 GameObject:
   m_ObjectHideFlags: 0
@@ -161033,9 +161064,9 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.11000001
+  m_VoxelSize: 0.16333334
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: d8efecdbe1fcbdc4594d10d52c39d0a1, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f7e66a55224205b46872e81f2290fb0a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1290428531
 PrefabInstance:
@@ -243134,8 +243165,8 @@ Rigidbody:
   m_GameObject: {fileID: 1712228428}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 0.05
+  m_Drag: 20
+  m_AngularDrag: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -243230,10 +243261,14 @@ MonoBehaviour:
   attackCooldown: 3
   isAwareOfPlayer: 0
   currentState: 1
-  withoutModification: 0
   previousNode: {fileID: 0}
   nodePositions: []
   CurrentAttention: 0
+  roamingSpeed: 2
+  huntingSpeed: 4
+  roamingAttentionTickRate: 1
+  alertAttentionTickRate: 0.5
+  huntingAttentionTickRate: 0.1
 --- !u!195 &1712228435
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -243244,8 +243279,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 2
+  m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 1
@@ -312645,3 +312680,4 @@ SceneRoots:
   - {fileID: 1584605653}
   - {fileID: 1546319764}
   - {fileID: 6162559}
+  - {fileID: 1281797813}
