@@ -24,6 +24,11 @@ public class WorkshopStart : MonoBehaviour
     public PickUp BlueKeyCard; 
     public PickUp StickyNote; 
 
+    [Header("Dark Figure Events")]
+    public GameObject FrontRoomDarkFigureTrigger;
+    public GameObject VentDarkFigureTrigger;
+    public GameObject ConferenceRoomDarkFigureTrigger;
+
 
     void Awake()
     {
@@ -78,10 +83,13 @@ public class WorkshopStart : MonoBehaviour
     void SpawnInFrontRoom(bool onStart = false)
     {
         workshopSavePoint = WorkshopSavePoint.FrontRoom;
+        FrontRoomDarkFigureTrigger.SetActive(false);
     }
     void SpawnInGen1(bool onStart = false)
     {
         workshopSavePoint = WorkshopSavePoint.Gen1;
+        FrontRoomDarkFigureTrigger.SetActive(false);
+        VentDarkFigureTrigger.SetActive(false);
         if(onStart)
         {
             StickyNote.pickUp();
@@ -92,6 +100,9 @@ public class WorkshopStart : MonoBehaviour
     void SpawnInGen2(bool onStart = false)
     {
         workshopSavePoint = WorkshopSavePoint.Gen2;
+        FrontRoomDarkFigureTrigger.SetActive(false);
+        VentDarkFigureTrigger.SetActive(false);
+        ConferenceRoomDarkFigureTrigger.SetActive(false);
         if(onStart)
         {
             StickyNote.pickUp();
