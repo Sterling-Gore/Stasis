@@ -20,6 +20,9 @@ public class PickUp : Interactable
     public Ship_button_interaction ButtonForRadio;
     public GameObject TriggerForCockpit;
 
+    [Header("WOEKSHOP")]
+    public ManagerDarkFigure DarkFigureForPurpleKey;
+
 
 
     override protected void Awake()
@@ -59,6 +62,12 @@ public class PickUp : Interactable
                 helptextForRadio.PressTAB = true;
                 ButtonForRadio.off_until_special = false;
                 TriggerForCockpit.SetActive(true);
+                break;
+            case "Purple Access Key":
+                DarkFigureForPurpleKey.spawnFigure();
+                break;
+            case "Orange Access Key":
+                DarkFigureForPurpleKey.spawnFigure();
                 break;
             default:
                 break;

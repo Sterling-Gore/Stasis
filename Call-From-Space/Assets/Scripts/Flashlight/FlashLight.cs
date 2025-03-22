@@ -7,15 +7,16 @@ using UnityEngine.UI;
 public class Flashlight : Loadable
 {
     public GameObject LightBar;
-    Light light;
+    public Light light;
     public bool playSound;
     public AudioSource audioSource;
     public AudioClip flashlightSoundOn;
     public AudioClip flashlightSoundOff;
+    public AudioClip breakingLightSound;
     public UI_Controller ui_controller;
 
     public float flashlightTimer;
-    bool isOn;
+    public bool isOn;
 
 
     void Start()
@@ -74,6 +75,20 @@ public class Flashlight : Loadable
             light.enabled = true;
         }
         isOn = !isOn;
+    }
+
+    public void turnOffLight()
+    {
+        if (isOn)
+        {
+            light.enabled = false;
+            if (playSound)
+            {
+                audioSource.clip = breakingLightSound;
+                audioSource.PlayOneShot(clip: audioSource.clip);
+            }
+            isOn = !isOn;
+        }
     }
 
     public override void Load(JObject state)

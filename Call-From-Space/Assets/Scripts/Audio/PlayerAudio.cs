@@ -35,7 +35,7 @@ public class PlayerAudio : MonoBehaviour
        // else
        //     breathing.enabled = true;
         walking.pitch = speedo.speed / 3;
-        if(!walking.isPlaying)
+        if(!walking.isPlaying && (speedo.speed / 3) > 0.5)
         {
             walking.PlayOneShot(FootSteps[Random.Range(0, FootSteps.Length)]);
             //Debug.Log("PLAY");
