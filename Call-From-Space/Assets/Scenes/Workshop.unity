@@ -40716,7 +40716,7 @@ Transform:
   m_GameObject: {fileID: 362943805}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.6834919, z: -0, w: 0.72995824}
-  m_LocalPosition: {x: 9.17, y: -3.57, z: 115.25}
+  m_LocalPosition: {x: -3.2, y: -3.57, z: 91.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -118103,6 +118103,7 @@ MonoBehaviour:
   player: {fileID: 362943805}
   managerDarkFigure: {fileID: 637712837}
   FigureCollider: {fileID: 936431392}
+  EndingTrigger: {fileID: 575545239}
 --- !u!65 &936431392
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class RayCastTriggerDarkFigure : MonoBehaviour
     public GameObject player;
     public ManagerDarkFigure managerDarkFigure;
     public Collider FigureCollider;
+    public GameObject EndingTrigger;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class RayCastTriggerDarkFigure : MonoBehaviour
             if(otherCollider != null && FigureCollider == otherCollider)
             {
                 FigureCollider.enabled = false;
+                EndingTrigger.SetActive(false);
                 StartCoroutine(despawnFigure());
             }
         }
