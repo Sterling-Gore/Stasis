@@ -109,7 +109,7 @@ public class AlienController : Loadable
     int attentionDecayPerSecond;
 
     [SerializeField]
-    int roamingSpeed, huntingSpeed;
+    float roamingSpeed, huntingSpeed;
 
     IEnumerator attentionDecayFunc;
     [SerializeField] 
@@ -219,15 +219,16 @@ public class AlienController : Loadable
             }
             if (angryTimer > 5)
             {
+                CurrentAttention -= 30;
                 angryTimer = 0;
                 if (currentState == State.Hunting)
                 {
-                    WanderSoundPoop(5, 10);
+                    WanderSoundPoop(3, 5);
                     GoRoaming();
                 }
                 else
                 {
-                    WanderSoundPoop(3, 5);
+                    WanderSoundPoop(1, 7);
                     GoRoaming();
                 }
             }
@@ -637,7 +638,9 @@ public class AlienController : Loadable
     {
         while (true)
         {
-            CurrentAttention = Mathf.Clamp(CurrentAttention - attentionDecayPerSecond, 0, 100);
+            if(CurrentAttention > attentionDecayPerSecond)
+                CurrentAttention = CurrentAttention - attentionDecayPerSecond;
+            //CurrentAttention = Mathf.Clamp(CurrentAttention - attentionDecayPerSecond, 0, 100);
             yield return new WaitForSeconds(1f);
         }
     }
@@ -659,14 +662,14 @@ public class AlienController : Loadable
 
         CurrentAttention = Mathf.Clamp(CurrentAttention + attention, 0, 100);
 
-        //ranges 40-0 as attention gets higher
+        //ranges 41-1 as attention gets higher
         int alertAttentionThreshold = (int) (40-0.5f * CurrentAttention);
 
         Debug.Log("Current attention: " + CurrentAttention);
 
-        if (CurrentAttention == 100)
+        if (CurrentAttention == 100 && attention > 5)
             GoHunting(attentionLocation);
-        else if (currentState != State.Hunting && attention > alertAttentionThreshold)
+        else if (currentState != State.Hunting && attention > alertAttentionThreshold && attention > 1)
             GoAlert(attentionLocation);
     }
 
