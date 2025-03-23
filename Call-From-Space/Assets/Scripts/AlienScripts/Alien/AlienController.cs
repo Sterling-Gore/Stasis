@@ -524,7 +524,7 @@ public class AlienController : Loadable
 
         int initialThreshold = 5000;
 
-        walkingMufflerFilter.cutoffFrequency = hits.Length > 0 ? (int)(initialThreshold * (0.5 / hits.Length)) : initialThreshold;
+        walkingMufflerFilter.cutoffFrequency = hits.Length > 0 ? (int)(initialThreshold * (0.8 / hits.Length)) : initialThreshold;
         PlayRandomAudio(walkingAudio, walkingClips);
     }
 
