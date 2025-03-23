@@ -938,7 +938,7 @@ MonoBehaviour:
   nodePositions: []
   CurrentAttention: 0
   roamingSpeed: 2
-  huntingSpeed: 4
+  huntingSpeed: 3.8
   roamingAttentionTickRate: 1
   alertAttentionTickRate: 0.5
   huntingAttentionTickRate: 0.1
