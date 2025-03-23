@@ -213,6 +213,7 @@ public class AlienController : Loadable
                 if(currentState != State.Alert)
                     animator.SetBool("isLookingAround", true);
                 animator.SetBool("isRunning", false);
+                animator.SetBool("isWalking", false);
             }
             if (angryTimer > 5)
             {

@@ -620,6 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3c76def26530b46bea312109327a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noiseValue: 10
 --- !u!4 &7409874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 09f3091111694e74ab64e46ec7a3a2aa, type: 3}
@@ -146124,7 +146125,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
+  MinDistance: 5
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

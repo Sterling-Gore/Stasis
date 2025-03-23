@@ -16,7 +16,7 @@ public class PlayerAttention : MonoBehaviour
     speedometer speed;
     float movementChangeDelay;
 
-    IEnumerator InSoundBubbleHolder;
+    IEnumerator MovementAttentionHolder;
 
     Dictionary<Player_Movement.MovementStates, int> movementAttentionValues = new Dictionary<Player_Movement.MovementStates, int>
                                                     {
@@ -30,8 +30,8 @@ public class PlayerAttention : MonoBehaviour
     void Start()
     {
         alienController = GameObject.FindGameObjectWithTag("Alien").GetComponent<AlienController>();
-        InSoundBubbleHolder = MovementAttention();
-        StartCoroutine(InSoundBubbleHolder);
+        MovementAttentionHolder = MovementAttention();
+        StartCoroutine(MovementAttentionHolder);
         mover = GetComponent<Player_Movement>();
         speed = GetComponent<speedometer>();
         movementChangeDelay = 0;
@@ -57,10 +57,10 @@ public class PlayerAttention : MonoBehaviour
             Vector3 alienPosition = alienController.gameObject.transform.position;
             //just some random equation i made so attention it realisticly hears u more when you're are closer
             //int attentionIncrease = soundTypeValue - ((int)Math.Pow(Vector3.Distance(alienPosition, transform.position), 2)) / (5*soundTypeValue);
-            int attentionIncrease = AttentionCalculator.calculateAttention(soundTypeValue, transform.position, alienPosition);
+            AlienAttentionHandler.NoiseToAttentionIncrease(soundTypeValue, transform.position);
 
             //Debug.Log(attentionIncrease);
-            alienController.IncreaseAttention(attentionIncrease, this.transform.position);
+            //alienController.IncreaseAttention(attentionIncrease, this.transform.position);
             yield return new WaitForSeconds(alienController.currentAttentionTickRate);
         }
     }
