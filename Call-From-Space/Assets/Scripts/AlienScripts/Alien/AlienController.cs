@@ -58,6 +58,7 @@ public class AlienController : Loadable
     Animator animator;
 
     AudioSource walkingAudio, idleAudio, attackAudio;
+    AudioLowPassFilter walkingMufflerFilter;
 
     [Header("Audio")]
     public List<AudioClip> walkingClips = new();
@@ -126,18 +127,19 @@ public class AlienController : Loadable
 
         curSpeed = nextSpeed = walkSpeed;
 
-        pathFinder = new(this);
-        roamer = GetComponent<RoamController>();
+        //pathFinder = new(this);
+        //roamer = GetComponent<RoamController>();
 
-        UpdatePowerLevel(PowerLevel.instance.currentPowerLevel);
-        PowerLevel.instance.SubscribeToUpdates(powerLevel => UpdatePowerLevel(powerLevel));
+        ////UpdatePowerLevel(PowerLevel.instance.currentPowerLevel);
+        ////PowerLevel.instance.SubscribeToUpdates(powerLevel => UpdatePowerLevel(powerLevel));
 
-        roamer.Init(this);
+        //roamer.Init(this);
 
         Transform sounds = transform.Find("Sounds");
         idleAudio = sounds.Find("IdleSounds").gameObject.GetComponent<AudioSource>();
         walkingAudio = sounds.Find("WalkSounds").gameObject.GetComponent<AudioSource>();
         attackAudio = sounds.Find("AttackSounds").gameObject.GetComponent<AudioSource>();
+        walkingMufflerFilter = sounds.Find("WalkSounds").gameObject.GetComponent<AudioLowPassFilter>();
 
         //aliens.Add(this);
         //ignoreAlienLayer = ~(
@@ -157,7 +159,7 @@ public class AlienController : Loadable
         attentionDecayFunc = AttentionDecay();
         StartCoroutine(attentionDecayFunc);
 
-        attentionDecayPerSecond = 5;
+        attentionDecayPerSecond = 3;
         currentAttentionTickRate = roamingAttentionTickRate;
 
         Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
@@ -285,13 +287,13 @@ public class AlienController : Loadable
         // Debug.DrawRay(transform.position + Vector3.up, player.transform.position - transform.position + Vector3.up);
     }
 
-    override protected void OnDestroy()
-    {
-        aliens.Remove(this);
-        pathFinder.Dispose();
-        pathGraph.Dispose();
-        base.OnDestroy();
-    }
+    //override protected void OnDestroy()
+    //{
+    //    aliens.Remove(this);
+    //    pathFinder.Dispose();
+    //    pathGraph.Dispose();
+    //    base.OnDestroy();
+    //}
 
     void KeepUpright()
     {
@@ -510,7 +512,21 @@ public class AlienController : Loadable
         return curSpeed;
     }
 
-    public void PlayRandomWalkAudio() => PlayRandomAudio(walkingAudio, walkingClips);
+    public void PlayRandomWalkAudio()
+    {
+        RaycastHit[] hits;
+        LayerMask wallMask = LayerMask.GetMask("Surfaces");
+
+        hits = Physics.RaycastAll(player.transform.position,
+            (transform.position - player.transform.position).normalized,
+            Vector3.Distance(player.transform.position, transform.position),
+            wallMask);
+
+        int initialThreshold = 5000;
+
+        walkingMufflerFilter.cutoffFrequency = hits.Length > 0 ? (int)(initialThreshold * (0.5 / hits.Length)) : initialThreshold;
+        PlayRandomAudio(walkingAudio, walkingClips);
+    }
 
     public void PlayRandomAttackAudio() => PlayRandomAudio(attackAudio, attackClips);
 
@@ -518,7 +534,7 @@ public class AlienController : Loadable
 
     void PlayRandomAudio(AudioSource audioSource, List<AudioClip> audioClips)
     {
-        if (Time.timeScale > 0 && !audioSource.isPlaying && audioClips.Count != 0)
+        if (Time.timeScale > 0 && audioClips.Count != 0)
         {
 
             //float distance = Vector3.Distance(transform.position, player.transform.position);
@@ -531,41 +547,10 @@ public class AlienController : Loadable
             //}
 
             //play one shot does not work for some reason even though all the documentation points to it should being able to work >:c
-            //audioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Count)]);
+            audioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Count)]);
 
-            audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
-            PlayClipAtPoint(audioSource, transform.position);
+
         }
-    }
-    public AudioSource PlayClipAtPoint(AudioSource audioSource, Vector3 pos)
-    {
-        GameObject tempGO = new GameObject("TempAudio"); // create the temp object
-        tempGO.transform.position = pos; // set its position
-        tempGO.transform.parent = transform;
-        AudioSource tempASource = tempGO.AddComponent<AudioSource>(); // add an audio source
-        tempASource.clip = audioSource.clip;
-        tempASource.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
-        tempASource.mute = audioSource.mute;
-        tempASource.bypassEffects = audioSource.bypassEffects;
-        tempASource.bypassListenerEffects = audioSource.bypassListenerEffects;
-        tempASource.bypassReverbZones = audioSource.bypassReverbZones;
-        tempASource.playOnAwake = audioSource.playOnAwake;
-        tempASource.loop = audioSource.loop;
-        tempASource.priority = audioSource.priority;
-        tempASource.volume = audioSource.volume;
-        tempASource.pitch = audioSource.pitch;
-        tempASource.panStereo = audioSource.panStereo;
-        tempASource.spatialBlend = audioSource.spatialBlend;
-        tempASource.reverbZoneMix = audioSource.reverbZoneMix;
-        tempASource.dopplerLevel = audioSource.dopplerLevel;
-        tempASource.rolloffMode = audioSource.rolloffMode;
-        tempASource.minDistance = audioSource.minDistance;
-        tempASource.spread = audioSource.spread;
-        tempASource.maxDistance = audioSource.maxDistance;
-        // set other aSource properties here, if desired
-        tempASource.Play(); // start the sound
-        MonoBehaviour.Destroy(tempGO, tempASource.clip.length); // destroy object after clip duration (this will not account for whether it is set to loop)
-        return tempASource; // return the AudioSource reference
     }
 
     public override void Load(JObject state)
@@ -675,11 +660,11 @@ public class AlienController : Loadable
         CurrentAttention = Mathf.Clamp(CurrentAttention + attention, 0, 100);
 
         //ranges 40-0 as attention gets higher
-        int alertAttentionThreshold = (int) (40-0.5f * attention);
+        int alertAttentionThreshold = (int) (40-0.5f * CurrentAttention);
 
         Debug.Log("Current attention: " + CurrentAttention);
 
-        if (CurrentAttention == 100 && attention > 10)
+        if (CurrentAttention == 100)
             GoHunting(attentionLocation);
         else if (currentState != State.Hunting && attention > alertAttentionThreshold)
             GoAlert(attentionLocation);

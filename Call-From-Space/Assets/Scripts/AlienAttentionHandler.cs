@@ -18,7 +18,7 @@ public static class AlienAttentionHandler
             wallMask);
 
         int dampenedAttention = hits.Length > 0 ? (int)(attentionIncrease * (0.5 / hits.Length)) : attentionIncrease;
-        Debug.Log("# walls: " + hits.Length + " | original attention: " + attentionIncrease + " | modified attention: " + dampenedAttention);
+        //Debug.Log("# walls: " + hits.Length + " | original attention: " + attentionIncrease + " | modified attention: " + dampenedAttention);
 
         return dampenedAttention;
     }

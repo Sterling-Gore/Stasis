@@ -21,7 +21,7 @@ public class PlayerAttention : MonoBehaviour
     Dictionary<Player_Movement.MovementStates, int> movementAttentionValues = new Dictionary<Player_Movement.MovementStates, int>
                                                     {
                                                         {Player_Movement.MovementStates.still, 0 },
-                                                        {Player_Movement.MovementStates.crouch, 5 },
+                                                        {Player_Movement.MovementStates.crouch, 8 },
                                                         {Player_Movement.MovementStates.walk, 15 },
                                                         {Player_Movement.MovementStates.sprint, 30 }
                                                     };
