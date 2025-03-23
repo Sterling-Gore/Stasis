@@ -524,8 +524,9 @@ public class AlienController : Loadable
             wallMask);
 
         int initialThreshold = 5000;
-
-        walkingMufflerFilter.cutoffFrequency = hits.Length > 0 ? (int)(initialThreshold * (0.8 / hits.Length)) : initialThreshold;
+        float initialVolume = 1;
+        walkingAudio.volume = hits.Length > 0 ? (initialVolume* (0.5f / hits.Length)) : initialVolume;
+        walkingMufflerFilter.cutoffFrequency = hits.Length > 0 ? (int)(initialThreshold * (0.6f / hits.Length)) : initialThreshold;
         PlayRandomAudio(walkingAudio, walkingClips);
     }
 
