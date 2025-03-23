@@ -30,7 +30,7 @@ public class PlayerAttention : MonoBehaviour
     void Start()
     {
         alienController = GameObject.FindGameObjectWithTag("Alien").GetComponent<AlienController>();
-        InSoundBubbleHolder = InSoundBubble();
+        InSoundBubbleHolder = MovementAttention();
         StartCoroutine(InSoundBubbleHolder);
         mover = GetComponent<Player_Movement>();
         speed = GetComponent<speedometer>();
@@ -50,31 +50,14 @@ public class PlayerAttention : MonoBehaviour
         soundTypeValue = movementAttentionValues[target];
     }
 
-    int checkForWallDampening(int attentionIncrease, Vector3 alienPosition)
-    {
-        RaycastHit[] hits;
-        LayerMask wallMask = LayerMask.GetMask("Surfaces");
-
-        hits = Physics.RaycastAll(this.transform.position,
-            (alienPosition - this.transform.position).normalized,
-            Vector3.Distance(this.transform.position, alienPosition),
-            wallMask);
-
-        int dampenedAttention = hits.Length > 0 ? (int)(attentionIncrease * (0.5 / hits.Length)) : attentionIncrease;
-        Debug.Log("# walls: " + hits.Length + " | original attention: " + attentionIncrease + " | modified attention: " + dampenedAttention);
-
-        return dampenedAttention;
-    }
-    IEnumerator InSoundBubble()
+    IEnumerator MovementAttention()
     {
         while (true)
         {
             Vector3 alienPosition = alienController.gameObject.transform.position;
             //just some random equation i made so attention it realisticly hears u more when you're are closer
             //int attentionIncrease = soundTypeValue - ((int)Math.Pow(Vector3.Distance(alienPosition, transform.position), 2)) / (5*soundTypeValue);
-            int attentionIncrease = (int)(soundTypeValue * (soundTypeValue / Vector3.Distance(alienPosition, transform.position)));
-            attentionIncrease = checkForWallDampening(attentionIncrease, alienPosition);
-            attentionIncrease = Mathf.Clamp(attentionIncrease, 0, 100);
+            int attentionIncrease = AttentionCalculator.calculateAttention(soundTypeValue, transform.position, alienPosition);
 
             //Debug.Log(attentionIncrease);
             alienController.IncreaseAttention(attentionIncrease, this.transform.position);
