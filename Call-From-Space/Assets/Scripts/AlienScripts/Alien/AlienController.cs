@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using SoundSource = PathNode;
 using UnityEditor.Search;
+using Unity.VisualScripting;
 
 //THIS NEEDS A LOOOOOT OF CLEANUP
 public class AlienController : Loadable
@@ -535,10 +536,11 @@ public class AlienController : Loadable
             PlayClipAtPoint(audioSource, transform.position);
         }
     }
-    public static AudioSource PlayClipAtPoint(AudioSource audioSource, Vector3 pos)
+    public AudioSource PlayClipAtPoint(AudioSource audioSource, Vector3 pos)
     {
         GameObject tempGO = new GameObject("TempAudio"); // create the temp object
         tempGO.transform.position = pos; // set its position
+        tempGO.transform.parent = transform;
         AudioSource tempASource = tempGO.AddComponent<AudioSource>(); // add an audio source
         tempASource.clip = audioSource.clip;
         tempASource.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
@@ -684,6 +686,9 @@ public class AlienController : Loadable
 
     void GoHunting(Vector3 attentionLocation)
     {
+        if (currentState != State.Hunting)
+            StartCoroutine(RepeatAttackingSound());
+
         animator.SetBool("isRunning", true);
 
         angryTimer = 0f;
@@ -699,8 +704,21 @@ public class AlienController : Loadable
         NMA.SetDestination(soundPoop.transform.position);
     }
 
+    IEnumerator RepeatAttackingSound()
+    {
+        bool flag = false;
+        while(currentState == State.Hunting || !flag)
+        {
+            if(currentState == State.Hunting)
+                flag = true;
+            PlayRandomAttackAudio();
+            yield return new WaitForSeconds(5f);
+        }
+    }
+
     void GoAlert(Vector3 attentionLocation)
     {
+        PlayRandomIdleAudio();
         animator.SetBool("isRunning", false);
         animator.SetBool("isWalking", false);
         animator.SetBool("isLookingAround", false);
