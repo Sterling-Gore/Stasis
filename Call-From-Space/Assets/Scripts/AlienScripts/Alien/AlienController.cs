@@ -166,6 +166,21 @@ public class AlienController : Loadable
 
     void Update()
     {
+        //animator.SetBool("isWalking", true);
+        //animator.SetBool("isRunning", true);
+        //animator.SetBool("isLookingAround", false);
+        //return;
+        //if (currentState == State.Roaming)
+        //{
+        //    Rigidbody rb = GetComponent<Rigidbody>();
+        //    Vector3 v3Velocity = rb.velocity;
+
+        //    if (rb.velocity.sqrMagnitude > 0 && !walkingAudio.isPlaying)
+        //    {
+        //        PlayRandomWalkAudio();
+        //    }
+        //}
+
         if (currentState == State.Hunting || currentState == State.Alert)
         {
 
@@ -503,17 +518,51 @@ public class AlienController : Loadable
     {
         if (Time.timeScale > 0 && !audioSource.isPlaying && audioClips.Count != 0)
         {
+
+            //float distance = Vector3.Distance(transform.position, player.transform.position);
+            //if (distance > maxAudioDistance)
+            //    audioSource.volume = 0;
+            //else
+            //{
+            //    float volume = Mathf.Lerp(1, 0, (distance - minAudioDistance) / (maxAudioDistance - minAudioDistance));
+            //    audioSource.volume = volume;
+            //}
+
+            //play one shot does not work for some reason even though all the documentation points to it should being able to work >:c
+            //audioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Count)]);
+
             audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
-            audioSource.Play();
-            float distance = Vector3.Distance(transform.position, player.transform.position);
-            if (distance > maxAudioDistance)
-                audioSource.volume = 0;
-            else
-            {
-                float volume = Mathf.Lerp(1, 0, (distance - minAudioDistance) / (maxAudioDistance - minAudioDistance));
-                audioSource.volume = volume;
-            }
+            PlayClipAtPoint(audioSource, transform.position);
         }
+    }
+    public static AudioSource PlayClipAtPoint(AudioSource audioSource, Vector3 pos)
+    {
+        GameObject tempGO = new GameObject("TempAudio"); // create the temp object
+        tempGO.transform.position = pos; // set its position
+        AudioSource tempASource = tempGO.AddComponent<AudioSource>(); // add an audio source
+        tempASource.clip = audioSource.clip;
+        tempASource.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
+        tempASource.mute = audioSource.mute;
+        tempASource.bypassEffects = audioSource.bypassEffects;
+        tempASource.bypassListenerEffects = audioSource.bypassListenerEffects;
+        tempASource.bypassReverbZones = audioSource.bypassReverbZones;
+        tempASource.playOnAwake = audioSource.playOnAwake;
+        tempASource.loop = audioSource.loop;
+        tempASource.priority = audioSource.priority;
+        tempASource.volume = audioSource.volume;
+        tempASource.pitch = audioSource.pitch;
+        tempASource.panStereo = audioSource.panStereo;
+        tempASource.spatialBlend = audioSource.spatialBlend;
+        tempASource.reverbZoneMix = audioSource.reverbZoneMix;
+        tempASource.dopplerLevel = audioSource.dopplerLevel;
+        tempASource.rolloffMode = audioSource.rolloffMode;
+        tempASource.minDistance = audioSource.minDistance;
+        tempASource.spread = audioSource.spread;
+        tempASource.maxDistance = audioSource.maxDistance;
+        // set other aSource properties here, if desired
+        tempASource.Play(); // start the sound
+        MonoBehaviour.Destroy(tempGO, tempASource.clip.length); // destroy object after clip duration (this will not account for whether it is set to loop)
+        return tempASource; // return the AudioSource reference
     }
 
     public override void Load(JObject state)

@@ -6341,6 +6341,16 @@ MonoBehaviour:
   GenUI: {fileID: 0}
   player: {fileID: 0}
   generatorType: 2
+  saveManager: {fileID: 0}
+  finished: 0
+  ScreenSparkle: {fileID: 0}
+  FuelDepositSparkle: {fileID: 0}
+  genDoorAnimator: {fileID: 0}
+  FuelDepositCollider: {fileID: 0}
+  FuelCell: {fileID: 0}
+  genRepeatingAudio: {fileID: 0}
+  particles: {fileID: 0}
+  powerManager: {fileID: 0}
 --- !u!65 &83756597
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8877,13 +8887,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &121244518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49791,13 +49801,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &413374366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49969,13 +49979,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &415494774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64560,6 +64570,8 @@ MonoBehaviour:
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   player: {fileID: 0}
   audioSource: {fileID: 557712582}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!82 &557712582
 AudioSource:
   m_ObjectHideFlags: 0
@@ -82879,6 +82891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ambiance: {fileID: 0}
   VHSstatic: {fileID: 0}
+  sceneLoader: {fileID: 0}
 --- !u!1 &702624195
 GameObject:
   m_ObjectHideFlags: 0
@@ -89852,17 +89865,12 @@ MonoBehaviour:
   fullName: 
   special: 1
   interactionType: 0
-  FuelCell: {fileID: 1864302896}
   player: {fileID: 0}
   powerLevel: {fileID: 1351950743}
-  soundRadius: 1000
-  rotation: {x: 0, y: 135, z: 90}
-  position: {x: -71.106, y: 3.409, z: 52.725}
   particles: {fileID: 569793738}
   gen: {fileID: 83756596}
   genPowerAudio: {fileID: 721424317}
   genRepeatingAudio: {fileID: 721424318}
-  Sparkle: {fileID: 1609929025}
 --- !u!65 &721424316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -113503,6 +113511,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9000000, guid: 535a4d05ec8d5b647b037b02d4444a8a, type: 2}
     - target: {fileID: 5866666021909216657, guid: 197c9625394977242b6934364f859e49, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 197c9625394977242b6934364f859e49, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 7530e81ae4c745149be1ac4b38c8049c, type: 2}
@@ -114863,13 +114875,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &883197009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129057,6 +129069,16 @@ MonoBehaviour:
   GenUI: {fileID: 0}
   player: {fileID: 0}
   generatorType: 1
+  saveManager: {fileID: 0}
+  finished: 0
+  ScreenSparkle: {fileID: 0}
+  FuelDepositSparkle: {fileID: 0}
+  genDoorAnimator: {fileID: 0}
+  FuelDepositCollider: {fileID: 0}
+  FuelCell: {fileID: 0}
+  genRepeatingAudio: {fileID: 0}
+  particles: {fileID: 0}
+  powerManager: {fileID: 0}
 --- !u!65 &1008121232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -146081,15 +146103,15 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 50bf1c3b4a5aaa64497265a2bed596a2, type: 2}
   m_audioClip: {fileID: 8300000, guid: c4907167a204a497e815ab00f9aac686, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.461
-  m_Pitch: 1
+  m_Volume: 1
+  m_Pitch: 0.5
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 2
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -146125,7 +146147,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -154968,13 +154990,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &1214503856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157240,13 +157262,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &1245518533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158076,17 +158098,12 @@ MonoBehaviour:
   fullName: 
   special: 1
   interactionType: 0
-  FuelCell: {fileID: 1824025911}
   player: {fileID: 0}
   powerLevel: {fileID: 1351950743}
-  soundRadius: 1000
-  rotation: {x: 0, y: 0, z: 90}
-  position: {x: -84.522, y: 3.409, z: 26.924}
   particles: {fileID: 879970556}
   gen: {fileID: 1008121231}
   genPowerAudio: {fileID: 1256523195}
   genRepeatingAudio: {fileID: 1256523196}
-  Sparkle: {fileID: 497539453}
 --- !u!65 &1256523194
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -158928,13 +158945,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &1261433958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196562,13 +196579,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &1423514058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198662,7 +198679,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 50bf1c3b4a5aaa64497265a2bed596a2, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7d6bd99060ce04f96aaa8187161c5cd8, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.672
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -198706,7 +198723,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -215497,7 +215514,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 50bf1c3b4a5aaa64497265a2bed596a2, type: 2}
   m_audioClip: {fileID: 8300000, guid: 1a8294c24a0f94f76a1023ca87105da0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -215541,7 +215558,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -241716,13 +241733,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &1692827851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261454,6 +261471,8 @@ MonoBehaviour:
   ItemGlow: {fileID: 2109690320}
   interactor: {fileID: 0}
   audioSource: {fileID: 1824025924}
+  DepositRotation: {x: 0, y: 0, z: 0}
+  DepositPosition: {x: 0, y: 0, z: 0}
 --- !u!82 &1824025924
 AudioSource:
   m_ObjectHideFlags: 0
@@ -269008,6 +269027,16 @@ MonoBehaviour:
   GenUI: {fileID: 0}
   player: {fileID: 0}
   generatorType: 0
+  saveManager: {fileID: 0}
+  finished: 0
+  ScreenSparkle: {fileID: 0}
+  FuelDepositSparkle: {fileID: 0}
+  genDoorAnimator: {fileID: 0}
+  FuelDepositCollider: {fileID: 0}
+  FuelCell: {fileID: 0}
+  genRepeatingAudio: {fileID: 0}
+  particles: {fileID: 0}
+  powerManager: {fileID: 0}
 --- !u!1 &1856340613
 GameObject:
   m_ObjectHideFlags: 0
@@ -269840,6 +269869,8 @@ MonoBehaviour:
   ItemGlow: {fileID: 63464751}
   interactor: {fileID: 0}
   audioSource: {fileID: 1864302911}
+  DepositRotation: {x: 0, y: 0, z: 0}
+  DepositPosition: {x: 0, y: 0, z: 0}
 --- !u!82 &1864302911
 AudioSource:
   m_ObjectHideFlags: 0
@@ -279313,13 +279344,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &1935589976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280554,17 +280585,12 @@ MonoBehaviour:
   fullName: 
   special: 1
   interactionType: 0
-  FuelCell: {fileID: 1968838071}
   player: {fileID: 0}
   powerLevel: {fileID: 1351950743}
-  soundRadius: 1000
-  rotation: {x: 0, y: 90, z: 90}
-  position: {x: -61.06, y: 3.409, z: 2.302}
   particles: {fileID: 203503698}
   gen: {fileID: 1856242532}
   genPowerAudio: {fileID: 1949121972}
   genRepeatingAudio: {fileID: 1949121973}
-  Sparkle: {fileID: 624096410}
 --- !u!82 &1949121972
 AudioSource:
   m_ObjectHideFlags: 0
@@ -283110,6 +283136,8 @@ MonoBehaviour:
   ItemGlow: {fileID: 1434414383}
   interactor: {fileID: 0}
   audioSource: {fileID: 1968838089}
+  DepositRotation: {x: 0, y: 0, z: 0}
+  DepositPosition: {x: 0, y: 0, z: 0}
 --- !u!82 &1968838089
 AudioSource:
   m_ObjectHideFlags: 0
@@ -290939,7 +290967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 14d915b6e5ce445d1b39e938202d99d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.04
+      value: -8.405
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 14d915b6e5ce445d1b39e938202d99d0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -302063,13 +302091,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 31396922}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!114 &2080019648
 MonoBehaviour:
   m_ObjectHideFlags: 0
