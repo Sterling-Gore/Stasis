@@ -5,8 +5,6 @@ using UnityEngine;
 public class WorkshopStart : MonoBehaviour
 {
     public SaveManager saveManager;
-    // Start is called before the first frame update
-
     public enum WorkshopSavePoint
     {
         Cockpit,
@@ -17,6 +15,22 @@ public class WorkshopStart : MonoBehaviour
 
     
     public WorkshopSavePoint workshopSavePoint;
+    // Start is called before the first frame update
+
+    public Transform camera;
+    public Rigidbody player_rb;
+    [Header("Player Position")]
+    public Vector3 cockpitPosition;
+    public Vector3 frontRoomPosition;
+    public Vector3 genAPosition;
+    public Vector3 genBPosition;
+
+    [Header("Player Rotation")]
+    public Vector3 cockpitRotation;
+    public Vector3 frontRoomRotation;
+    public Vector3 genARotation;
+    public Vector3 genBRotation;
+
 
     [Header("Items")]
     public PickUp OrangeKeyCard; 
@@ -76,6 +90,9 @@ public class WorkshopStart : MonoBehaviour
 
     void SpawnInCockPit()
     {
+        player_rb.position = cockpitPosition;
+        camera.rotation = Quaternion.Euler(cockpitRotation.x, cockpitRotation.y, cockpitRotation.z);
+
         workshopSavePoint = WorkshopSavePoint.Cockpit;
 
         //special doors
@@ -84,6 +101,9 @@ public class WorkshopStart : MonoBehaviour
     }
     void SpawnInFrontRoom()
     {
+        player_rb.position = frontRoomPosition;
+        camera.rotation = Quaternion.Euler(frontRoomRotation.x, frontRoomRotation.y, frontRoomRotation.z);
+
         workshopSavePoint = WorkshopSavePoint.FrontRoom;
         FrontRoomDarkFigureTrigger.SetActive(false);
 
@@ -98,6 +118,9 @@ public class WorkshopStart : MonoBehaviour
     }
     void SpawnInGen1()
     {
+        player_rb.position = genAPosition;
+        camera.rotation = Quaternion.Euler(genARotation.x, genARotation.y, genARotation.z);
+
         workshopSavePoint = WorkshopSavePoint.Gen1;
         FrontRoomDarkFigureTrigger.SetActive(false);
         VentDarkFigureTrigger.SetActive(false);
@@ -118,6 +141,9 @@ public class WorkshopStart : MonoBehaviour
     }
     void SpawnInGen2()
     {
+        player_rb.position = genBPosition;
+        camera.rotation = Quaternion.Euler(genBRotation.x, genBRotation.y, genBRotation.z);
+
         workshopSavePoint = WorkshopSavePoint.Gen2;
         FrontRoomDarkFigureTrigger.SetActive(false);
         VentDarkFigureTrigger.SetActive(false);
