@@ -21,7 +21,7 @@ public class PlayerAttention : MonoBehaviour
     Dictionary<Player_Movement.MovementStates, int> movementAttentionValues = new Dictionary<Player_Movement.MovementStates, int>
                                                     {
                                                         {Player_Movement.MovementStates.still, 0 },
-                                                        {Player_Movement.MovementStates.crouch, 8 },
+                                                        {Player_Movement.MovementStates.crouch, 7 },
                                                         {Player_Movement.MovementStates.walk, 15 },
                                                         {Player_Movement.MovementStates.sprint, 30 }
                                                     };
@@ -36,15 +36,25 @@ public class PlayerAttention : MonoBehaviour
         speed = GetComponent<speedometer>();
         movementChangeDelay = 0;
     }
+    public void DisablePlayerAttention()
+    {
+        StopCoroutine(MovementAttentionHolder);
+    }
+
+    public void EnablePlayerAttention()
+    {
+        StartCoroutine(MovementAttentionHolder);
+    }
+
     private void Update()
     {
         if(speed.speed < 1)
-            changeSoundType(Player_Movement.MovementStates.still);
+            ChangeSoundType(Player_Movement.MovementStates.still);
         else
-            changeSoundType(mover.movementstate);
+            ChangeSoundType(mover.movementstate);
     }
     // Update is called once per frame
-    public void changeSoundType(Player_Movement.MovementStates target)
+    public void ChangeSoundType(Player_Movement.MovementStates target)
     {
         currentMovementState = target;
         soundTypeValue = movementAttentionValues[target];

@@ -81,15 +81,14 @@ public class AlienController : Loadable
     public bool isAwareOfPlayer = false;
 
 
-    enum State
+    public enum State
     {
         Hunting,
         Roaming,
         Alert
     }
 
-    [SerializeField]
-    State currentState;
+    public State currentState;
 
     NavMeshAgent NMA;
     [SerializeField]
@@ -666,7 +665,7 @@ public class AlienController : Loadable
         //ranges 41-1 as attention gets higher
         int alertAttentionThreshold = (int) (40-0.5f * CurrentAttention);
 
-        Debug.Log("Current attention: " + CurrentAttention);
+        //Debug.Log("Current attention: " + CurrentAttention);
 
         if (CurrentAttention == 100 && attention > 5)
             GoHunting(attentionLocation);
