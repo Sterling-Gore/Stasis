@@ -34,7 +34,7 @@ public class OxygenSystem : Loadable
 
     void Start()
     {
-        LosingOxygen = false;
+        //LosingOxygen = false;
     }
 
     private void Update()

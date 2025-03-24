@@ -37,6 +37,8 @@ public class Player_Movement : MonoBehaviour
     [Header("Interactor")]
     Interactor interactor;
 
+    
+
 
     public enum MovementStates
     {
@@ -51,6 +53,10 @@ public class Player_Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        
+
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         
@@ -62,7 +68,7 @@ public class Player_Movement : MonoBehaviour
 
         PlayerLayer = ~(PlayerLayer);
 
-        interactor = gameObject.GetComponent<Interactor>();
+        interactor = gameObject.GetComponent<Interactor>();   
 
     }
 
