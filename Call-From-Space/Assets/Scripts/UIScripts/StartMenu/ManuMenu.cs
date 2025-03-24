@@ -35,6 +35,11 @@ public class StartingMenu : MonoBehaviour
         sceneLoader.LoadSceneFromSavePoint();
     }
 
+    public void TestAI()
+    {
+        SceneManager.LoadScene(5);
+    }
+
     public void ExitGame()
     {
         Application.Quit();

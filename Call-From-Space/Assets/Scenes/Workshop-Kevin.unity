@@ -152700,7 +152700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1033577223
 Transform:
   m_ObjectHideFlags: 0
@@ -248617,6 +248617,17 @@ MonoBehaviour:
   FrontRoomDarkFigureTrigger: {fileID: 2075793301}
   VentDarkFigureTrigger: {fileID: 637712835}
   ConferenceRoomDarkFigureTrigger: {fileID: 412748855}
+  entryDoor: {fileID: 0}
+  frontRoomToMain: {fileID: 0}
+  genADoor: {fileID: 0}
+  genBDoor: {fileID: 0}
+  RampDoor: {fileID: 0}
+  BedRoomDoor: {fileID: 0}
+  authenticationPanel: {fileID: 0}
+  SwiperGenA: {fileID: 0}
+  SwiperRamp: {fileID: 0}
+  SwiperGenB: {fileID: 0}
+  bustedDoorTrigger: {fileID: 0}
 --- !u!4 &1520727151
 Transform:
   m_ObjectHideFlags: 0
@@ -311652,11 +311663,13 @@ MonoBehaviour:
     lights: []
     doors: []
     lightCones: []
+    roomNodes: []
   zoneB:
     zoneName: 
     lights: []
     doors: []
     lightCones: []
+    roomNodes: []
 --- !u!4 &1828158961
 Transform:
   m_ObjectHideFlags: 0
