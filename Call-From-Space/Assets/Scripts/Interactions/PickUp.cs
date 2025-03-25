@@ -52,9 +52,6 @@ public class PickUp : Interactable
         audioSource.PlayOneShot(PickUpSound);
         switch (item.itemName)
         {
-            case "Sticky Note":
-                //player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(2);
-                break;
             case "Locker Key":
                 //player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(2);
                 break;
@@ -66,7 +63,7 @@ public class PickUp : Interactable
             case "Purple Access Key":
                 DarkFigureForPurpleKey.spawnFigure();
                 break;
-            case "Orange Access Key":
+            case "Sticky Note":
                 DarkFigureForPurpleKey.spawnFigure();
                 break;
             default:
