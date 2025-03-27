@@ -30,7 +30,11 @@ public class Flashlight : Loadable
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.F) && ui_controller.IsSpaceSuitOn)
+        if(ui_controller.UI_Value == UI_Controller.UI_Types.viewing_screen && isOn)
+        {
+            toggleLight();
+        }
+        if (Input.GetKeyUp(KeyCode.F) && ui_controller.IsSpaceSuitOn && ui_controller.UI_Value != UI_Controller.UI_Types.viewing_screen)
         {
             toggleLight();
         }

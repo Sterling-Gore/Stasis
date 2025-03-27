@@ -1571,13 +1571,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &49407398
 GameObject:
   m_ObjectHideFlags: 0
@@ -4497,13 +4497,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &167332684
 GameObject:
   m_ObjectHideFlags: 0
@@ -13528,13 +13528,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &279443300
 GameObject:
   m_ObjectHideFlags: 0
@@ -14069,12 +14069,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fullName: 
   LightBar: {fileID: 0}
+  light: {fileID: 0}
   playSound: 0
   audioSource: {fileID: 0}
   flashlightSoundOn: {fileID: 0}
   flashlightSoundOff: {fileID: 0}
+  breakingLightSound: {fileID: 0}
   ui_controller: {fileID: 362943820}
   flashlightTimer: 0
+  isOn: 0
 --- !u!108 &299022213
 Light:
   m_ObjectHideFlags: 0
@@ -14723,13 +14726,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &316381418
 GameObject:
   m_ObjectHideFlags: 0
@@ -14969,6 +14972,11 @@ MonoBehaviour:
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   player: {fileID: 362943805}
   audioSource: {fileID: 316517626}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
+  red: {r: 0, g: 0, b: 0, a: 0}
+  green: {r: 0, g: 0, b: 0, a: 0}
+  grey: {r: 0, g: 0, b: 0, a: 0}
 --- !u!82 &316517626
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17090,6 +17098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PuzzleUIs:
   - {fileID: 1106420344}
+  ViewingScreensUIs: []
   Inventory_and_Map_UI: {fileID: 36953901}
   Inventory_UI_Object: {fileID: 1586280678}
   Map_UI_Object: {fileID: 1180415091}
@@ -24140,6 +24149,7 @@ MonoBehaviour:
   WalkOxygenCost: 0.6
   CrouchOxygenCost: 0.45
   StillOxygenCost: 0.25
+  ui_controller: {fileID: 362943820}
 --- !u!4 &664309185
 Transform:
   m_ObjectHideFlags: 0
@@ -26318,13 +26328,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &742858254 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: af501da70eb16a040b6c79dcd4546aab, type: 3}
@@ -26589,13 +26599,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1001 &747523509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52429,13 +52439,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &977053314 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1891630423312683343, guid: b631b141c10ff6d4f8b9e72f5d8ebfd3, type: 3}
@@ -63835,13 +63845,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &1193140837 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1502877291743220047, guid: b631b141c10ff6d4f8b9e72f5d8ebfd3, type: 3}
@@ -64107,13 +64117,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &1198131435
 GameObject:
   m_ObjectHideFlags: 0
@@ -64268,12 +64278,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fullName: 
   LightBar: {fileID: 1597944646}
+  light: {fileID: 0}
   playSound: 1
   audioSource: {fileID: 1969174278}
   flashlightSoundOn: {fileID: 8300000, guid: df62824839d0a4650b004300554daa36, type: 3}
   flashlightSoundOff: {fileID: 8300000, guid: a0601b9995fbc4c8793086d757640e82, type: 3}
+  breakingLightSound: {fileID: 0}
   ui_controller: {fileID: 362943820}
   flashlightTimer: 0
+  isOn: 0
 --- !u!108 &1203447891
 Light:
   m_ObjectHideFlags: 0
@@ -83388,13 +83401,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &1535613763
 GameObject:
   m_ObjectHideFlags: 0
@@ -94199,13 +94212,13 @@ MonoBehaviour:
   interactor: {fileID: 0}
   gen: {fileID: 0}
   generatorAudio: {fileID: 0}
-  ScreenSparkle: {fileID: 0}
-  FuelDepositSparkle: {fileID: 0}
   increase: {fileID: 8300000, guid: e356cc28cf7c34f33b24c8c445a895b3, type: 3}
   Decrease: {fileID: 8300000, guid: 7a40f9921e43446f8a0d5a4e52d6b570, type: 3}
   valid: {fileID: 8300000, guid: 764a8b90dc74a4a02b608ce53774d4f6, type: 3}
   inValid: {fileID: 8300000, guid: 5153e4ff79c684f42a35820cd7065036, type: 3}
   audioSource: {fileID: 961809488}
+  GenScreen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!1 &1670875582
 GameObject:
   m_ObjectHideFlags: 0
@@ -96006,6 +96019,7 @@ MonoBehaviour:
   helptextForRadio: {fileID: 860000283}
   ButtonForRadio: {fileID: 375460205}
   TriggerForCockpit: {fileID: 790699643}
+  DarkFigureForPurpleKey: {fileID: 0}
 --- !u!114 &1748433634
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,6 +26,11 @@ public class AmbianceAudio : MonoBehaviour
             VHSstatic.UnPause();
             ambiance.Pause();
         }
+        else if(UIcontroller.UI_Value == UI_Controller.UI_Types.viewing_screen)
+        {
+            ambiance.Pause();
+            VHSstatic.Pause();
+        }
         else
         {
             ambiance.UnPause();
