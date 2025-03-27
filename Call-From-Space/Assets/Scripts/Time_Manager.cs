@@ -18,7 +18,7 @@ public class Time_Manager : MonoBehaviour
         if ( Current_UI != ui_controller.UI_Value)
         {
             Current_UI = ui_controller.UI_Value;
-            if( Current_UI ==  UI_Controller.UI_Types.escape_menu || Current_UI ==  UI_Controller.UI_Types.options_menu)
+            if( Current_UI ==  UI_Controller.UI_Types.escape_menu || Current_UI ==  UI_Controller.UI_Types.options_menu || Current_UI == UI_Controller.UI_Types.viewing_screen)
             {
                 Time.timeScale = 0f;
                 AudioListener.pause = true;

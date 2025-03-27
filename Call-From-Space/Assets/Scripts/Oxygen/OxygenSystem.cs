@@ -32,6 +32,9 @@ public class OxygenSystem : Loadable
     public float CrouchOxygenCost = 0.5f;
     public float StillOxygenCost = 0.25f;
 
+    [Header("UI Controller")]
+    public UI_Controller ui_controller;
+
     void Start()
     {
         //LosingOxygen = false;
@@ -47,7 +50,7 @@ public class OxygenSystem : Loadable
         oxygenBar.fillAmount = oxygenLevel / 100;
         oxygenRadial.fillAmount = oxygenLevel / 100;
 
-        if(LosingOxygen)
+        if(LosingOxygen && ui_controller.UI_Value != UI_Controller.UI_Types.viewing_screen && ui_controller.UI_Value != UI_Controller.UI_Types.escape_menu && ui_controller.UI_Value != UI_Controller.UI_Types.options_menu)
         {
             if (player_movement.rb.velocity.magnitude > 0.1f)
             {

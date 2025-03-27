@@ -7,6 +7,9 @@ public class UI_Controller : MonoBehaviour
     [Header("Puzzle UI")]
     public GameObject[] PuzzleUIs;
 
+    [Header("Screens UI")]
+    public GameObject[] ViewingScreensUIs;
+
     [Header("Inventory and Map UI")]
     public GameObject Inventory_and_Map_UI;
     public GameObject Inventory_UI_Object;
@@ -41,6 +44,7 @@ public class UI_Controller : MonoBehaviour
     {
         inspector,
         inventory_or_puzzle,
+        viewing_screen,
         standard,
         escape_menu,
         options_menu
@@ -121,6 +125,15 @@ public class UI_Controller : MonoBehaviour
             foreach ( GameObject Puzzle in PuzzleUIs)
             {
                 Puzzle.SetActive(false);
+            }
+        }
+        else if (UI_Value == UI_Types.viewing_screen)
+        {
+            astronautOverlay.SetActive(true);
+            Set_UI_Value(UI_Types.standard);
+            foreach ( GameObject Screen in ViewingScreensUIs)
+            {
+                Screen.SetActive(false);
             }
         }
         else if (UI_Value == UI_Types.standard)
