@@ -46,6 +46,12 @@ public class BoxesPuzzle : MonoBehaviour
     public GenScreenInteraction GenScreen;
     public UI_Controller PlayerUI;
 
+    [Header("Colors")]
+    public Color red;
+    public Color green;
+    public Color grey;
+
+
     void Start()
     {
         answerArray = new int[] 
@@ -96,7 +102,8 @@ public class BoxesPuzzle : MonoBehaviour
             Debug.Log("enable " + i);
             buttonsOn[i].GetComponent<Button>().interactable = enable;
             buttonsOff[i].GetComponent<Button>().interactable = enable;
-            buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = NOTHING;
+            //buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = NOTHING;
+            buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().color = grey;
         }
     }
 
@@ -125,11 +132,13 @@ public class BoxesPuzzle : MonoBehaviour
             audioSource.PlayOneShot(inValid);
 
         for(int i = 0; i < buttonsOff.Length; i++){
-            buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = redButton;
+            //buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = redButton;
+            buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().color = red;
         }
         yield return new WaitForSeconds(0.5F);
         for(int i = 0; i < buttonsOff.Length; i++){
-        buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = NOTHING;
+        //buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = NOTHING;
+        buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().color = grey;
         }
          yield return new WaitForSeconds(0.25F);
         }
@@ -154,11 +163,13 @@ public class BoxesPuzzle : MonoBehaviour
             audioSource.PlayOneShot(valid);
 
         for(int i = 0; i < buttonsOff.Length; i++){
-            buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = greenButton;
+            //buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = greenButton;
+            buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().color = green;
         }
         yield return new WaitForSeconds(0.5F);
         for(int i = 0; i < buttonsOff.Length; i++){
-        buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = NOTHING;
+        //buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = NOTHING;
+        buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().color = grey;
         }
          yield return new WaitForSeconds(0.25F);
         }
