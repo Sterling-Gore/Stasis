@@ -10,6 +10,9 @@ public class SaveAndExit : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public GameObject optionsMenu;
     public Interactor interactor;
 
+    [Header("Start Menu")]
+    public GameObject regularScreen;
+
     
     void Start() {
         if (buttonText == null) {
@@ -28,5 +31,6 @@ public class SaveAndExit : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void closeMenu() {
         optionsMenu.SetActive(false);
+        regularScreen.SetActive(true);
     }
 }

@@ -14,31 +14,58 @@ public class SaveManager : MonoBehaviour
 
     public void UpdateSave(SavePointID savePoint, int slot = 1)
     {
-        SaveData data = new SaveData {savepoint = savePoint};
+        float Volume = LoadVolume();
+        float Sensitivity = LoadSensitivity();
+        SaveData data = new SaveData {savepoint = savePoint, volume = Volume, sensitivity = Sensitivity};
         string json = JsonUtility.ToJson(data,true);
         heldData = data;
         File.WriteAllText(Application.persistentDataPath + "/savefile_" + slot + ".json", json);
         Debug.Log("Game saved at " + savePoint);
     }
 
+    public void UpdateSettings(float Volume, float Sensitivity, int slot = 1)
+    {
+        SavePointID savePoint =  LoadSave();
+        SaveData data = new SaveData {savepoint = savePoint, volume = Volume, sensitivity = Sensitivity};
+        string json = JsonUtility.ToJson(data,true);
+        heldData = data;
+        Debug.Log(heldData);
+        File.WriteAllText(Application.persistentDataPath + "/savefile_" + slot + ".json", json);
+    }
+
+    public void UpdateAll(SavePointID savePoint, float Volume, float Sensitivity, int slot = 1)
+    {
+        SaveData data = new SaveData {savepoint = savePoint, volume = Volume, sensitivity = Sensitivity};
+        string json = JsonUtility.ToJson(data,true);
+        heldData = data;
+        File.WriteAllText(Application.persistentDataPath + "/savefile_" + slot + ".json", json);
+    }
+
     public SavePointID LoadSave(int slot = 1)
     {
-        if(heldData == null)
+        if(heldData == null || heldData.savepoint == null)
         {
             DownloadSave(slot);
         }
-        /*
-        string savePath = Application.persistentDataPath + "/savefile_" + slot + ".json";
-        if (File.Exists(savePath))
-        {
-            string json = File.ReadAllText(savePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
-            return data.savepoint;
-        }
-        UpdateSave(SavePointID.tutorial);
-        return SavePointID.tutorial; // Default if no save exists
-        */
         return heldData.savepoint;
+    }
+
+    public float LoadVolume(int slot = 1)
+    {
+        if(heldData == null || heldData.volume == null)
+        {
+            DownloadSave(slot);
+        }
+        return heldData.volume;
+    }
+
+    public float LoadSensitivity(int slot = 1)
+    {
+        if(heldData == null || heldData.sensitivity == null)
+        {
+            DownloadSave(slot);
+        }
+        return heldData.sensitivity;
     }
 
     private void DownloadSave(int slot = 1)
@@ -52,7 +79,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            UpdateSave(SavePointID.tutorial);
+            UpdateAll(SavePointID.tutorial, -10, 6);
             //heldData = new SaveData{savepoint = SavePointID.tutorial};
         }
         //UpdateSave(SavePointID.tutorial);
@@ -64,10 +91,13 @@ public class SaveManager : MonoBehaviour
 public class SaveData
 {  
     public SavePointID savepoint;
+    public float volume;
+    public float sensitivity;
 }
 
 public enum SavePointID
 {
+    intro,
     tutorial,
     workshop1,
     workshop2,
