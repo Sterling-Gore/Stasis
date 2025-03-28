@@ -16,6 +16,10 @@ public class ManagerDarkFigure : MonoBehaviour
     public bool flashLightScaresFigure;
     public bool breakLightAtExit;
     
+    [Header("Screen Flash")]
+    public GameObject scareImage;
+    public AudioSource  scareAudio;
+    
 
     // Update is called once per frame
     void Update()
@@ -26,7 +30,7 @@ public class ManagerDarkFigure : MonoBehaviour
        } 
     }
 
-    public void spawnFigure()
+    public void spawnFigure(bool UseImage = false, bool UseAudio = false)
     {
         darkFigure.SetActive(true);
         if(playAudioOnSpawn)
@@ -35,8 +39,10 @@ public class ManagerDarkFigure : MonoBehaviour
         }
         EndingTrigger.SetActive(true);
         StartCoroutine(spawnDelay());
+
+        StartCoroutine(ScareImage(UseImage, UseAudio));
     }
-    public void despawnFigure()
+    public void despawnFigure(bool UseImage = false, bool UseAudio = false)
     {
         darkFigure.SetActive(false);
         showingCreature = false;
@@ -45,6 +51,8 @@ public class ManagerDarkFigure : MonoBehaviour
             leftLight.turnOffLight();
             rightLight.turnOffLight();
         }
+
+        StartCoroutine(ScareImage(UseImage, UseAudio));
     }
 
     IEnumerator spawnDelay()
@@ -62,5 +70,19 @@ public class ManagerDarkFigure : MonoBehaviour
     public void PlayScaryAudio()
     {
         audioSource.Play();
+    }
+
+    IEnumerator ScareImage(bool UseImage, bool UseAudio)
+    {
+        if(UseAudio)
+        {
+            scareAudio.Play();
+        }
+        if(UseImage)
+        {
+            scareImage.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            scareImage.SetActive(false);
+        }
     }
 }

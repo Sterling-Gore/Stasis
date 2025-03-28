@@ -6,14 +6,16 @@ public class TriggerDarkFigure : MonoBehaviour
 {
     public bool isStartingTrigger;
     public ManagerDarkFigure managerDarkFigure;
+    public bool UseImage = false;
+    public bool UseAudio = false;
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             if(isStartingTrigger)
-                managerDarkFigure.spawnFigure();
+                managerDarkFigure.spawnFigure(UseImage, UseAudio);
             else
-                managerDarkFigure.despawnFigure();
+                managerDarkFigure.despawnFigure(UseImage, UseAudio);
             gameObject.SetActive(false);
         }
     }

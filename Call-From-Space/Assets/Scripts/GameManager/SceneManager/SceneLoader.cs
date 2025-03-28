@@ -13,6 +13,9 @@ public class SceneLoader : MonoBehaviour
         string sceneName ="";
         switch (savePoint)
         {
+            case SavePointID.intro:
+                sceneName = "intro";
+                break;
             case SavePointID.tutorial:
                 sceneName = "Tutorial";
                 break;

@@ -6,19 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Start.unity
+    path: Assets/Scenes/UseableScenes/Start.unity
     guid: e6bd12fc7c84d43d3896ecb57e3c4aab
   - enabled: 1
-    path: Assets/Scenes/Start.unity
+    path: Assets/Scenes/UseableScenes/Start.unity
     guid: e6bd12fc7c84d43d3896ecb57e3c4aab
   - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
+    path: Assets/Scenes/UseableScenes/Tutorial.unity
     guid: c12e22eaa54d73c4295a90c328c0a606
   - enabled: 0
     path: Assets/Scenes/Ship (old).unity
     guid: 5f28f4f45c9671145a30e5210e8a5e6d
   - enabled: 0
-    path: Assets/Scenes/CutScenes/Intro_Scene.unity
+    path: Assets/Scenes/CutScenes/Intro_Scene(old).unity
     guid: beaf2813df77c4cf4a7c5b788c153a1d
   - enabled: 0
     path: Assets/Scenes/Ship 2.unity
@@ -33,12 +33,15 @@ EditorBuildSettings:
     path: Assets/Scenes/WinScreen.unity
     guid: e278ceab6eddc524fa02a03ed59aa0e2
   - enabled: 1
-    path: Assets/Scenes/TOBECONTINUED.unity
+    path: Assets/Scenes/UseableScenes/TOBECONTINUED.unity
     guid: b60d813f8146db646a6428889287b497
   - enabled: 1
-    path: Assets/Scenes/Workshop.unity
+    path: Assets/Scenes/UseableScenes/Workshop.unity
     guid: 06e1769fbd76f5d44b57b28301a4dc7c
   - enabled: 1
-    path: Assets/Scenes/Death.unity
+    path: Assets/Scenes/UseableScenes/Death.unity
     guid: 0a734b3cb4d45464299a65d2819e361a
+  - enabled: 1
+    path: Assets/Scenes/UseableScenes/intro.unity
+    guid: aee34ef23f6716c4cac3ecad8c709f6c
   m_configObjects: {}
