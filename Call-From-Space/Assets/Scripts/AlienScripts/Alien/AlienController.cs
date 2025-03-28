@@ -150,7 +150,7 @@ public class AlienController : Loadable
         lastAttackTime = -attackCooldown;
 
         NMA = GetComponent<NavMeshAgent>();
-        nodePositions = GameObject.FindGameObjectsWithTag("Pathnode").Select(node => node.transform.position).ToArray();
+        nodePositions = GetActivePathnodes();
 
         pathQueue = new Queue<Vector3>();
         currentState = State.Roaming;
@@ -182,6 +182,7 @@ public class AlienController : Loadable
         //        PlayRandomWalkAudio();
         //    }
         //}
+        
 
         if (currentState == State.Hunting || currentState == State.Alert)
         {
@@ -246,6 +247,9 @@ public class AlienController : Loadable
             pathPauseTimer = 0;
 
             Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
+
+            while(Vector3.Distance(newEndNode, transform.position) < 2f)
+                newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
 
             animator.SetBool("isWalking", true);
 
@@ -655,6 +659,13 @@ public class AlienController : Loadable
         soundPoop.transform.position = attentionLocation;
         return soundPoop;
     }
+
+    Vector3[] GetActivePathnodes() => GameObject.FindGameObjectsWithTag("Pathnode")
+            .Where(node => node.activeInHierarchy)
+            .Select(node => node.transform.position)
+            .ToArray();
+
+    public void UpdatePathNodes() => nodePositions = GetActivePathnodes();
 
     public void IncreaseAttention(int attention, Vector3 attentionLocation)
     {

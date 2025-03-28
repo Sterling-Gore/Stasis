@@ -42,6 +42,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Death.unity
     guid: 0a734b3cb4d45464299a65d2819e361a
   - enabled: 1
-    path: Assets/Scenes/Workshop-Kevin.unity
+    path: Assets/Scenes/Workshop-AI.unity
     guid: c26c31286daddab40a16f90927cfb287
   m_configObjects: {}
