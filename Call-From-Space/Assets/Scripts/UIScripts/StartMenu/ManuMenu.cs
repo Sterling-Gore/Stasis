@@ -6,6 +6,8 @@ public class StartingMenu : MonoBehaviour
     public SceneLoader sceneLoader;
     public SaveManager saveManager;
     public SavePointID TestSavePoint;
+    public GameObject optionsMenuUI;
+    public GameObject regularScreenUI;
 
     void Start()
     {
@@ -29,6 +31,12 @@ public class StartingMenu : MonoBehaviour
         //SceneManager.LoadSceneAsync("Ship");
     }
 
+    public void Options()
+    {
+        regularScreenUI.SetActive(false);
+        optionsMenuUI.SetActive(true);
+    }
+
     public void TestSave()
     {
         saveManager.UpdateSave(TestSavePoint);
@@ -38,5 +46,14 @@ public class StartingMenu : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) )
+        {
+            optionsMenuUI.SetActive(false);
+            regularScreenUI.SetActive(true);
+        }
     }
 }

@@ -7627,6 +7627,7 @@ Transform:
   - {fileID: 1608111255}
   - {fileID: 1546319764}
   - {fileID: 1402401763}
+  - {fileID: 983432091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &244324479
@@ -21655,6 +21656,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 50bf1c3b4a5aaa64497265a2bed596a2, type: 2}
   cameraController: {fileID: 1868686645}
+  Volume: -10
+  Sensitivity: 6
+  settings_manager: {fileID: 983432092}
+  sliderVolume: {fileID: 1330710804}
+  sliderSensitivity: {fileID: 1313270663}
 --- !u!1 &551366031
 GameObject:
   m_ObjectHideFlags: 0
@@ -52472,6 +52478,53 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9637902, y: 2.1987197, z: 3.9919941}
   m_Center: {x: -0.48189574, y: 0.09935987, z: 0.996011}
+--- !u!1 &983432090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 983432091}
+  - component: {fileID: 983432092}
+  m_Layer: 0
+  m_Name: SettingsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &983432091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983432090}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 239869681}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &983432092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983432090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145d46b076d912547989d0a81422e69e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 50bf1c3b4a5aaa64497265a2bed596a2, type: 2}
+  cameraController: {fileID: 1868686645}
+  saveManager: {fileID: 2004442142}
 --- !u!1 &983837955
 GameObject:
   m_ObjectHideFlags: 0
@@ -55132,6 +55185,7 @@ MonoBehaviour:
   buttonText: {fileID: 332051445}
   optionsMenu: {fileID: 551025282}
   interactor: {fileID: 362943810}
+  regularScreen: {fileID: 0}
 --- !u!1 &1077446437
 GameObject:
   m_ObjectHideFlags: 0
@@ -104004,6 +104058,7 @@ MonoBehaviour:
   orientation: {fileID: 1202797645}
   PlayerModel: {fileID: 362943805}
   PhysicalCamera: {fileID: 963194228}
+  inGame: 1
   Player_for_interactor: {fileID: 362943805}
 --- !u!1 &1870479845
 GameObject:
