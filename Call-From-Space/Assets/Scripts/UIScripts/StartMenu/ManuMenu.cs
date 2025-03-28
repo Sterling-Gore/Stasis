@@ -17,7 +17,7 @@ public class StartingMenu : MonoBehaviour
     public void PlayGame()
     {
         //GameStateManager.instance.NewGame();
-        saveManager.UpdateSave(SavePointID.tutorial);
+        saveManager.UpdateSave(SavePointID.intro);
         //SceneManager.LoadSceneAsync("Tutorial");
         sceneLoader.LoadSceneFromSavePoint();
     }
