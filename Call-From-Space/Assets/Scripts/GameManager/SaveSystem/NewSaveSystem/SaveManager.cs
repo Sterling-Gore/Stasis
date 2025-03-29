@@ -52,18 +52,26 @@ public class SaveManager : MonoBehaviour
 
     public float LoadVolume(int slot = 1)
     {
-        if(heldData == null || heldData.volume == null)
+        if(heldData == null)
         {
             DownloadSave(slot);
+        }
+        if(heldData.volume == null)
+        {
+            heldData.volume = -10;
         }
         return heldData.volume;
     }
 
     public float LoadSensitivity(int slot = 1)
     {
-        if(heldData == null || heldData.sensitivity == null)
+        if(heldData == null )
         {
             DownloadSave(slot);
+        }
+        if(heldData.sensitivity == null)
+        {
+            heldData.sensitivity = 6;
         }
         return heldData.sensitivity;
     }
