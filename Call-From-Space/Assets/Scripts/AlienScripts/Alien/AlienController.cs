@@ -18,6 +18,8 @@ public class AlienController : Loadable
     public SoundSource nextTarget;
     public GameObject player;
 
+    public bool updateAudio = true;
+
     [Header("Decision Making")]
     public float attackRadius;
     public bool heardSomething = false;
@@ -420,7 +422,7 @@ public class AlienController : Loadable
     {
         Debug.Log("damage dealt player");
         PlayRandomAttackAudio();
-        playerHealthSystem.TakeDamage(damageAmount);
+        playerHealthSystem.TakeDamage(damageAmount, damageType.experiment87);
         lastAttackTime = Time.time;
         PlayRandomAttackAudio();
     }
@@ -538,7 +540,8 @@ public class AlienController : Loadable
 
         int initialThreshold = 5000;
         float initialVolume = 1;
-        walkingAudio.volume = hits.Length > 0 ? (initialVolume* (0.5f / hits.Length)) : initialVolume;
+        if(updateAudio)
+            walkingAudio.volume = hits.Length > 0 ? (initialVolume* (0.5f / hits.Length)) : initialVolume;
         walkingMufflerFilter.cutoffFrequency = hits.Length > 0 ? (int)(initialThreshold * (0.6f / hits.Length)) : initialThreshold;
         PlayRandomAudio(walkingAudio, walkingClips);
     }

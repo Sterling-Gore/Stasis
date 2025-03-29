@@ -43,12 +43,14 @@ public class PowerDoors_Workshop :  Interactable
         poweredOn = true;
         doorAnimation.SetTrigger("open");
         OnDoorActivated(new DoorEventArgs(associatedNodes));
+        
     }
 
     public void PowerOff()
     {
         poweredOn = false;
         doorAnimation.SetTrigger("close");
+        
     }
 
     public void breakDoor()
@@ -57,6 +59,7 @@ public class PowerDoors_Workshop :  Interactable
         doorAnimation.SetTrigger("brokenDoor");
         poweredOn = true;
         OnDoorActivated(new DoorEventArgs(associatedNodes));
+        
     }
 
     public override string GetDescription()

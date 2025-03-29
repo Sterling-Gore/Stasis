@@ -8,6 +8,7 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip[] FootSteps;
     // Start is called before the first frame update
     public AudioSource[] playerTakeDamageSounds;
+    public AudioSource damageStaticSound;
     
     //AudioSource ambiance;
     public AudioSource breathing;
@@ -73,11 +74,15 @@ public class PlayerAudio : MonoBehaviour
 
 
 
-    public void AudibleDamage(float damageAmount)
+    public void AudibleDamage(damageType whoDamaged)
     {
         int randomIndex = Random.Range(0, playerTakeDamageSounds.Length);
         AudioSource playerHurtSound = playerTakeDamageSounds[randomIndex];
-        if( damageAmount != 10f) //this is when oxygen gone
-            playerHurtSound.Play();
+        playerHurtSound.Play();
+
+        if(whoDamaged == damageType.experiment87)
+        {
+            damageStaticSound.Play();
+        }
     }
 }

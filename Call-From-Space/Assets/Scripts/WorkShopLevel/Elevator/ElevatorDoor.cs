@@ -16,6 +16,10 @@ public class ElevatorDoor :  Interactable
     [Header("Animation")]
     public Animator elevatorAnimation;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip DoorOpenClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +63,9 @@ public class ElevatorDoor :  Interactable
             active = false;
             Player.GetComponent<UI_Controller>().inventory.DeleteItem(Key.GetComponent<Item>());
             elevatorAnimation.SetTrigger("open");
+            audioSource.Pause();
+            audioSource.clip = DoorOpenClip;
+            audioSource.Play();
         }
 
     }

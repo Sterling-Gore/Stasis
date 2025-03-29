@@ -6,6 +6,9 @@ public class BustedDoorTrigger : MonoBehaviour
 {
     public PowerDoors_Workshop bustedDoor;
     public bool active = true;
+    [Header("Audios")]
+    public AudioSource DoorSound;
+    public AudioSource DoorBanging;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,8 @@ public class BustedDoorTrigger : MonoBehaviour
         {
             active = false;
             bustedDoor.breakDoor();
+            DoorSound.Play();
+            DoorBanging.Stop();
             gameObject.SetActive(false);
         }
     }

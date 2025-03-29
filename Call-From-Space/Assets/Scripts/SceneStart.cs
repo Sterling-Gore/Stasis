@@ -8,6 +8,7 @@ public class SceneStart : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+        //AudioListener.volume = 100f;
         AudioListener.pause = false;
     }
 

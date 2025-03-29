@@ -66,6 +66,9 @@ public class WorkshopStart : MonoBehaviour
     [Header("Oxygen")]
     public OxygenSystem oxygenSystem;
 
+    [Header("Extra Audios")]
+    public AudioSource doorBanging;
+
 
 
     void Awake()
@@ -109,6 +112,7 @@ public class WorkshopStart : MonoBehaviour
         //endDoors
         mapManager.SetMap(tutorialMap);
         oxygenSystem.LosingOxygen = false;
+        doorBanging.Play();
     }
     void SpawnInFrontRoom()
     {
@@ -128,6 +132,7 @@ public class WorkshopStart : MonoBehaviour
         //end door Interactors
         mapManager.SetMap(workshopMap);
         oxygenSystem.LosingOxygen = true;
+        doorBanging.Play();
     }
     void SpawnInGen1()
     {

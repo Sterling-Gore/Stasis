@@ -35,7 +35,7 @@ public class AlienAttackHitbox : MonoBehaviour
             }
             else
             {
-                playerHealth.TakeDamage(damage);
+                playerHealth.TakeDamage(damage, damageType.experiment87);
             }
             timer = cooldown;
         }

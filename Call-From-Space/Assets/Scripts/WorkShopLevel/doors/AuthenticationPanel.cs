@@ -22,6 +22,10 @@ public class AuthenticationPanel :  Interactable
     [Header("Help Texts")]
     public HelpTexts helpText;
 
+    [Header("Audios")]
+    public AudioSource DoorSound1;
+    public AudioSource DoorSound2;
+
     void Start()
     {
         if(!active)
@@ -45,6 +49,8 @@ public class AuthenticationPanel :  Interactable
             saveManager.UpdateSave(SavePointID.workshop2);
             sparkle.SetActive(false);
             EntryDoor.PowerOff();
+            DoorSound1.Play();
+            DoorSound2.Play();
 
             mapManager.SetMap(workshopMap);
             oxygenSystem.LosingOxygen = true;

@@ -85,34 +85,45 @@ public class HealthSystem : Loadable
         }
     }
 
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(float damageAmount, damageType whoDamaged = damageType.oxygen)
     {
         HealthDelay = true;
-        HealthDelayTimer = 2.5f;
+        HealthDelayTimer = 6f;
         healthLevel -= damageAmount;
         healthLevel = Mathf.Clamp(healthLevel, 0, maxHealth); // Ensure health level stays within bounds
         Debug.Log("DAMAGED: " + damageAmount);
 
-        //plays damage audio
-        damageAmount = 10f;
-        playeraudio.AudibleDamage(damageAmount);
-
-        if (cameraShake != null)
+        if(healthLevel > 0)
         {
-            Debug.Log("Shaking");
-            float randomDuration = Random.Range(0.35f, 0.75f);
-            float randomMagnitude = Random.Range(0.50f, 0.75f);
-            if(damageAmount == 10.0f){
-                randomDuration = Random.Range(0.25f, 0.45f);
-                randomMagnitude = Random.Range(0.05f, 0.1f);
+            playeraudio.AudibleDamage(whoDamaged);
+            if (cameraShake != null)
+            {
+                Debug.Log("Shaking");
+                float randomDuration = 0f;
+                float randomMagnitude = 0f;
+
+                if(whoDamaged == damageType.experiment87)
+                {
+                    randomDuration = Random.Range(0.35f, 0.75f);
+                    randomMagnitude = Random.Range(0.50f, 0.75f);
+                }
+                else if(whoDamaged == damageType.oxygen)
+                {
+                    randomDuration = Random.Range(0.25f, 0.45f);
+                    randomMagnitude = Random.Range(0.05f, 0.1f);
+                }
+                cameraShake.StartShake(randomDuration, randomMagnitude);
             }
-            cameraShake.StartShake(randomDuration, randomMagnitude);
-        }
 
-        if (cameraVHS != null)
+            if (cameraVHS != null)
+            {
+                cameraVHS.enabled = true;
+                StartCoroutine(DisableScriptAfterDelay(cameraVHS, 1f)); // Enable VHS effect and disable it after 3 seconds
+            }
+        }
+        else
         {
-            cameraVHS.enabled = true;
-            StartCoroutine(DisableScriptAfterDelay(cameraVHS, 1f)); // Enable VHS effect and disable it after 3 seconds
+            //death scene
         }
     }
 
@@ -134,4 +145,10 @@ public class HealthSystem : Loadable
     {
         state["health"] = healthLevel;
     }
+}
+
+public enum damageType
+{
+    oxygen,
+    experiment87
 }

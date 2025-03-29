@@ -11,6 +11,9 @@ public class SwiperForKeyCard : Interactable
 
     public GameObject Player;
     public GameObject Key;
+
+    [Header("Audios")]
+    public AudioSource DoorSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +52,7 @@ public class SwiperForKeyCard : Interactable
             active = false;
             Player.GetComponent<UI_Controller>().inventory.DeleteItem(Key.GetComponent<Item>());
             door.PowerOn();
+            DoorSound.Play();
         }
 
     }

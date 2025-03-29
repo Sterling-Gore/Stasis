@@ -8460,7 +8460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneLoader: {fileID: 2101081029}
   saveManager: {fileID: 2101081030}
-  TestSavePoint: 5
+  TestSavePoint: 2
   optionsMenuUI: {fileID: 938659037}
   regularScreenUI: {fileID: 1950629104}
 --- !u!328 &1689706083
