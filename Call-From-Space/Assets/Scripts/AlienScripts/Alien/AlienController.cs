@@ -118,6 +118,9 @@ public class AlienController : Loadable
 
     float lookingAroundLength;
 
+    [SerializeField]
+    PowerDoors_Workshop bedroomDoor;
+
     void Start()
     {
         animator = GetComponent<Animator>();
