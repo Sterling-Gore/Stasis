@@ -5,8 +5,10 @@ using UnityEngine;
 public class PowerManager : MonoBehaviour
 {
  
-
     
+    public Color lightOnColor;
+    public Material LightOn; // for when the light turns on
+
     [System.Serializable]
     public class PowerZone
     {
@@ -14,11 +16,18 @@ public class PowerManager : MonoBehaviour
         public GameObject[] lights;
         public PowerDoors_Workshop[] doors;
         public GameObject[] lightCones;
+        public Renderer ElevatorLightBulb;
+        public Light ElevatorLight;
+        
+        //public GameObject ElevatorLight;
     }
 
     [Header("Power Zones")]
     public PowerZone zoneA;
     public PowerZone zoneB;
+
+    [Header("Elevator")]
+    public ElevatorDoor elevatorDoor;
 
 
 
@@ -36,6 +45,7 @@ public class PowerManager : MonoBehaviour
     public void turnOnGenB()
     {
         turnPowerOn(zoneB);
+        elevatorDoor.active = true;
     }
 
     void turnPowerOn(PowerZone zone)
@@ -52,6 +62,8 @@ public class PowerManager : MonoBehaviour
         {
             door.PowerOn();
         }
+        zone.ElevatorLight.color = lightOnColor;
+        zone.ElevatorLightBulb.material = LightOn;
     }
 
 
