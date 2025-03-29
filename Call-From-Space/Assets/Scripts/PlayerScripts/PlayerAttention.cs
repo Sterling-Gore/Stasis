@@ -22,7 +22,7 @@ public class PlayerAttention : MonoBehaviour
                                                     {
                                                         {Player_Movement.MovementStates.still, 0 },
                                                         {Player_Movement.MovementStates.crouch, 7 },
-                                                        {Player_Movement.MovementStates.walk, 15 },
+                                                        {Player_Movement.MovementStates.walk, 12 },
                                                         {Player_Movement.MovementStates.sprint, 30 }
                                                     };
 
