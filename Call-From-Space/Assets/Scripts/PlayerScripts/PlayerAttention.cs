@@ -22,14 +22,19 @@ public class PlayerAttention : MonoBehaviour
                                                     {
                                                         {Player_Movement.MovementStates.still, 0 },
                                                         {Player_Movement.MovementStates.crouch, 7 },
-                                                        {Player_Movement.MovementStates.walk, 15 },
+                                                        {Player_Movement.MovementStates.walk, 12 },
                                                         {Player_Movement.MovementStates.sprint, 30 }
                                                     };
+
+    private void Awake()
+    {
+        alienController = GameObject.FindGameObjectWithTag("Alien").GetComponent<AlienController>();
+        AlienAttentionHandler.Reload();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        alienController = GameObject.FindGameObjectWithTag("Alien").GetComponent<AlienController>();
         MovementAttentionHolder = MovementAttention();
         StartCoroutine(MovementAttentionHolder);
         mover = GetComponent<Player_Movement>();
