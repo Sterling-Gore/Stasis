@@ -99,7 +99,8 @@ public class AlienController : Loadable
 
     public int CurrentAttention;
 
-    bool isTrackingSound;
+    bool isDormant;
+
     float angryTimer = 0;
     float pathPauseTimer = 0;
 
@@ -167,6 +168,9 @@ public class AlienController : Loadable
         Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
         SetEndDestination(newEndNode);
         GoRoaming();
+
+        isDormant = true;
+        bedroomDoor.DoorActivated += BedroomDoorBreak;
     }
 
     void Update()
@@ -214,11 +218,14 @@ public class AlienController : Loadable
             //}
             if (NMA.remainingDistance < NMA.stoppingDistance)
             {
-                angryTimer += Time.deltaTime;
-                if(currentState != State.Alert)
+                if (currentState != State.Alert)
+                {
                     animator.SetBool("isLookingAround", true);
+                    NMA.speed = huntingSpeed * Mathf.Clamp(Vector3.Distance(GetSoundPoopPosition(), transform.position) / 5, 1, 2);
+                }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isWalking", false);
+                angryTimer += Time.deltaTime;
             }
             if (angryTimer > 5)
             {
@@ -638,6 +645,13 @@ public class AlienController : Loadable
         return closest;
     }
 
+    Vector3[] GetActivePathnodes() => GameObject.FindGameObjectsWithTag("Pathnode")
+            .Where(node => node.activeInHierarchy)
+            .Select(node => node.transform.position)
+            .ToArray();
+
+    public void UpdatePathNodes() => nodePositions = GetActivePathnodes();
+
     //-------------------------------------------------------------------------------------------
 
     //attention functions
@@ -663,16 +677,11 @@ public class AlienController : Loadable
         return soundPoop;
     }
 
-    Vector3[] GetActivePathnodes() => GameObject.FindGameObjectsWithTag("Pathnode")
-            .Where(node => node.activeInHierarchy)
-            .Select(node => node.transform.position)
-            .ToArray();
-
-    public void UpdatePathNodes() => nodePositions = GetActivePathnodes();
+    Vector3 GetSoundPoopPosition() => GameObject.Find("Sound Poop").transform.position;
 
     public void IncreaseAttention(int attention, Vector3 attentionLocation)
     {
-        //if (currentState == State.Hunting) return;
+        if (isDormant) return;
 
         CurrentAttention = Mathf.Clamp(CurrentAttention + attention, 0, 100);
 
@@ -681,7 +690,7 @@ public class AlienController : Loadable
 
         //Debug.Log("Current attention: " + CurrentAttention);
 
-        if (CurrentAttention == 100 && attention > 5)
+        if (CurrentAttention == 100 && attention > 10)
             GoHunting(attentionLocation);
         else if (currentState != State.Hunting && attention > alertAttentionThreshold && attention > 1)
             GoAlert(attentionLocation);
@@ -689,20 +698,49 @@ public class AlienController : Loadable
 
     void GoHunting(Vector3 attentionLocation)
     {
-        if (currentState != State.Hunting)
-            StartCoroutine(RepeatAttackingSound());
-
         animator.SetBool("isRunning", true);
+        if (currentState != State.Hunting)
+        {
+            NMA.speed = huntingSpeed * Mathf.Clamp(Vector3.Distance(attentionLocation, transform.position)/5, 1.5f, 2);
+            StartCoroutine(RepeatAttackingSound());
+            //inInitialCharge = true;
+            //InitialCharge(attentionLocation);
+            StartCoroutine(SpeedDecay());
+        }
 
         angryTimer = 0f;
+        currentState = State.Hunting;
+
+        GameObject soundPoop = GenerateSoundPoop(attentionLocation);
+        
+        //NMA.velocity = (attentionLocation - transform.position).normalized * 100;
+        //NMA.speed = huntingSpeed;
+        currentAttentionTickRate = huntingAttentionTickRate;
+        NMA.angularSpeed = 360;
+        NMA.SetDestination(soundPoop.transform.position);
+    }
+
+    IEnumerator SpeedDecay()
+    {
+        bool flag = false;
+        while (currentState == State.Hunting || !flag)
+        {
+            if (currentState == State.Hunting)
+                flag = true;
+            NMA.speed = Mathf.Clamp(NMA.speed - 0.5f, huntingSpeed-1, huntingSpeed * 2);
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    void InitialCharge(Vector3 attentionLocation)
+    {
         StopCoroutine(attentionDecayFunc);
         NMA.ResetPath();
 
         GameObject soundPoop = GenerateSoundPoop(attentionLocation);
-        currentState = State.Hunting;
+
         //NMA.velocity = (attentionLocation - transform.position).normalized * 100;
-        NMA.speed = huntingSpeed;
-        currentAttentionTickRate = huntingAttentionTickRate;
+        NMA.speed = huntingSpeed*3;
         NMA.angularSpeed = 360;
         NMA.SetDestination(soundPoop.transform.position);
     }
@@ -718,6 +756,8 @@ public class AlienController : Loadable
             yield return new WaitForSeconds(5f);
         }
     }
+
+    
 
     void GoAlert(Vector3 attentionLocation)
     {
@@ -775,7 +815,15 @@ public class AlienController : Loadable
         currentState = State.Roaming;
         NMA.SetDestination(pathQueue.Peek());
     }
+
+    void BedroomDoorBreak(object s, EventArgs e)
+    {
+        GoHunting(GameObject.Find("M-9").transform.position);
+        isDormant = false;
+    }
 }
+
+
 
 
 /*

@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class AlienAttentionHandler 
 {
     //This may come bite me in the ass later on but it's so convienient that I'm gonna use it
+    //It has bit me in the ass
     static AlienController controller = GameObject.FindGameObjectWithTag("Alien").GetComponent<AlienController>();
+
+    public static void Reload()
+    {
+        controller = GameObject.FindGameObjectWithTag("Alien").GetComponent<AlienController>();
+    }
 
     static int CheckForWallDampening(int attentionIncrease, Vector3 noisePosition, Vector3 alienPosition)
     {
