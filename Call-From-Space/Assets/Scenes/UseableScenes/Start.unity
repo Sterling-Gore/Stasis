@@ -574,6 +574,7 @@ RectTransform:
   - {fileID: 1392616498}
   - {fileID: 1950629105}
   - {fileID: 938659038}
+  - {fileID: 287193908}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1764,8 +1765,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 860525071}
+  m_Children: []
   m_Father: {fileID: 89890994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -8460,7 +8460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneLoader: {fileID: 2101081029}
   saveManager: {fileID: 2101081030}
-  TestSavePoint: 4
+  TestSavePoint: 3
   optionsMenuUI: {fileID: 938659037}
   regularScreenUI: {fileID: 1950629104}
 --- !u!328 &1689706083
