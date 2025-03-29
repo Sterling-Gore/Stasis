@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PowerDoors_Workshop :  Interactable
 {
@@ -13,6 +15,11 @@ public class PowerDoors_Workshop :  Interactable
     [Header("Special")]
     public bool startsOpen;
     public bool startsBroken;
+
+    public event EventHandler<DoorEventArgs> DoorActivated;
+    [SerializeField]
+    GameObject[] associatedNodes; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +42,7 @@ public class PowerDoors_Workshop :  Interactable
     {
         poweredOn = true;
         doorAnimation.SetTrigger("open");
+        OnDoorActivated(new DoorEventArgs(associatedNodes));
     }
 
     public void PowerOff()
@@ -48,6 +56,7 @@ public class PowerDoors_Workshop :  Interactable
         gameObject.GetComponent<Collider>().enabled = false;
         doorAnimation.SetTrigger("brokenDoor");
         poweredOn = true;
+        OnDoorActivated(new DoorEventArgs(associatedNodes));
     }
 
     public override string GetDescription()
@@ -63,5 +72,19 @@ public class PowerDoors_Workshop :  Interactable
         {
             //play audio clip
         }
+    }
+
+    protected virtual void OnDoorActivated(DoorEventArgs e)
+    {
+        DoorActivated?.Invoke(this, e);
+    }
+}
+
+public class DoorEventArgs : EventArgs
+{
+    public GameObject[] associatedNodes;
+    public DoorEventArgs(GameObject[] nodes)
+    {
+        associatedNodes = nodes;
     }
 }
