@@ -58,6 +58,15 @@ public class WorkshopStart : MonoBehaviour
     public SwiperForKeyCard SwiperGenB;
     public BustedDoorTrigger bustedDoorTrigger;
 
+    [Header("Map Components")]
+    public MapManager mapManager;
+    public GameObject tutorialMap;
+    public GameObject workshopMap;
+
+    [Header("Oxygen")]
+    public OxygenSystem oxygenSystem;
+
+
 
     void Awake()
     {
@@ -98,6 +107,8 @@ public class WorkshopStart : MonoBehaviour
         //special doors
         entryDoor.startsOpen = true;
         //endDoors
+        mapManager.SetMap(tutorialMap);
+        oxygenSystem.LosingOxygen = false;
     }
     void SpawnInFrontRoom()
     {
@@ -115,6 +126,8 @@ public class WorkshopStart : MonoBehaviour
         //door Interactors
         authenticationPanel.active = false;
         //end door Interactors
+        mapManager.SetMap(workshopMap);
+        oxygenSystem.LosingOxygen = true;
     }
     void SpawnInGen1()
     {
@@ -124,6 +137,7 @@ public class WorkshopStart : MonoBehaviour
         workshopSavePoint = WorkshopSavePoint.Gen1;
         FrontRoomDarkFigureTrigger.SetActive(false);
         VentDarkFigureTrigger.SetActive(false);
+        
 
         //special doors
         entryDoor.startsOpen = false;
@@ -137,6 +151,9 @@ public class WorkshopStart : MonoBehaviour
         SwiperGenA.active = false;
         bustedDoorTrigger.active = false;
         //end door Interactors
+
+        mapManager.SetMap(workshopMap);
+        oxygenSystem.LosingOxygen = true;
 
     }
     void SpawnInGen2()
@@ -165,6 +182,9 @@ public class WorkshopStart : MonoBehaviour
         SwiperGenB.active = false;
         SwiperRamp.active = false;
         //end door Interactors
+
+        mapManager.SetMap(workshopMap);
+        oxygenSystem.LosingOxygen = false;
 
 
         

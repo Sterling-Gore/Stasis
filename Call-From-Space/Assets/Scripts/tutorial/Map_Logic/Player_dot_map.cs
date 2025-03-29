@@ -11,6 +11,7 @@ public class Player_dot_map : MonoBehaviour
     [SerializeField] public RectTransform dot;
     [SerializeField] public RectTransform UI_Origin_Pos;
     [SerializeField] public RectTransform UI_End_Pos;
+    public bool vertical = false;
 
     float x_percentage;
     float y_percentage;
@@ -23,10 +24,17 @@ public class Player_dot_map : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        x_percentage = Mathf.Abs((playerPos.position.x - Game_Origin_Pos.position.x) / (Game_End_Pos.position.x - Game_Origin_Pos.position.x));
-        y_percentage = Mathf.Abs((playerPos.position.z - Game_Origin_Pos.position.z) / (Game_End_Pos.position.z - Game_Origin_Pos.position.z));
-
-        float xValue = Mathf.Abs((UI_End_Pos.anchoredPosition.x - UI_Origin_Pos.anchoredPosition.x) * x_percentage); 
+        if(vertical)
+        {
+            y_percentage = Mathf.Abs((playerPos.position.x - Game_Origin_Pos.position.x) / (Game_End_Pos.position.x - Game_Origin_Pos.position.x));
+            x_percentage = Mathf.Abs((playerPos.position.z - Game_Origin_Pos.position.z) / (Game_End_Pos.position.z - Game_Origin_Pos.position.z));
+        }
+        else
+        {
+            x_percentage = Mathf.Abs((playerPos.position.x - Game_Origin_Pos.position.x) / (Game_End_Pos.position.x - Game_Origin_Pos.position.x));
+            y_percentage = Mathf.Abs((playerPos.position.z - Game_Origin_Pos.position.z) / (Game_End_Pos.position.z - Game_Origin_Pos.position.z));
+        }
+        float xValue = Mathf.Abs((UI_End_Pos.anchoredPosition.x - UI_Origin_Pos.anchoredPosition.x) * x_percentage);
         float yValue = Mathf.Abs((UI_End_Pos.anchoredPosition.y - UI_Origin_Pos.anchoredPosition.y) * y_percentage);
         //relativePos = playerPos.position - originPos.position;
         //Debug.Log(relativePos);

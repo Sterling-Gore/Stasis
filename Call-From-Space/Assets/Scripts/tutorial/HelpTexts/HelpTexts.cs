@@ -10,6 +10,9 @@ public class HelpTexts : MonoBehaviour
     public bool PressTAB = false;
     public bool PressF = false;
     public bool PressCTRL = false;
+
+    [Header("Workshop")]
+    public bool NewMapAdded = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +33,7 @@ public class HelpTexts : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.Tab))
         {
             PressTAB = false;
+            NewMapAdded = false;
         }
 
 
@@ -44,6 +48,10 @@ public class HelpTexts : MonoBehaviour
         else if(PressCTRL)
         {
             text.text = "<color=red>Press [LEFT CTRL]</color=red> to toggle crouch";
+        }
+        else if(NewMapAdded)
+        {
+            text.text = "<color=red>Press [TAB]</color=red> to view new map";
         }
         else
         {

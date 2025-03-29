@@ -12,6 +12,16 @@ public class AuthenticationPanel :  Interactable
 
     public PowerDoors_Workshop EntryDoor;
     
+    [Header("Map")]
+    public MapManager mapManager;
+    public GameObject workshopMap;
+
+    [Header("Oxygen System")]
+    public OxygenSystem oxygenSystem;
+
+    [Header("Help Texts")]
+    public HelpTexts helpText;
+
     void Start()
     {
         if(!active)
@@ -35,6 +45,10 @@ public class AuthenticationPanel :  Interactable
             saveManager.UpdateSave(SavePointID.workshop2);
             sparkle.SetActive(false);
             EntryDoor.PowerOff();
+
+            mapManager.SetMap(workshopMap);
+            oxygenSystem.LosingOxygen = true;
+            helpText.NewMapAdded = true;
         }
     }
 }
