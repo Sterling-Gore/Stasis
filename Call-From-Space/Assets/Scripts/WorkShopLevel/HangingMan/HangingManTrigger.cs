@@ -5,6 +5,7 @@ using UnityEngine;
 public class HangingManTrigger : MonoBehaviour
 {
     public Animator HangingMan;
+    public AudioSource HangingAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +23,18 @@ public class HangingManTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             HangingMan.SetTrigger("active");
-            gameObject.SetActive(false);
+            //HangingAudio.Play();
+            StartCoroutine(delay());
+            //gameObject.SetActive(false);
 
         }
+    }
+
+    IEnumerator delay()
+    {
+        yield return new WaitForSeconds(.25f);
+        HangingAudio.Play();
+        gameObject.SetActive(false);
     }
 
 }
