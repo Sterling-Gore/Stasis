@@ -11,7 +11,7 @@ public class PathnodeManager : MonoBehaviour
     public PowerDoors_Workshop[] eventDoors;
     // Start is called before the first frame update
     AlienController alienController;
-    void Start()
+    void Awake()
     {
         alienController = GameObject.FindGameObjectWithTag("Alien").GetComponent<AlienController>();
         foreach (PowerDoors_Workshop door in eventDoors)
