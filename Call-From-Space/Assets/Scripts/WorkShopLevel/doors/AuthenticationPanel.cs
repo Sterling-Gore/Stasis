@@ -26,6 +26,11 @@ public class AuthenticationPanel :  Interactable
     public AudioSource DoorSound1;
     public AudioSource DoorSound2;
 
+    [Header("Dialogue")]
+    public AudioSource StasisAI_lockdown;
+    public AudioSource AI_OxygenOffline;
+    public AudioSource AI_Override;
+
     void Start()
     {
         if(!active)
@@ -45,16 +50,27 @@ public class AuthenticationPanel :  Interactable
         if(active)
         {
             active = false;
-            FrontRoomDoor.PowerOn();
-            saveManager.UpdateSave(SavePointID.workshop2);
-            sparkle.SetActive(false);
             EntryDoor.PowerOff();
+            sparkle.SetActive(false);
             DoorSound1.Play();
-            DoorSound2.Play();
-
-            mapManager.SetMap(workshopMap);
             oxygenSystem.LosingOxygen = true;
-            helpText.NewMapAdded = true;
+
+            StartCoroutine(startLockdown());
         }
+    }
+
+    IEnumerator startLockdown()
+    {
+        StasisAI_lockdown.Play();
+        yield return new WaitForSeconds(6f);
+        AI_OxygenOffline.Play();
+        yield return new WaitForSeconds(4f);
+        AI_Override.Play();
+        yield return new WaitForSeconds(6f);
+        mapManager.SetMap(workshopMap);
+        helpText.NewMapAdded = true;
+        FrontRoomDoor.PowerOn();
+        DoorSound2.Play();
+        saveManager.UpdateSave(SavePointID.workshop2);
     }
 }

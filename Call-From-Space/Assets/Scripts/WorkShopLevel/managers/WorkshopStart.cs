@@ -12,6 +12,7 @@ public class WorkshopStart : MonoBehaviour
         Gen1,
         Gen2
     }
+    public SceneStart sceneStart;
 
     
     public WorkshopSavePoint workshopSavePoint;
@@ -69,6 +70,9 @@ public class WorkshopStart : MonoBehaviour
     [Header("Extra Audios")]
     public AudioSource doorBanging;
 
+    [Header("Dialaogue")]
+    public AudioSource AI_arriving;
+
 
 
     void Awake()
@@ -102,6 +106,7 @@ public class WorkshopStart : MonoBehaviour
 
     void SpawnInCockPit()
     {
+        sceneStart.delayAudio = false;
         player_rb.position = cockpitPosition;
         camera.rotation = Quaternion.Euler(cockpitRotation.x, cockpitRotation.y, cockpitRotation.z);
 
@@ -113,6 +118,9 @@ public class WorkshopStart : MonoBehaviour
         mapManager.SetMap(tutorialMap);
         oxygenSystem.LosingOxygen = false;
         doorBanging.Play();
+
+        //dialogue
+        AI_arriving.Play();
     }
     void SpawnInFrontRoom()
     {
