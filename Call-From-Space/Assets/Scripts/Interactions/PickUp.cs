@@ -51,15 +51,10 @@ public class PickUp : Interactable
     {
         //inventory.AddItem(item);
         audioSource.PlayOneShot(PickUpSound);
-
-        //if (alienController != null)
-        //    AlienAttentionHandler.SetTo100AtLocation(player.transform.position);
-
         switch (item.itemName)
         {
-            case "Green Access Key":
+            case "Locker Key":
                 //player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(2);
-                alienController.LockerRoomSequence();
                 break;
             case "Radio Transmitter":
                 helptextForRadio.PressTAB = true;
@@ -68,11 +63,9 @@ public class PickUp : Interactable
                 break;
             case "Purple Access Key":
                 DarkFigureForPurpleKey.spawnFigure();
-                AlienAttentionHandler.SetTo100AtLocation(player.transform.position);
                 break;
             case "Sticky Note":
                 DarkFigureForPurpleKey.spawnFigure();
-                AlienAttentionHandler.SetTo100AtLocation(player.transform.position);
                 break;
             default:
                 break;
@@ -82,7 +75,8 @@ public class PickUp : Interactable
         {
             JournalPlayer.GetComponent<PlayJournal>().PlayAudioOnPickUp(item);
         }
-        
+        if (alienController != null)
+            AlienAttentionHandler.SetTo100AtLocation(player.transform.position);
 
         pickUp();
 

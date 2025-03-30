@@ -82,8 +82,6 @@ public class AlienController : Loadable
 
     public bool isAwareOfPlayer = false;
 
-    GameObject specialLockerNode;
-
 
     public enum State
     {
@@ -177,9 +175,6 @@ public class AlienController : Loadable
 
         isDormant = true;
         bedroomDoor.DoorActivated += BedroomDoorBreak;
-
-        specialLockerNode = GameObject.Find("Special Locker Node");
-        specialLockerNode.SetActive(false);
     }
 
     void Update()
@@ -202,6 +197,7 @@ public class AlienController : Loadable
 
         if (currentState == State.Hunting || currentState == State.Alert)
         {
+            Debug.Log(NMA.destination + " " + NMA.remainingDistance);
             if (currentState == State.Hunting && NMA.remainingDistance <= NMA.stoppingDistance)
             {
                 //NMA.ResetPath();
@@ -812,9 +808,7 @@ public class AlienController : Loadable
         NMA.angularSpeed = 120;
         currentAttentionTickRate = roamingAttentionTickRate;
         currentState = State.Roaming;
-        
-        if(pathQueue.Count > 0) 
-            NMA.SetDestination(pathQueue.Peek());
+        NMA.SetDestination(pathQueue.Peek());
     }
 
     void BedroomDoorBreak(object s, EventArgs e)
@@ -847,18 +841,11 @@ public class AlienController : Loadable
 
     public void LockerRoomSequence()
     {
-        if (currentState == State.Hunting) return;
-
-        specialLockerNode.SetActive(true);
-        UpdatePathNodes();
-
-        CurrentAttention = 0;
-        GoRoaming();
         NMA.Warp(GameObject.Find("H-0").transform.position);
-        //if(!isPaused)
-        //    ToggleAlien();
+        if(!isPaused)
+            ToggleAlien();
 
-        SetEndDestination(specialLockerNode.transform.position);
+
 
     }
 }
