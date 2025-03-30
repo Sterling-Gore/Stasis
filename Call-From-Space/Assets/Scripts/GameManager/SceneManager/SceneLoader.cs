@@ -32,6 +32,7 @@ public class SceneLoader : MonoBehaviour
                 sceneName = "Workshop";
                 break;
             default:
+                sceneName = "intro";
                 break;
         }
 

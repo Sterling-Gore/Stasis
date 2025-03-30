@@ -9,6 +9,7 @@ public abstract class Holdable : Interactable
     public GameObject HoldObject;
     public Transform originalHolder;
     public GameObject player;
+    public GameObject alien;
     public Transform holdPos;
     public Camera cam;
     //private bool currentlyHolding;
@@ -35,6 +36,8 @@ public abstract class Holdable : Interactable
         originalHolder = transform.parent;
         //DoneGlowing = false;
         Physics.IgnoreCollision(HoldObject.GetComponent<Collider>(), player.transform.Find("Player Model").GetComponent<Collider>(), true);
+        if(alien != null)
+            Physics.IgnoreCollision(HoldObject.GetComponent<Collider>(), alien.transform.GetComponent<Collider>(), true);
         //currentlyHolding = false;
         if(ObjRb == null)
             ObjRb = HoldObject.GetComponent<Rigidbody>();

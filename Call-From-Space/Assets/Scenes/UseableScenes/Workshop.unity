@@ -3020,6 +3020,7 @@ MonoBehaviour:
   HoldObject: {fileID: 36594009}
   originalHolder: {fileID: 1602105201}
   player: {fileID: 362943805}
+  alien: {fileID: 0}
   holdPos: {fileID: 1129765654}
   cam: {fileID: 963194227}
   ObjRb: {fileID: 0}
@@ -14271,7 +14272,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 50bf1c3b4a5aaa64497265a2bed596a2, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5c05936c0b3ff3c4497f92e5af9f8edd, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.854
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -101448,6 +101449,7 @@ MonoBehaviour:
   HoldObject: {fileID: 690117316}
   originalHolder: {fileID: 0}
   player: {fileID: 362943805}
+  alien: {fileID: 0}
   holdPos: {fileID: 1514649135}
   cam: {fileID: 963194227}
   ObjRb: {fileID: 0}
@@ -141918,9 +141920,6 @@ PrefabInstance:
       addedObject: {fileID: 890353831}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 14d915b6e5ce445d1b39e938202d99d0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 890353830}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 14d915b6e5ce445d1b39e938202d99d0, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 890353829}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 14d915b6e5ce445d1b39e938202d99d0, type: 3}
       insertIndex: -1
@@ -141986,27 +141985,6 @@ CapsuleCollider:
   m_Height: 4.744662
   m_Direction: 1
   m_Center: {x: 0.12999007, y: 2.3110619, z: 0.16293916}
---- !u!65 &890353830
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890353827}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.25279468, y: 4.677456, z: 0.23418583}
-  m_Center: {x: 0.11798642, y: 2.349175, z: 0.16918492}
 --- !u!54 &890353831
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -335662,6 +335640,7 @@ MonoBehaviour:
   HoldObject: {fileID: 1824025911}
   originalHolder: {fileID: 0}
   player: {fileID: 362943805}
+  alien: {fileID: 890353827}
   holdPos: {fileID: 439229296}
   cam: {fileID: 963194227}
   ObjRb: {fileID: 1824025914}
@@ -367645,6 +367624,7 @@ MonoBehaviour:
   HoldObject: {fileID: 1968838071}
   originalHolder: {fileID: 0}
   player: {fileID: 362943805}
+  alien: {fileID: 890353827}
   holdPos: {fileID: 439229296}
   cam: {fileID: 963194227}
   ObjRb: {fileID: 1968838076}
