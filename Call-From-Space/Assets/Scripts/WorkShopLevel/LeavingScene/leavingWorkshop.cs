@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class leavingWorkshop : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class leavingWorkshop : MonoBehaviour
         StartCoroutine(FadeOutAudio(Experiment87IdleSounds));
         StartCoroutine(FadeOutAudio(Experiment87AttackSounds));
         StartCoroutine(FadeOutAudio(Experiment87WalkSounds));
+        StartCoroutine(LeavingGame());
         
     }
 
@@ -32,5 +34,11 @@ public class leavingWorkshop : MonoBehaviour
 
         audioSource.volume = 0f; // Ensure volume is completely off
         
+    }
+
+    IEnumerator LeavingGame()
+    {
+        yield return new WaitForSeconds(15f);
+        SceneManager.LoadSceneAsync("TOBECONTINUED");
     }
 }
