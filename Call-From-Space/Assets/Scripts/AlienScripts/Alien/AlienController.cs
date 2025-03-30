@@ -824,8 +824,12 @@ public class AlienController : Loadable
 
     void BedroomDoorBreak(object s, EventArgs e)
     {
-        GoHunting(GameObject.Find("M-9").transform.position);
         isDormant = false;
+        PowerDoors_Workshop genbdoor = GameObject.Find("(special)BackHallwayToGenBDoor").GetComponentInChildren<PowerDoors_Workshop>();
+
+        if (genbdoor.poweredOn) return;
+        GoHunting(GameObject.Find("M-9").transform.position);
+        
     }
 
     public void ToggleAlien()
