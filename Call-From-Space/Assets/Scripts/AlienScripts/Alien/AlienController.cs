@@ -103,6 +103,8 @@ public class AlienController : Loadable
 
     bool isDormant;
 
+    public bool isPaused { get; private set; }
+
     float angryTimer = 0;
     float pathPauseTimer = 0;
 
@@ -824,8 +826,29 @@ public class AlienController : Loadable
         GoHunting(GameObject.Find("M-9").transform.position);
         isDormant = false;
     }
-}
 
+    public void ToggleAlien()
+    {
+        if (isPaused) 
+        {
+            GoRoaming();
+            isDormant = false;
+            this.enabled = true;
+            isPaused = false;
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isLookingAround", false);
+
+            NMA.ResetPath();
+            isDormant = true;
+            this.enabled = false;
+            isPaused = true;
+        }
+    }
+}
 
 
 
