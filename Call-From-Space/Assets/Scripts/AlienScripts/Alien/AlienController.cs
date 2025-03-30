@@ -197,7 +197,7 @@ public class AlienController : Loadable
 
         if (currentState == State.Hunting || currentState == State.Alert)
         {
-            Debug.Log(NMA.destination + " " + NMA.remainingDistance);
+            //Debug.Log(NMA.destination + " " + NMA.remainingDistance);
             if (currentState == State.Hunting && NMA.remainingDistance <= NMA.stoppingDistance)
             {
                 //NMA.ResetPath();
@@ -239,12 +239,12 @@ public class AlienController : Loadable
                 angryTimer = 0;
                 if (currentState == State.Hunting)
                 {
-                    WanderSoundPoop(3, 5);
+                    WanderSoundPoop(1, 3);
                     GoRoaming();
                 }
                 else
                 {
-                    WanderSoundPoop(1, 7);
+                    WanderSoundPoop(1, 1);
                     GoRoaming();
                 }
             }
@@ -730,12 +730,23 @@ public class AlienController : Loadable
 
     IEnumerator SpeedDecay()
     {
+        float timer = 15f;
+
         bool flag = false;
         while (currentState == State.Hunting || !flag)
         {
+            Debug.Log(timer);
             if (currentState == State.Hunting)
                 flag = true;
             NMA.speed = Mathf.Clamp(NMA.speed - 0.5f, huntingSpeed-1, huntingSpeed * 2);
+
+            if (timer <= 0)
+            {
+                NMA.speed = huntingSpeed * Mathf.Clamp(Vector3.Distance(GetSoundPoopPosition(), transform.position) / 5, 1.5f, 2);
+                timer = 15f;
+            }
+
+            timer -= 1f;
             yield return new WaitForSeconds(1f);
         }
     }
