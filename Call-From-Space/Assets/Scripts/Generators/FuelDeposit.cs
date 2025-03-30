@@ -10,6 +10,7 @@ public class FuelDeposit : Interactable
     public GenScreenInteraction gen;
     public AudioSource genPowerAudio;
     public AudioSource genRepeatingAudio;
+    public AudioSource powerOnLoop;
 
 
 
@@ -62,6 +63,7 @@ public class FuelDeposit : Interactable
             }
         yield return new WaitForSeconds(3);
         genRepeatingAudio.enabled = true;
+        powerOnLoop.Play();
         
     }
 

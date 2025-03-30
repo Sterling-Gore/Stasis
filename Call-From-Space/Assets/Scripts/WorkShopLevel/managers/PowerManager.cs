@@ -9,6 +9,8 @@ public class PowerManager : MonoBehaviour
     public Color lightOnColor;
     public Material LightOn; // for when the light turns on
 
+    public OxygenSystem oxygenSystem;
+
     [System.Serializable]
     public class PowerZone
     {
@@ -46,6 +48,7 @@ public class PowerManager : MonoBehaviour
     {
         turnPowerOn(zoneB);
         elevatorDoor.active = true;
+        oxygenSystem.LosingOxygen = false;
     }
 
     void turnPowerOn(PowerZone zone)

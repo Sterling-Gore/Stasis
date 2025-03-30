@@ -22,6 +22,7 @@ public class PickUp : Interactable
 
     [Header("WOEKSHOP")]
     public ManagerDarkFigure DarkFigureForPurpleKey;
+    public AlienController alienController;
 
 
 
@@ -74,6 +75,8 @@ public class PickUp : Interactable
         {
             JournalPlayer.GetComponent<PlayJournal>().PlayAudioOnPickUp(item);
         }
+        if(alienController != null)
+            alienController.MoveTowards(gameObject.transform.position);
 
         pickUp();
 
