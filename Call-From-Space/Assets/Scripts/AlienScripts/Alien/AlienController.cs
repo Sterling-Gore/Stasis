@@ -126,13 +126,33 @@ public class AlienController : Loadable
     [SerializeField]
     PowerDoors_Workshop bedroomDoor;
 
-    void Start()
+
+    private void Awake()
     {
         animator = GetComponent<Animator>();
 
         playerRb = player.GetComponent<Rigidbody>();
 
         curSpeed = nextSpeed = walkSpeed;
+        Transform sounds = transform.Find("Sounds");
+        idleAudio = sounds.Find("IdleSounds").gameObject.GetComponent<AudioSource>();
+        walkingAudio = sounds.Find("WalkSounds").gameObject.GetComponent<AudioSource>();
+        attackAudio = sounds.Find("AttackSounds").gameObject.GetComponent<AudioSource>();
+        walkingMufflerFilter = sounds.Find("WalkSounds").gameObject.GetComponent<AudioLowPassFilter>();
+        NMA = GetComponent<NavMeshAgent>();
+        isDormant = true;
+        nodePositions = GetActivePathnodes();
+        attentionDecayPerSecond = 3;
+        currentAttentionTickRate = roamingAttentionTickRate;
+        pathQueue = new Queue<Vector3>();
+        currentState = State.Roaming;
+        attentionDecayFunc = AttentionDecay();
+        playerHealthSystem = player.GetComponent<HealthSystem>();
+    }
+
+    void Start()
+    {
+        
 
         //pathFinder = new(this);
         //roamer = GetComponent<RoamController>();
@@ -142,11 +162,7 @@ public class AlienController : Loadable
 
         //roamer.Init(this);
 
-        Transform sounds = transform.Find("Sounds");
-        idleAudio = sounds.Find("IdleSounds").gameObject.GetComponent<AudioSource>();
-        walkingAudio = sounds.Find("WalkSounds").gameObject.GetComponent<AudioSource>();
-        attackAudio = sounds.Find("AttackSounds").gameObject.GetComponent<AudioSource>();
-        walkingMufflerFilter = sounds.Find("WalkSounds").gameObject.GetComponent<AudioLowPassFilter>();
+        
 
         //aliens.Add(this);
         //ignoreAlienLayer = ~(
@@ -154,26 +170,19 @@ public class AlienController : Loadable
         //);
         //groundLayer = 1 << LayerMask.NameToLayer("whatIsGround");
 
-        playerHealthSystem = player.GetComponent<HealthSystem>();
+        
         lastAttackTime = -attackCooldown;
 
-        NMA = GetComponent<NavMeshAgent>();
-        nodePositions = GetActivePathnodes();
-
-        pathQueue = new Queue<Vector3>();
-        currentState = State.Roaming;
-
-        attentionDecayFunc = AttentionDecay();
+        
         StartCoroutine(attentionDecayFunc);
 
-        attentionDecayPerSecond = 3;
-        currentAttentionTickRate = roamingAttentionTickRate;
+        
 
         Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
         SetEndDestination(newEndNode);
         GoRoaming();
 
-        isDormant = true;
+        
         bedroomDoor.DoorActivated += BedroomDoorBreak;
     }
 
