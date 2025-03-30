@@ -56521,7 +56521,6 @@ MonoBehaviour:
   leftLight: {fileID: 1203447890}
   rightLight: {fileID: 299022212}
   audioSource: {fileID: 412748858}
-  invertedPianoAmbiance: {fileID: 704502354}
   EndingTrigger: {fileID: 1290557810}
   playAudioOnSpawn: 1
   turnOffFlashlight: 0
@@ -56529,6 +56528,8 @@ MonoBehaviour:
   breakLightAtExit: 1
   scareImage: {fileID: 1107672036}
   scareAudio: {fileID: 741648978}
+  invertedPianoAmbiance: {fileID: 704502354}
+  PlayPiano: 0
 --- !u!82 &412748858
 AudioSource:
   m_ObjectHideFlags: 0
@@ -90575,7 +90576,6 @@ MonoBehaviour:
   leftLight: {fileID: 1203447890}
   rightLight: {fileID: 299022212}
   audioSource: {fileID: 637712838}
-  invertedPianoAmbiance: {fileID: 704502354}
   EndingTrigger: {fileID: 575545239}
   playAudioOnSpawn: 0
   turnOffFlashlight: 0
@@ -90583,6 +90583,8 @@ MonoBehaviour:
   breakLightAtExit: 1
   scareImage: {fileID: 0}
   scareAudio: {fileID: 0}
+  invertedPianoAmbiance: {fileID: 704502354}
+  PlayPiano: 0
 --- !u!82 &637712838
 AudioSource:
   m_ObjectHideFlags: 0
@@ -131201,6 +131203,7 @@ GameObject:
   - component: {fileID: 826345638}
   - component: {fileID: 826345642}
   - component: {fileID: 826345643}
+  - component: {fileID: 826345644}
   m_Layer: 0
   m_Name: door
   m_TagString: Untagged
@@ -131432,6 +131435,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!208 &826345644
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826345636}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 1, z: 1.5460001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.08800001}
+  m_TimeToStationary: 0.5
 --- !u!1 &826533718
 GameObject:
   m_ObjectHideFlags: 0
@@ -344142,6 +344161,7 @@ GameObject:
   - component: {fileID: 1866481604}
   - component: {fileID: 1866481608}
   - component: {fileID: 1866481609}
+  - component: {fileID: 1866481610}
   m_Layer: 0
   m_Name: door
   m_TagString: Untagged
@@ -344373,6 +344393,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!208 &1866481610
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866481602}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 1, z: 1.5460001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.08800001}
+  m_TimeToStationary: 0.5
 --- !u!1001 &1866789007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -393405,7 +393441,6 @@ MonoBehaviour:
   leftLight: {fileID: 1203447890}
   rightLight: {fileID: 299022212}
   audioSource: {fileID: 2075793304}
-  invertedPianoAmbiance: {fileID: 704502354}
   EndingTrigger: {fileID: 1546273864}
   playAudioOnSpawn: 1
   turnOffFlashlight: 1
@@ -393413,6 +393448,8 @@ MonoBehaviour:
   breakLightAtExit: 0
   scareImage: {fileID: 0}
   scareAudio: {fileID: 0}
+  invertedPianoAmbiance: {fileID: 704502354}
+  PlayPiano: 1
 --- !u!82 &2075793304
 AudioSource:
   m_ObjectHideFlags: 0

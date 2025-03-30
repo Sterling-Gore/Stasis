@@ -9,7 +9,6 @@ public class ManagerDarkFigure : MonoBehaviour
     public Flashlight leftLight;
     public Flashlight rightLight;
     public AudioSource audioSource;
-    public AudioSource invertedPianoAmbiance;
 
     public GameObject EndingTrigger;
     public bool playAudioOnSpawn;
@@ -20,6 +19,10 @@ public class ManagerDarkFigure : MonoBehaviour
     [Header("Screen Flash")]
     public GameObject scareImage;
     public AudioSource  scareAudio;
+
+    [Header("Piano Ambiance")]
+    public AudioSource invertedPianoAmbiance;
+    public bool PlayPiano;
     
 
     // Update is called once per frame
@@ -71,7 +74,8 @@ public class ManagerDarkFigure : MonoBehaviour
     public void PlayScaryAudio()
     {
         audioSource.Play();
-        invertedPianoAmbiance.Play();
+        if(PlayPiano)
+            invertedPianoAmbiance.Play();
     }
 
     IEnumerator ScareImage(bool UseImage, bool UseAudio)
