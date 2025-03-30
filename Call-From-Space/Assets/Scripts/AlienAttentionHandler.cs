@@ -38,4 +38,9 @@ public static class AlienAttentionHandler
 
         controller.IncreaseAttention(attention, noisePosition);
     }
+
+    public static void SetTo100AtLocation(Vector3 target)
+    {
+        controller.IncreaseAttention(100, target);
+    }
 }

@@ -197,10 +197,10 @@ public class AlienController : Loadable
 
         if (currentState == State.Hunting || currentState == State.Alert)
         {
-
+            Debug.Log(NMA.destination + " " + NMA.remainingDistance);
             if (currentState == State.Hunting && NMA.remainingDistance <= NMA.stoppingDistance)
             {
-                NMA.ResetPath();
+                //NMA.ResetPath();
                 //Vector3 nearest = findNearestNode(transform.position, true);
                 //setEndDestination(nearest);
             }
@@ -220,7 +220,7 @@ public class AlienController : Loadable
             //    NMA.stoppingDistance = 0;
             //    StartCoroutine(ResetValues(tempAcc, tempSpeed));
             //}
-            if (NMA.remainingDistance < NMA.stoppingDistance)
+            if (Vector3.Distance(NMA.destination, transform.position) < NMA.stoppingDistance)
             {
                 if (currentState != State.Alert)
                 {
@@ -230,9 +230,11 @@ public class AlienController : Loadable
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isWalking", false);
                 angryTimer += Time.deltaTime;
+
             }
             if (angryTimer > 5)
             {
+                Debug.Log("Timer passed");
                 CurrentAttention -= 30;
                 angryTimer = 0;
                 if (currentState == State.Hunting)
@@ -723,6 +725,7 @@ public class AlienController : Loadable
         currentAttentionTickRate = huntingAttentionTickRate;
         NMA.angularSpeed = 360;
         NMA.SetDestination(soundPoop.transform.position);
+        
     }
 
     IEnumerator SpeedDecay()
@@ -735,19 +738,6 @@ public class AlienController : Loadable
             NMA.speed = Mathf.Clamp(NMA.speed - 0.5f, huntingSpeed-1, huntingSpeed * 2);
             yield return new WaitForSeconds(1f);
         }
-    }
-
-    void InitialCharge(Vector3 attentionLocation)
-    {
-        StopCoroutine(attentionDecayFunc);
-        NMA.ResetPath();
-
-        GameObject soundPoop = GenerateSoundPoop(attentionLocation);
-
-        //NMA.velocity = (attentionLocation - transform.position).normalized * 100;
-        NMA.speed = huntingSpeed*3;
-        NMA.angularSpeed = 360;
-        NMA.SetDestination(soundPoop.transform.position);
     }
 
     IEnumerator RepeatAttackingSound()
@@ -847,6 +837,16 @@ public class AlienController : Loadable
             this.enabled = false;
             isPaused = true;
         }
+    }
+
+    public void LockerRoomSequence()
+    {
+        NMA.Warp(GameObject.Find("H-0").transform.position);
+        if(!isPaused)
+            ToggleAlien();
+
+
+
     }
 }
 

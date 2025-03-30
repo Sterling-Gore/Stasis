@@ -75,8 +75,8 @@ public class PickUp : Interactable
         {
             JournalPlayer.GetComponent<PlayJournal>().PlayAudioOnPickUp(item);
         }
-        if(alienController != null)
-            AlienAttentionHandler.NoiseToAttentionIncrease(1000000, player.transform.position);
+        if (alienController != null)
+            AlienAttentionHandler.SetTo100AtLocation(player.transform.position);
 
         pickUp();
 
