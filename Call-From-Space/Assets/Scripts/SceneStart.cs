@@ -5,6 +5,7 @@ using UnityEngine;
 public class SceneStart : MonoBehaviour
 {
     // Start is called before the first frame update
+    public bool delayAudio = false;
     void Awake()
     {
         AudioListener.pause = true;
@@ -14,7 +15,10 @@ public class SceneStart : MonoBehaviour
         Time.timeScale = 1f;
         //AudioListener.volume = 100f;
         //AudioListener.pause = false;
-        StartCoroutine(DelayAudio());
+        if(delayAudio)
+            StartCoroutine(DelayAudio());
+        else
+            AudioListener.pause = false;
     }
 
     IEnumerator DelayAudio()

@@ -734,6 +734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f685ec2b7a2add94a895173f0d5f7801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayAudio: 0
 --- !u!4 &728963327
 Transform:
   m_ObjectHideFlags: 0
@@ -806,7 +807,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c5e1f0588a3444eeb824ee24f809f8e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a710e5a7597e9bd47b131a20ed4b550d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

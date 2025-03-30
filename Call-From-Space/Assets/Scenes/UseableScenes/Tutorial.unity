@@ -1755,7 +1755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audiosource: {fileID: 737133482}
-  ExplosionSpawn: {fileID: 8300000, guid: 652e769405bcd9147a7b826591c21f44, type: 3}
+  ExplosionSpawn: {fileID: 8300000, guid: 6a76900e0255f684794adceddf0ed8eb, type: 3}
   InitiateLockDown: {fileID: 8300000, guid: 46eaa3db90b0d3144913580ae1dec9d7, type: 3}
   WarnLockDown: {fileID: 8300000, guid: 3cfb265929e101f4b816115b3e8b167f, type: 3}
   EndLockDown: {fileID: 8300000, guid: 6ba3857c05c33334bb0c14cf219cf17a, type: 3}
@@ -17031,6 +17031,7 @@ MonoBehaviour:
   playerTakeDamageSounds:
   - {fileID: 1340978381}
   - {fileID: 1175676603}
+  damageStaticSound: {fileID: 0}
   breathing: {fileID: 525189462}
   choking: {fileID: 1542333342}
   walking: {fileID: 1001695360}
@@ -39819,6 +39820,7 @@ MonoBehaviour:
   PressTAB: 0
   PressF: 0
   PressCTRL: 0
+  NewMapAdded: 0
 --- !u!1 &861380150
 GameObject:
   m_ObjectHideFlags: 0
@@ -76405,6 +76407,7 @@ MonoBehaviour:
   dot: {fileID: 520230812}
   UI_Origin_Pos: {fileID: 1482183293}
   UI_End_Pos: {fileID: 188649319}
+  vertical: 0
 --- !u!1 &1476072449
 GameObject:
   m_ObjectHideFlags: 0
@@ -86151,6 +86154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f685ec2b7a2add94a895173f0d5f7801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayAudio: 0
 --- !u!1 &1610386064
 GameObject:
   m_ObjectHideFlags: 0
@@ -96074,6 +96078,7 @@ MonoBehaviour:
   ButtonForRadio: {fileID: 375460205}
   TriggerForCockpit: {fileID: 790699643}
   DarkFigureForPurpleKey: {fileID: 0}
+  alienController: {fileID: 0}
 --- !u!114 &1748433634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119407,9 +119412,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539c2094fd1944503a5dcd9f04179226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ambiance: {fileID: 2131886321}
-  VHSstatic: {fileID: 1515087530}
+  Duration: 4
   sceneLoader: {fileID: 0}
+  videoPlayer: {fileID: 0}
+  videoMaterial: {fileID: 0}
+  StartAudio: {fileID: 0}
+  LoopAudio: {fileID: 0}
+  lastCheckpoint: {fileID: 0}
+  backToStart: {fileID: 0}
 --- !u!1 &2073927583
 GameObject:
   m_ObjectHideFlags: 0
