@@ -24927,6 +24927,7 @@ MonoBehaviour:
   HoldObject: {fileID: 699770982}
   originalHolder: {fileID: 0}
   player: {fileID: 362943805}
+  alien: {fileID: 0}
   holdPos: {fileID: 984372572}
   cam: {fileID: 963194227}
   ObjRb: {fileID: 699770988}
