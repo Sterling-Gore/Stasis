@@ -26,12 +26,10 @@ public class GenScreenInteraction : Interactable
     public Collider FuelDepositCollider;
     public FuelCellHoldable FuelCell;
     public AudioSource genRepeatingAudio;
-
     public GameObject particles;
 
     [Header("PowerManager")]
     public PowerManager powerManager;
-    public AudioSource powerOnLoop;
 
     void Awake()
     {
@@ -110,7 +108,6 @@ public class GenScreenInteraction : Interactable
         if(FromSavePoint)
         {
             genRepeatingAudio.enabled = true;
-            powerOnLoop.Play();
             particles.SetActive(true);
         }
 

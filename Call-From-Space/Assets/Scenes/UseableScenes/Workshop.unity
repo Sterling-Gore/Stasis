@@ -113896,7 +113896,7 @@ Transform:
   m_GameObject: {fileID: 753007310}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.35836798, z: -0, w: 0.93358046}
-  m_LocalPosition: {x: -953.58954, y: 83.93116, z: 605.254}
+  m_LocalPosition: {x: -953.58954, y: 80.17, z: 605.254}
   m_LocalScale: {x: 3.25055, y: 3.25055, z: 3.25055}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -164431,7 +164431,6 @@ MonoBehaviour:
   genRepeatingAudio: {fileID: 760009876}
   particles: {fileID: 879970556}
   powerManager: {fileID: 1828158960}
-  powerOnLoop: {fileID: 1765589325}
 --- !u!65 &1008121232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -170755,6 +170754,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRoomLoc: {fileID: 1107453167}
+--- !u!1 &1060801493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1060801494}
+  - component: {fileID: 1060801495}
+  m_Layer: 0
+  m_Name: AlienCollisionBlocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1060801494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060801493}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.02, y: -0.08, z: -0.17}
+  m_LocalScale: {x: 5.565482, y: 5.0294, z: 4.221919}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1437823147}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1060801495
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060801493}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1061674925
 GameObject:
   m_ObjectHideFlags: 0
@@ -204781,6 +204833,7 @@ MonoBehaviour:
   genPowerAudio: {fileID: 1256523195}
   genRepeatingAudio: {fileID: 760009876}
   powerOnLoop: {fileID: 1765589325}
+  OxygenOnline: {fileID: 0}
 --- !u!65 &1256523194
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -251101,6 +251154,7 @@ Transform:
   - {fileID: 1955225771}
   - {fileID: 65932536}
   - {fileID: 1021716507}
+  - {fileID: 1060801494}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1438379569
@@ -343726,7 +343780,6 @@ MonoBehaviour:
   genRepeatingAudio: {fileID: 240991054}
   particles: {fileID: 203503698}
   powerManager: {fileID: 1828158960}
-  powerOnLoop: {fileID: 1611828089}
 --- !u!1 &1856340613
 GameObject:
   m_ObjectHideFlags: 0
@@ -364494,6 +364547,7 @@ MonoBehaviour:
   genPowerAudio: {fileID: 1949121972}
   genRepeatingAudio: {fileID: 240991054}
   powerOnLoop: {fileID: 1611828089}
+  OxygenOnline: {fileID: 0}
 --- !u!82 &1949121972
 AudioSource:
   m_ObjectHideFlags: 0

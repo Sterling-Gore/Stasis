@@ -12,6 +12,9 @@ public class FuelDeposit : Interactable
     public AudioSource genRepeatingAudio;
     public AudioSource powerOnLoop;
 
+    [Header("Oxygen Audio For GenB")]
+    public AudioSource OxygenOnline;
+
 
 
 
@@ -64,6 +67,10 @@ public class FuelDeposit : Interactable
         yield return new WaitForSeconds(3);
         genRepeatingAudio.enabled = true;
         powerOnLoop.Play();
+        if(gen.generatorType == GenScreenInteraction.Generator.B)
+        {
+            OxygenOnline.Play();
+        }
         
     }
 
