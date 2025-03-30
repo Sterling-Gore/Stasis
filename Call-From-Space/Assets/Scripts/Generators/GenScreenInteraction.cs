@@ -121,6 +121,7 @@ public class GenScreenInteraction : Interactable
             {
                 saveManager.UpdateSave(SavePointID.workshop3);
             }
+            AlienAttentionHandler.SetTo100AtLocation(transform.position);
         }
         else
         {
@@ -129,6 +130,7 @@ public class GenScreenInteraction : Interactable
             {
                 saveManager.UpdateSave(SavePointID.workshop4);
             }
+            AlienAttentionHandler.SetTo100AtLocation(transform.position);
         }
         
     }
