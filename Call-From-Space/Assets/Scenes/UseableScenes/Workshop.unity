@@ -80200,6 +80200,7 @@ GameObject:
   - component: {fileID: 543976157}
   - component: {fileID: 543976159}
   - component: {fileID: 543976158}
+  - component: {fileID: 543976160}
   m_Layer: 0
   m_Name: Cube.415
   m_TagString: Untagged
@@ -80271,6 +80272,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 543976156}
+  m_Mesh: {fileID: 3276069374224646572, guid: 1916ae1a79d08c4498900b8a0a78210b, type: 3}
+--- !u!64 &543976160
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543976156}
+  m_Material: {fileID: 13400000, guid: aed65c908eb72ab48aa2685c53171144, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 3276069374224646572, guid: 1916ae1a79d08c4498900b8a0a78210b, type: 3}
 --- !u!1 &545124522
 GameObject:
@@ -408982,6 +409005,7 @@ GameObject:
   - component: {fileID: 2121648067}
   - component: {fileID: 2121648066}
   - component: {fileID: 2121648068}
+  - component: {fileID: 2121648069}
   m_Layer: 0
   m_Name: ElevatorDoor
   m_TagString: Untagged
@@ -409078,6 +409102,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &2121648069
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121648064}
+  m_Material: {fileID: 13400000, guid: aed65c908eb72ab48aa2685c53171144, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0000005, y: 2, z: 0.13000001}
+  m_Center: {x: 0.0000009532389, y: 1.2404799e-14, z: 0.93500394}
 --- !u!1 &2122465329
 GameObject:
   m_ObjectHideFlags: 0
