@@ -72,7 +72,6 @@ public class GoopedDoor : Interactable
         flame.Stop();
         collider.enabled = false;
         meshRenderer.enabled = false;
-        AlienController.aliens.ForEach(alien => alien.ReloadPathGraph());
     }
 
     public override void Load(JObject state)

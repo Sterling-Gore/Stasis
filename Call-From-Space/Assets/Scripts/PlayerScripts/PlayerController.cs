@@ -135,7 +135,7 @@ public class PlayerController : Loadable
                     // Running
                     if (oxygenSystem.LosingOxygen)
                         oxygenSystem.DecreaseOxygen(runningOxygenCost);
-                    SoundSourcesController.instance.CreateNewSoundSource(transform.position, runningSoundRadius);
+                    //SoundSourcesController.instance.CreateNewSoundSource(transform.position, runningSoundRadius);
                 }
                 else if (Input.GetKey(KeyCode.LeftControl))
                 {
@@ -147,7 +147,7 @@ public class PlayerController : Loadable
                     // Walking
                     if (oxygenSystem.LosingOxygen)
                         oxygenSystem.DecreaseOxygen(walkingOxygenCost);
-                    SoundSourcesController.instance.CreateNewSoundSource(transform.position, walkingSoundRadius);
+                    //SoundSourcesController.instance.CreateNewSoundSource(transform.position, walkingSoundRadius);
                 }
             }
             else
