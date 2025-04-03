@@ -158,15 +158,15 @@ public class PlayerController : Loadable
             }
 
         }
-        var aliens = AlienController.aliens
-        .Where(alien => alien.isAwareOfPlayer)
-        .ToList();
-        aliens.Sort((alien1, alien2) => Vector3.Distance(
-            alien1.transform.position,
-            transform.position
-        ).CompareTo(Vector3.Distance(alien2.transform.position, transform.position)));
-        if (aliens.Count > 0)
-            PlayHeartbeatAudio(aliens[0]);
+        //var aliens = AlienController.aliens
+        //.Where(alien => alien.isAwareOfPlayer)
+        //.ToList();
+        //aliens.Sort((alien1, alien2) => Vector3.Distance(
+        //    alien1.transform.position,
+        //    transform.position
+        //).CompareTo(Vector3.Distance(alien2.transform.position, transform.position)));
+        //if (aliens.Count > 0)
+        //    PlayHeartbeatAudio(aliens[0]);
     }
 
     void MyInput()

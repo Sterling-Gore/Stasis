@@ -14,44 +14,6 @@ using Unity.VisualScripting;
 //THIS NEEDS A LOOOOOT OF CLEANUP
 public class AlienController : Loadable
 {
-    public SoundSource curTarget;
-    public SoundSource nextTarget;
-    public GameObject player;
-
-    public bool updateAudio = true;
-
-    Vector3 prevPos = new();
-
-    Rigidbody playerRb;
-    public PathGraph pathGraph;
-    public Transform head;
-
-    Animator animator;
-
-    AudioSource walkingAudio, idleAudio, attackAudio;
-    AudioLowPassFilter walkingMufflerFilter;
-
-    [Header("Audio")]
-    public List<AudioClip> walkingClips = new();
-    public List<AudioClip> idleClips = new(), attackClips = new();
-
-    public float maxAudioDistance = 40;
-    public float minAudioDistance = 0.5f;
-
-
-    HealthSystem playerHealthSystem;
-    [Header("Attack")]
-    public float damageAmount = 0.1f;
-    public float attackCooldown = 1f;
-    private float lastAttackTime = 0;
-
-    public static List<AlienController> aliens = new();
-
-    static int ignoreAlienLayer, groundLayer;
-
-    public bool isAwareOfPlayer = false;
-
-
     public enum State
     {
         Hunting,
@@ -59,39 +21,49 @@ public class AlienController : Loadable
         Alert
     }
 
-    public State currentState;
+    public GameObject player;
+    Rigidbody playerRb;
+    public Transform head;
+    Animator animator;
+
+
+    [Header("---Audio---"), Space(10)]
+    public List<AudioClip> walkingClips = new();
+    public List<AudioClip> idleClips = new(), attackClips = new();
+    public bool updateAudio = true;
+
+    AudioSource walkingAudio, idleAudio, attackAudio;
+    AudioLowPassFilter walkingMufflerFilter;
+
+    [Header("---Movement---"), Space(10)]
+    [SerializeField]
+    float roamingSpeed;
+    [SerializeField]
+    float huntingSpeed;
 
     NavMeshAgent NMA;
-    [SerializeField]
-    Transform previousNode;
     Vector3 endNodePosition;
-    [SerializeField]
     Vector3[] nodePositions;
-
-    public int CurrentAttention;
-
-    bool isDormant;
-
-    public bool isPaused { get; private set; }
-
-    float angryTimer = 0;
-    float pathPauseTimer = 0;
-
     Queue<Vector3> pathQueue;
 
-    int attentionDecayPerSecond;
-
-    [SerializeField]
-    float roamingSpeed, huntingSpeed;
-
+    [Header("---Attention---"), Space(10)]
+    public State currentState;
+    public int CurrentAttention;
     IEnumerator attentionDecayFunc;
     [SerializeField] 
-    float roamingAttentionTickRate, alertAttentionTickRate, huntingAttentionTickRate;
+    float roamingAttentionTickRate, alertAttentionTickRate, huntingAttentionTickRate, attentionDecayPerSecond;
     [NonSerialized] 
     public float currentAttentionTickRate;
 
+    bool isDormant;
+    public bool isPaused { get; private set; }
+    float angryTimer = 0;
+    float pathPauseTimer = 0;
+    //maybe put this to use
     float lookingAroundLength;
 
+
+    [Header("---Special Event Subscribe---"), Space(10)]
     [SerializeField]
     PowerDoors_Workshop bedroomDoor;
 
@@ -110,17 +82,14 @@ public class AlienController : Loadable
         NMA = GetComponent<NavMeshAgent>();
         isDormant = true;
         nodePositions = GetActivePathnodes();
-        attentionDecayPerSecond = 3;
         currentAttentionTickRate = roamingAttentionTickRate;
         pathQueue = new Queue<Vector3>();
         currentState = State.Roaming;
         attentionDecayFunc = AttentionDecay();
-        playerHealthSystem = player.GetComponent<HealthSystem>();
     }
 
     void Start()
     {
-        lastAttackTime = -attackCooldown;
         
         StartCoroutine(attentionDecayFunc);
 
@@ -304,7 +273,7 @@ public class AlienController : Loadable
         while (true)
         {
             if(CurrentAttention > attentionDecayPerSecond)
-                CurrentAttention = CurrentAttention - attentionDecayPerSecond;
+                CurrentAttention = CurrentAttention - (int)attentionDecayPerSecond;
             //CurrentAttention = Mathf.Clamp(CurrentAttention - attentionDecayPerSecond, 0, 100);
             yield return new WaitForSeconds(1f);
         }

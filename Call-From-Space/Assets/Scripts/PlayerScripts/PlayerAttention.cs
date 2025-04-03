@@ -10,7 +10,6 @@ public class PlayerAttention : MonoBehaviour
     int currentMovementStateValue;
 
     int soundTypeValue;
-    GameObject pathfinder;
     AlienController alienController;
     Player_Movement mover;
     speedometer speed;
