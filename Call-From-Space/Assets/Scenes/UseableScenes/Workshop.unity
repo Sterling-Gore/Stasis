@@ -142047,17 +142047,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db64aff86a29749f3968bcab3c11a6b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullName: 
-  roamingRoomMemory: 5
-  recentRooms: []
-  rooms: []
-  currentRoom: {fileID: 0}
-  nextRoom: {fileID: 0}
-  timeToLookAroundFor: 0
-  nextRoamSpot: {x: 0, y: 0, z: 0}
-  nodeIdx: 0
-  animator: {fileID: 0}
-  state: 0
 --- !u!114 &890353833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142072,26 +142061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fullName: 
   player: {fileID: 362943805}
-  updateAudio: 1
-  attackRadius: 1.5
-  heardSomething: 0
-  mentalDelay: 1
-  soundSourcesMemory: 10
-  turnRadius: 1
-  turnSpeed: 3
-  walkSpeed: 2.5
-  runSpeed: 5
-  tiredSpeed: 1.5
-  actualSpeed: 0
-  timeStayingStill: 0
-  curSpeed: 0
-  nextSpeed: 0
-  restingPeriod: 4
-  walkingStamina: 10
-  runningStamina: 10
   head: {fileID: 890353826}
-  soundSource: {fileID: 303048887}
-  curSections: []
   walkingClips:
   - {fileID: 8300000, guid: b566c729c881e49449bdd119c3ef17d6, type: 3}
   - {fileID: 8300000, guid: 567517d5d8c5c7d42a4ccbdf1d4aef0e, type: 3}
@@ -142108,21 +142078,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 414f615ee0c9d41ed81b42b13928700e, type: 3}
   - {fileID: 8300000, guid: b26dd3526cccf439a84862f1166ea16c, type: 3}
   - {fileID: 8300000, guid: 926b54b99289743a292eaa41c892f280, type: 3}
-  maxAudioDistance: 40
-  minAudioDistance: 0.5
-  damageAmount: 20
-  attackCooldown: 3
-  isAwareOfPlayer: 0
-  currentState: 1
-  previousNode: {fileID: 0}
-  nodePositions: []
-  CurrentAttention: 0
+  updateAudio: 1
   roamingSpeed: 2
   huntingSpeed: 3.8
+  currentState: 1
+  CurrentAttention: 0
   roamingAttentionTickRate: 1
   alertAttentionTickRate: 0.5
   huntingAttentionTickRate: 0.1
+  attentionDecayPerSecond: 3
   bedroomDoor: {fileID: 1900854500}
+  specialLockerNode: {fileID: 1477507340}
 --- !u!1 &891128959
 GameObject:
   m_ObjectHideFlags: 0
@@ -256370,7 +256336,7 @@ GameObject:
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1477507341
 Transform:
   m_ObjectHideFlags: 0
@@ -308661,17 +308627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db64aff86a29749f3968bcab3c11a6b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullName: 
-  roamingRoomMemory: 5
-  recentRooms: []
-  rooms: []
-  currentRoom: {fileID: 0}
-  nextRoom: {fileID: 0}
-  timeToLookAroundFor: 0
-  nextRoamSpot: {x: 0, y: 0, z: 0}
-  nodeIdx: 0
-  animator: {fileID: 0}
-  state: 0
 --- !u!114 &1712228434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308686,26 +308641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fullName: 
   player: {fileID: 362943805}
-  updateAudio: 1
-  attackRadius: 1.5
-  heardSomething: 0
-  mentalDelay: 1
-  soundSourcesMemory: 10
-  turnRadius: 1
-  turnSpeed: 3
-  walkSpeed: 2.5
-  runSpeed: 5
-  tiredSpeed: 1.5
-  actualSpeed: 0
-  timeStayingStill: 0
-  curSpeed: 0
-  nextSpeed: 0
-  restingPeriod: 4
-  walkingStamina: 10
-  runningStamina: 10
   head: {fileID: 835613197}
-  soundSource: {fileID: 929656999}
-  curSections: []
   walkingClips:
   - {fileID: 8300000, guid: c4907167a204a497e815ab00f9aac686, type: 3}
   - {fileID: 8300000, guid: 5a1ee82abb33c4272bd92fe331719aee, type: 3}
@@ -308722,21 +308658,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 414f615ee0c9d41ed81b42b13928700e, type: 3}
   - {fileID: 8300000, guid: b26dd3526cccf439a84862f1166ea16c, type: 3}
   - {fileID: 8300000, guid: 926b54b99289743a292eaa41c892f280, type: 3}
-  maxAudioDistance: 40
-  minAudioDistance: 0.5
-  damageAmount: 20
-  attackCooldown: 3
-  isAwareOfPlayer: 0
-  currentState: 0
-  previousNode: {fileID: 0}
-  nodePositions: []
-  CurrentAttention: 0
+  updateAudio: 1
   roamingSpeed: 0
   huntingSpeed: 0
+  currentState: 0
+  CurrentAttention: 0
   roamingAttentionTickRate: 0
   alertAttentionTickRate: 0
   huntingAttentionTickRate: 0
+  attentionDecayPerSecond: 0
   bedroomDoor: {fileID: 0}
+  specialLockerNode: {fileID: 0}
 --- !u!1 &1714285285
 GameObject:
   m_ObjectHideFlags: 0

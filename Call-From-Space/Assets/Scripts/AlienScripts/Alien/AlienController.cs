@@ -50,9 +50,9 @@ public class AlienController : Loadable
     public State currentState;
     public int CurrentAttention;
     IEnumerator attentionDecayFunc;
-    [SerializeField] 
+    [SerializeField]
     float roamingAttentionTickRate, alertAttentionTickRate, huntingAttentionTickRate, attentionDecayPerSecond;
-    [NonSerialized] 
+    [NonSerialized]
     public float currentAttentionTickRate;
 
     bool isDormant;
@@ -63,9 +63,11 @@ public class AlienController : Loadable
     float lookingAroundLength;
 
 
-    [Header("---Special Event Subscribe---"), Space(10)]
+    [Header("---Misc---"), Space(10)]
     [SerializeField]
     PowerDoors_Workshop bedroomDoor;
+    [SerializeField]
+    GameObject specialLockerNode;
 
 
     private void Awake()
@@ -90,13 +92,13 @@ public class AlienController : Loadable
 
     void Start()
     {
-        
+
         StartCoroutine(attentionDecayFunc);
 
         Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
         SetEndDestination(newEndNode);
         GoRoaming();
-        
+
         bedroomDoor.DoorActivated += BedroomDoorBreak;
     }
 
@@ -136,7 +138,7 @@ public class AlienController : Loadable
         }
         else if (pathQueue.Count == 0)
         {
-            
+
             animator.SetBool("isWalking", false);
             if (pathPauseTimer < 5)
             {
@@ -148,7 +150,7 @@ public class AlienController : Loadable
 
             Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
 
-            while(Vector3.Distance(newEndNode, transform.position) < 2f)
+            while (Vector3.Distance(newEndNode, transform.position) < 2f)
                 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
 
             animator.SetBool("isWalking", true);
@@ -176,8 +178,8 @@ public class AlienController : Loadable
 
         int initialThreshold = 5000;
         float initialVolume = 1;
-        if(updateAudio)
-            walkingAudio.volume = hits.Length > 0 ? (initialVolume* (0.5f / hits.Length)) : initialVolume;
+        if (updateAudio)
+            walkingAudio.volume = hits.Length > 0 ? (initialVolume * (0.5f / hits.Length)) : initialVolume;
         walkingMufflerFilter.cutoffFrequency = hits.Length > 0 ? (int)(initialThreshold * (0.6f / hits.Length)) : initialThreshold;
         PlayRandomAudio(walkingAudio, walkingClips);
     }
@@ -272,7 +274,7 @@ public class AlienController : Loadable
     {
         while (true)
         {
-            if(CurrentAttention > attentionDecayPerSecond)
+            if (CurrentAttention > attentionDecayPerSecond)
                 CurrentAttention = CurrentAttention - (int)attentionDecayPerSecond;
             //CurrentAttention = Mathf.Clamp(CurrentAttention - attentionDecayPerSecond, 0, 100);
             yield return new WaitForSeconds(1f);
@@ -299,7 +301,7 @@ public class AlienController : Loadable
         CurrentAttention = Mathf.Clamp(CurrentAttention + attention, 0, 100);
 
         //ranges 41-1 as attention gets higher
-        int alertAttentionThreshold = (int) (40-0.5f * CurrentAttention);
+        int alertAttentionThreshold = (int)(40 - 0.5f * CurrentAttention);
 
         //Debug.Log("Current attention: " + CurrentAttention);
 
@@ -314,7 +316,7 @@ public class AlienController : Loadable
         animator.SetBool("isRunning", true);
         if (currentState != State.Hunting)
         {
-            NMA.speed = huntingSpeed * Mathf.Clamp(Vector3.Distance(attentionLocation, transform.position)/5, 1.5f, 2);
+            NMA.speed = huntingSpeed * Mathf.Clamp(Vector3.Distance(attentionLocation, transform.position) / 5, 1.5f, 2);
             StartCoroutine(RepeatAttackingSound());
             //inInitialCharge = true;
             //InitialCharge(attentionLocation);
@@ -325,13 +327,13 @@ public class AlienController : Loadable
         currentState = State.Hunting;
 
         GameObject soundPoop = GenerateSoundPoop(attentionLocation);
-        
+
         //NMA.velocity = (attentionLocation - transform.position).normalized * 100;
         //NMA.speed = huntingSpeed;
         currentAttentionTickRate = huntingAttentionTickRate;
         NMA.angularSpeed = 360;
         NMA.SetDestination(soundPoop.transform.position);
-        
+
     }
 
     IEnumerator SpeedDecay()
@@ -344,7 +346,7 @@ public class AlienController : Loadable
             Debug.Log(timer);
             if (currentState == State.Hunting)
                 flag = true;
-            NMA.speed = Mathf.Clamp(NMA.speed - 0.5f, huntingSpeed-1, huntingSpeed * 2);
+            NMA.speed = Mathf.Clamp(NMA.speed - 0.5f, huntingSpeed - 1, huntingSpeed * 2);
 
             if (timer <= 0)
             {
@@ -360,9 +362,9 @@ public class AlienController : Loadable
     IEnumerator RepeatAttackingSound()
     {
         bool flag = false;
-        while(currentState == State.Hunting || !flag)
+        while (currentState == State.Hunting || !flag)
         {
-            if(currentState == State.Hunting)
+            if (currentState == State.Hunting)
                 flag = true;
             PlayRandomAttackAudio();
             yield return new WaitForSeconds(5f);
@@ -433,12 +435,12 @@ public class AlienController : Loadable
 
         if (genbdoor.poweredOn) return;
         GoHunting(GameObject.Find("M-9").transform.position);
-        
+
     }
 
     public void ToggleAlien()
     {
-        if (isPaused) 
+        if (isPaused)
         {
             GoRoaming();
             isDormant = false;
@@ -458,10 +460,22 @@ public class AlienController : Loadable
         }
     }
 
+
     public void LockerRoomSequence()
     {
+        if (currentState == State.Hunting) return;
+
+        specialLockerNode.SetActive(true);
+        UpdatePathNodes();
+
+        CurrentAttention = 0;
+        GoRoaming();
         NMA.Warp(GameObject.Find("H-0").transform.position);
-        if(!isPaused)
-            ToggleAlien();
+        //if(!isPaused)
+        //    ToggleAlien();
+
+
+        SetEndDestination(specialLockerNode.transform.position);
     }
 }
+
