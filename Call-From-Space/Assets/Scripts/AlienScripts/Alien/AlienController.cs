@@ -3,11 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Random = UnityEngine.Random;
 //using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.AI;
 using SoundSource = PathNode;
+using Random = UnityEngine.Random;
 //using UnityEditor.Search;
 using Unity.VisualScripting;
 
@@ -42,8 +42,6 @@ public class AlienController : Loadable
     float huntingSpeed;
 
     NavMeshAgent NMA;
-    Vector3 endNodePosition;
-    Vector3[] nodePositions;
     Queue<Vector3> pathQueue;
 
     [Header("---Attention---"), Space(10)]
@@ -68,12 +66,13 @@ public class AlienController : Loadable
     PowerDoors_Workshop bedroomDoor;
     [SerializeField]
     GameObject specialLockerNode;
+    PathnodeManager nodeManager;
 
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-
+        nodeManager = GameObject.Find("AlienPathNodes").GetComponent<PathnodeManager>();
         playerRb = player.GetComponent<Rigidbody>();
 
         Transform sounds = transform.Find("Sounds");
@@ -83,7 +82,6 @@ public class AlienController : Loadable
         walkingMufflerFilter = sounds.Find("WalkSounds").gameObject.GetComponent<AudioLowPassFilter>();
         NMA = GetComponent<NavMeshAgent>();
         isDormant = true;
-        nodePositions = GetActivePathnodes();
         currentAttentionTickRate = roamingAttentionTickRate;
         pathQueue = new Queue<Vector3>();
         currentState = State.Roaming;
@@ -95,8 +93,7 @@ public class AlienController : Loadable
 
         StartCoroutine(attentionDecayFunc);
 
-        Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
-        SetEndDestination(newEndNode);
+        SetEndDestination(nodeManager.GetRandomNode());
         GoRoaming();
 
         bedroomDoor.DoorActivated += BedroomDoorBreak;
@@ -148,10 +145,10 @@ public class AlienController : Loadable
 
             pathPauseTimer = 0;
 
-            Vector3 newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
+            Vector3 newEndNode = nodeManager.GetRandomNode();
 
             while (Vector3.Distance(newEndNode, transform.position) < 2f)
-                newEndNode = nodePositions[Random.Range(0, nodePositions.Length - 1)];
+                newEndNode = nodeManager.GetRandomNode();
 
             animator.SetBool("isWalking", true);
 
@@ -213,7 +210,7 @@ public class AlienController : Loadable
         if (corners.Length == 0)
             Debug.Log("No corners found on path");
 
-        pathQueue = CalculatePathQueue(corners);
+        pathQueue = nodeManager.CalculatePathQueue(corners);
         NMA.SetDestination(pathQueue.Peek());
 
         //foreach (Vector3 corner in corners)
@@ -222,50 +219,7 @@ public class AlienController : Loadable
         //}
     }
 
-    Queue<Vector3> CalculatePathQueue(Vector3[] corners)
-    {
-        Queue<Vector3> pathQueue = new Queue<Vector3>();
-
-        foreach (Vector3 corner in corners)
-        {
-            Vector3 closestNode = findNearestNode(corner);
-            if (!pathQueue.Contains(closestNode))
-                pathQueue.Enqueue(closestNode);
-        }
-
-        return pathQueue;
-    }
-
-    Vector3 findNearestNode(Vector3 position, bool mustBeVisible = false)
-    {
-
-        Vector3 closest = Vector3.one * Mathf.Infinity;
-        Vector3 positionToClosest = closest - position;
-
-        foreach (Vector3 nodePosition in nodePositions)
-        {
-            Vector3 positionToNode = nodePosition - position;
-
-            //REFACTOR THESE CONDITIONALS, I HATE THEM this might not even be necessary
-            if (positionToClosest.sqrMagnitude > positionToNode.sqrMagnitude)
-            {
-                if ((mustBeVisible && Physics.Raycast(transform.position, positionToNode.normalized, positionToNode.magnitude)) || !mustBeVisible)
-                {
-                    closest = nodePosition;
-                    positionToClosest = positionToNode;
-                }
-            }
-        }
-
-        return closest;
-    }
-
-    Vector3[] GetActivePathnodes() => GameObject.FindGameObjectsWithTag("Pathnode")
-            .Where(node => node.activeInHierarchy)
-            .Select(node => node.transform.position)
-            .ToArray();
-
-    public void UpdatePathNodes() => nodePositions = GetActivePathnodes();
+    
 
     //-------------------------------------------------------------------------------------------
 
@@ -466,7 +420,7 @@ public class AlienController : Loadable
         if (currentState == State.Hunting) return;
 
         specialLockerNode.SetActive(true);
-        UpdatePathNodes();
+        nodeManager.UpdatePathNodes();
 
         CurrentAttention = 0;
         GoRoaming();
