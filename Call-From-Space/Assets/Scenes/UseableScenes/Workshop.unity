@@ -72670,6 +72670,8 @@ MonoBehaviour:
   - {fileID: 1900854500}
   - {fileID: 206497560}
   - {fileID: 180454284}
+  defaultGoToPlayerChance: 0
+  goToPlayerChanceIncrement: 20
 --- !u!114 &518143204
 MonoBehaviour:
   m_ObjectHideFlags: 0

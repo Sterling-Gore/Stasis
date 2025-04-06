@@ -10,17 +10,24 @@ public class PathnodeManager : MonoBehaviour
     Dictionary<PowerDoors_Workshop, GameObject> doorNodesDict;
 
     public PowerDoors_Workshop[] eventDoors;
+
+    Transform playerTransform;
     AlienController alienController;
     Vector3[] activeNodes;
 
+    [SerializeField]
+    int defaultGoToPlayerChance, goToPlayerChanceIncrement;
+    int currentGoToPlayerChance;
+
     void Awake()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         alienController = GameObject.FindGameObjectWithTag("Alien").GetComponent<AlienController>();
         foreach (PowerDoors_Workshop door in eventDoors)
         {
             door.DoorActivated += ActivateNodes;
         }
-        
+        currentGoToPlayerChance = defaultGoToPlayerChance;
     }
 
     void ActivateNodes(object sender, DoorEventArgs e)
@@ -79,6 +86,21 @@ public class PathnodeManager : MonoBehaviour
 
     public void UpdatePathNodes() => activeNodes = GetActivePathnodes();
 
-    public Vector3 GetRandomNode() => activeNodes[Random.Range(0, activeNodes.Length - 1)];
+    public Vector3 GetRandomNode()
+    {
+        int randomNum = Random.Range(0, 100);
+
+        if (randomNum < currentGoToPlayerChance)
+        {
+            Debug.Log("Went to player");
+            currentGoToPlayerChance = defaultGoToPlayerChance;
+            return findNearestNode(playerTransform.position);
+        }
+        else
+        {
+            currentGoToPlayerChance += goToPlayerChanceIncrement;
+            return activeNodes[Random.Range(0, activeNodes.Length - 1)];
+        }
+    }
 
 }
