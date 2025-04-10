@@ -63,5 +63,11 @@ public class CameraController : MonoBehaviour
                 PlayerModel.transform.rotation = Quaternion.Euler(0, yRotation, 0);
             }
         }
-    }    
+    }
+
+    public void AlignRotation(Vector3 rotation)
+    {
+        xRotation = rotation.x;
+        yRotation = rotation.y;
+    }
 }
