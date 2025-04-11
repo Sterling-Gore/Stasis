@@ -39,6 +39,6 @@ public class leavingWorkshop : MonoBehaviour
     IEnumerator LeavingGame()
     {
         yield return new WaitForSeconds(15f);
-        SceneManager.LoadSceneAsync("TOBECONTINUED");
+        SceneManager.LoadSceneAsync("Research");
     }
 }

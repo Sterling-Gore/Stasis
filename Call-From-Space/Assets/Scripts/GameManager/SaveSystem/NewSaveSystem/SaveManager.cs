@@ -110,5 +110,10 @@ public enum SavePointID
     workshop1,
     workshop2,
     workshop3,
-    workshop4
+    workshop4,
+    research1,
+    research2,
+    research3,
+    research4,
+    research5
 }

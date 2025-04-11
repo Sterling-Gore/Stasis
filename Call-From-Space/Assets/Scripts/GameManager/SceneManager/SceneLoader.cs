@@ -31,6 +31,21 @@ public class SceneLoader : MonoBehaviour
             case SavePointID.workshop4:
                 sceneName = "Workshop";
                 break;
+            case SavePointID.research1:
+                sceneName = "Research";
+                break;
+            case SavePointID.research2:
+                sceneName = "Research";
+                break;
+            case SavePointID.research3:
+                sceneName = "Research";
+                break;
+            case SavePointID.research4:
+                sceneName = "Research";
+                break;
+            case SavePointID.research5:
+                sceneName = "Research";
+                break;
             default:
                 sceneName = "intro";
                 break;
