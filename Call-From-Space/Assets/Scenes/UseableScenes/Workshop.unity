@@ -338793,6 +338793,8 @@ MonoBehaviour:
   Experiment87AttackSounds: {fileID: 823734722}
   Experiment87WalkSounds: {fileID: 576712879}
   Experiment87: {fileID: 890353833}
+  saveManager: {fileID: 1644451611}
+  sceneLoader: {fileID: 1644451610}
 --- !u!4 &1803541184
 Transform:
   m_ObjectHideFlags: 0

@@ -4,15 +4,129 @@ using UnityEngine;
 
 public class researchLevelStart : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public SaveManager saveManager;
+    public SceneStart sceneStart;
+
+    public enum ResearchSavePoint
     {
-        
+        elevator,
+        lab,
+        laser,
+        simonSays,
+        boss
     }
 
-    // Update is called once per frame
-    void Update()
+    public ResearchSavePoint researchSavePoint;
+
+    public Transform camera;
+    public Rigidbody player_rb;
+
+
+    [Header("Player Position")]
+    public Vector3 elevatorPosition;
+    public Vector3 labPosition;
+    public Vector3 LaserPosition;
+    public Vector3 simonSaysPosition;
+    public Vector3 bossPosition;
+
+    [Header("Player Rotation")]
+    public Vector3 elevatorRotation;
+    public Vector3 labRotation;
+    public Vector3 LaserRotation;
+    public Vector3 simonSaysRotation;
+    public Vector3 bossRotation;
+
+
+    [Header("Items")]
+    public PickUp bloodVial; 
+    public PickUp plantVial; 
+    public PickUp drawerKey; 
+    public PickUp reflector; 
+
+    [Header("Extra Audios")]
+    public AudioSource elevatorEntrance;
+
+
+    void Awake()
     {
-        
+        SavePointID savePoint = saveManager.LoadSave();
+        switch(savePoint)
+        {
+            case SavePointID.research1:
+                SpawnInElevator();
+                break;
+            case SavePointID.research2:
+                SpawnInLab();
+                break;
+            case SavePointID.research3:
+                SpawnInLaser();
+                break;
+            case SavePointID.research4:
+                SpawnInSimonSays();
+                break;
+            case SavePointID.research5:
+                SpawnInBoss();
+                break;
+            default:
+                saveManager.UpdateSave(SavePointID.research1);
+                SpawnInElevator();
+                break;
+        }
+
+    }
+    
+    void Start()
+    {
+        onStart(researchSavePoint);
+    }
+
+    void onStart(ResearchSavePoint savePoint)
+    {
+
+    }
+
+    void SpawnInElevator()
+    {
+        researchSavePoint = ResearchSavePoint.elevator;
+
+        sceneStart.delayAudio = false;
+        player_rb.position = elevatorPosition;
+        camera.rotation = Quaternion.Euler(elevatorRotation.x, elevatorRotation.y, elevatorRotation.z);
+    }
+
+    void SpawnInLab()
+    {
+        researchSavePoint = ResearchSavePoint.lab;
+
+        sceneStart.delayAudio = true;
+        player_rb.position = labPosition;
+        camera.rotation = Quaternion.Euler(labRotation.x, labRotation.y, labRotation.z);
+    }
+
+    void SpawnInLaser()
+    {
+        researchSavePoint = ResearchSavePoint.laser;
+
+        sceneStart.delayAudio = true;
+        player_rb.position = LaserPosition;
+        camera.rotation = Quaternion.Euler(LaserRotation.x, LaserRotation.y, LaserRotation.z);
+    }
+
+    void SpawnInSimonSays()
+    {
+        researchSavePoint = ResearchSavePoint.simonSays;
+
+        sceneStart.delayAudio = true;
+        player_rb.position = simonSaysPosition;
+        camera.rotation = Quaternion.Euler(simonSaysRotation.x, simonSaysRotation.y, simonSaysRotation.z);
+    }
+
+    void SpawnInBoss()
+    {
+        researchSavePoint = ResearchSavePoint.boss;
+
+        sceneStart.delayAudio = true;
+        player_rb.position = bossPosition;
+        camera.rotation = Quaternion.Euler(bossPosition.x, bossPosition.y, bossPosition.z);
     }
 }

@@ -10,6 +10,9 @@ public class leavingWorkshop : MonoBehaviour
      public AudioSource Experiment87WalkSounds;
      public AlienController Experiment87;
 
+     public SaveManager saveManager;
+     public SceneLoader sceneLoader;
+
     public void leaveScene()
     {
         Experiment87.updateAudio = false;
@@ -39,6 +42,8 @@ public class leavingWorkshop : MonoBehaviour
     IEnumerator LeavingGame()
     {
         yield return new WaitForSeconds(15f);
-        SceneManager.LoadSceneAsync("Research");
+        saveManager.UpdateSave(SavePointID.research1);
+        sceneLoader.LoadSceneFromSavePoint();
+        //SceneManager.LoadSceneAsync("Research");
     }
 }
