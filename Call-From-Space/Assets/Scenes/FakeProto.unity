@@ -184731,8 +184731,8 @@ Light:
   m_Color: {r: 0.30588236, g: 0.06666667, b: 0.06666667, a: 1}
   m_Intensity: 10
   m_Range: 30
-  m_SpotAngle: 37.4
-  m_InnerSpotAngle: 21.80208
+  m_SpotAngle: 40
+  m_InnerSpotAngle: 4
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -285040,6 +285040,7 @@ GameObject:
   - component: {fileID: 1591025723}
   - component: {fileID: 1591025725}
   - component: {fileID: 1591025724}
+  - component: {fileID: 1591025726}
   m_Layer: 0
   m_Name: Teleport Back
   m_TagString: Untagged
@@ -285074,7 +285075,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff8d7c6f60369a4c8bcac6cabdc4724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fullName: 
+  special: 0
+  interactionType: 0
   originPickUp: {fileID: 259831091}
+  itemGlow: {fileID: 1955070668}
+  spotlight: {fileID: 1113691540}
+  descriptions:
+  - Press [E] to escape.
+  - Press [E] to escape?
+  - 'Escape? Escape? Escape? Escape? Escape? Escape? Escape? Escape? Escape? '
+  - Press [E].
+  - <color=red>There is no escape.<color=red>
 --- !u!65 &1591025725
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -285094,8 +285106,35 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.09, y: 1, z: -0.09}
+  m_Size: {x: -0.01, y: 0.27, z: 0.01}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1591025726
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591025722}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &1591327861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ac643fd92c9a16e448a1d286ef726d1c, type: 3}
@@ -344784,6 +344823,8 @@ MonoBehaviour:
   Experiment87AttackSounds: {fileID: 823734722}
   Experiment87WalkSounds: {fileID: 576712879}
   Experiment87: {fileID: 890353833}
+  saveManager: {fileID: 0}
+  sceneLoader: {fileID: 0}
 --- !u!4 &1803541184
 Transform:
   m_ObjectHideFlags: 0
