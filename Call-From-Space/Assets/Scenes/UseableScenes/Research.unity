@@ -116271,10 +116271,13 @@ MonoBehaviour:
   LaserRotation: {x: 0, y: 0, z: 0}
   simonSaysRotation: {x: 0, y: 0, z: 0}
   bossRotation: {x: 0, y: 0, z: 0}
-  bloodVial: {fileID: 0}
-  plantVial: {fileID: 0}
-  drawerKey: {fileID: 0}
-  reflector: {fileID: 0}
+  bloodVial: {fileID: 1862085587}
+  plantVial: {fileID: 1076359099}
+  drawerKey: {fileID: 1735009035}
+  reflector: {fileID: 1462833320}
+  valve: {fileID: 237180580}
+  plant: {fileID: 1146164133}
+  antidote: {fileID: 574724506}
   elevatorEntrance: {fileID: 0}
 --- !u!1 &1061674925
 GameObject:

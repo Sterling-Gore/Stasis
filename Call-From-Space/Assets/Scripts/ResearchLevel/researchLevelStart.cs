@@ -43,6 +43,11 @@ public class researchLevelStart : MonoBehaviour
     public PickUp drawerKey; 
     public PickUp reflector; 
 
+    [Header("Holdables")]
+    public GameObject valve; 
+    public GameObject plant;
+    public GameObject antidote;
+
     [Header("Extra Audios")]
     public AudioSource elevatorEntrance;
 
@@ -82,7 +87,42 @@ public class researchLevelStart : MonoBehaviour
 
     void onStart(ResearchSavePoint savePoint)
     {
-
+        if(savePoint == ResearchSavePoint.lab)
+        {
+            bloodVial.pickUp();
+            plantVial.pickUp();
+            valve.SetActive(false);
+            plant.SetActive(false);
+        }
+        else if(savePoint == ResearchSavePoint.laser)
+        {
+            bloodVial.deletedPickUp();
+            plantVial.deletedPickUp();
+            reflector.deletedPickUp();
+            drawerKey.deletedPickUp();
+            valve.SetActive(false);
+            plant.SetActive(false);
+        }
+        else if(savePoint == ResearchSavePoint.simonSays)
+        {
+            bloodVial.deletedPickUp();
+            plantVial.deletedPickUp();
+            reflector.deletedPickUp();
+            drawerKey.deletedPickUp();
+            valve.SetActive(false);
+            plant.SetActive(false);
+            antidote.SetActive(false);
+        }
+        else if(savePoint == ResearchSavePoint.boss)
+        {
+            bloodVial.deletedPickUp();
+            plantVial.deletedPickUp();
+            reflector.deletedPickUp();
+            drawerKey.deletedPickUp();
+            valve.SetActive(false);
+            plant.SetActive(false);
+            antidote.SetActive(false);
+        }
     }
 
     void SpawnInElevator()
