@@ -23,7 +23,7 @@ public class DrawerInteraction : Interactable
     {
         if (!unlocked)
         {
-            if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Key.GetComponent<Item>()))
+            if (Player.GetComponent<UI_Controller>().inventory.IsItemInList(Key.GetComponent<Item>()))
             {
                 return "Press [E] to Unlock Drawer";
             }
@@ -41,19 +41,19 @@ public class DrawerInteraction : Interactable
 
     public override void Interact()
     {
-        if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Key.GetComponent<Item>()))
+        if (Player.GetComponent<UI_Controller>().inventory.IsItemInList(Key.GetComponent<Item>()))
         {
             Sparkle.SetActive(false);
             unlocked = true;
             animation.SetBool("Opened", true);
             audioSource.enabled = true;
-            Player.GetComponent<PlayerController>().inventory.DeleteItem(Key.GetComponent<Item>());
-            Player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(3);
+            Player.GetComponent<UI_Controller>().inventory.DeleteItem(Key.GetComponent<Item>());
+            //Player.GetComponent<UI_Controller>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(3);
         }
 
     }
 
-    public override void Load(JObject state)
+    /*public override void Load(JObject state)
     {
         base.Load(state);
         unlocked = (bool)state[fullName]["unlocked"];
@@ -66,4 +66,5 @@ public class DrawerInteraction : Interactable
         base.Save(ref state);
         state[fullName]["unlocked"] = unlocked;
     }
+    */
 }
