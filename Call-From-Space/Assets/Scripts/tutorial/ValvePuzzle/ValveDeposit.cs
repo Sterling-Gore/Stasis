@@ -26,7 +26,7 @@ public class ValveDeposit : Interactable
     public override string GetDescription()
     {
         if (player.GetComponent<Interactor>().holdingName == "Busted Valve")
-            return "Press [E] to Insert Busted Valve";
+            return "<color=red>Press [E]</color=red> to Insert Busted Valve";
         return "Find Busted Valve";
     }
 
@@ -37,7 +37,8 @@ public class ValveDeposit : Interactable
             holdableValve.GetComponent<ValveHoldable>().DropObject();
             holdableValve.GetComponent<ValveHoldable>().StopGlowEffect();
             holdableValve.SetActive(false);
-            sparkle.SetActive(false);
+            if(sparkle != null)
+                sparkle.SetActive(false);
             fixedValve.SetActive(true);
             ValvePlugin.Play();
             gameObject.SetActive(false);

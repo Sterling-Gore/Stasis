@@ -121,7 +121,7 @@ public class LabScreenPuzzle : MonoBehaviour
             if(match)
             {
                 won = true;
-                LabScreen.finished = true;
+                LabScreen.finishPuzzle();
                 StartCoroutine(GreenOrder());
             }
             else
