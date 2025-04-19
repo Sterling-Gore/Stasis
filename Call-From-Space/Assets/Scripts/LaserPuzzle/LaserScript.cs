@@ -13,6 +13,9 @@ public class LaserScript : MonoBehaviour
     public LayerMask ignoreCollider;
     public LayerMask alienCollider;
 
+    [Header("Audio")]
+    public AudioSource laserHum; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +47,7 @@ public class LaserScript : MonoBehaviour
                             }
                             previousLaserReflector = hit.collider.GetComponent<LaserScript>();
                             previousLaserReflector.on = true;
+                            previousLaserReflector.laserHum.enabled = true;
                         }
                         else
                         {
@@ -73,6 +77,7 @@ public class LaserScript : MonoBehaviour
         if(previousLaserReflector)
         {
             previousLaserReflector.on = false;
+            previousLaserReflector.laserHum.enabled = false;
             previousLaserReflector = null;
         }
     }
