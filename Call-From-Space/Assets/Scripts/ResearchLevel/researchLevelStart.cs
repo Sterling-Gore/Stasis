@@ -51,6 +51,10 @@ public class researchLevelStart : MonoBehaviour
     [Header("Lab Puzzle Deliverables")]
     public labManager lab_manager;
 
+    [Header("Laser Puzzle Deliverables")]
+    public laserPuzzleManager laser_manager;
+    public DrawerInteraction drawer;
+
     [Header("Extra Audios")]
     public AudioSource elevatorEntrance;
 
@@ -151,6 +155,11 @@ public class researchLevelStart : MonoBehaviour
     void SpawnInLaser()
     {
         researchSavePoint = ResearchSavePoint.laser;
+
+        lab_manager.complete_for_awake();
+        laser_manager.puzzleIsCompleted = true;
+        laser_manager.spawnAntidote = true;
+        drawer.openDrawer();
 
         sceneStart.delayAudio = true;
         player_rb.position = LaserPosition;

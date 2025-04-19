@@ -8,6 +8,7 @@ public class laserPuzzleManager : MonoBehaviour
     private bool enterPlantVial;
     private bool enterBattery;
     private float timerForCompletion;
+    public SaveManager saveManager;
 
     [Header("Laser Scripts")]
     public LaserScript wall1Origin;
@@ -15,6 +16,9 @@ public class laserPuzzleManager : MonoBehaviour
     public LaserScript[] wallReflectors;
     public LaserScript endpoint1;
     public LaserScript endpoint2;
+
+    [Header("Reflector Colliders")]
+    public Collider[] wallReflectorColliders;
 
 
     [Header("Insert Objects")]
@@ -31,6 +35,7 @@ public class laserPuzzleManager : MonoBehaviour
     [Header("Manager")]
     public bool puzzleIsCompleted = false;
     public bool spawnAntidote = false;
+    public GameObject deposits;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +44,7 @@ public class laserPuzzleManager : MonoBehaviour
         if(puzzleIsCompleted)
         {
             insertAll();
+            despawnAllColliders();
         }
         if(spawnAntidote)
         {
@@ -55,7 +61,9 @@ public class laserPuzzleManager : MonoBehaviour
             {
                 puzzleIsCompleted = true;
                 despawnAllLasers();
+                despawnAllColliders();
                 createAntidote();
+                saveManager.UpdateSave(SavePointID.research3);
             }
         }
     }
@@ -86,6 +94,7 @@ public class laserPuzzleManager : MonoBehaviour
         bloodVial.SetActive(true);
         plantVial.SetActive(true);
         battery.SetActive(true);
+        deposits.SetActive(false);
     }
 
     public void updateInserts()
@@ -129,6 +138,14 @@ public class laserPuzzleManager : MonoBehaviour
         {
             laser.on = false;
             laser.laserHum.enabled = false;
+        }
+    }
+
+    void despawnAllColliders()
+    {
+        foreach (Collider collider in wallReflectorColliders)
+        {
+            collider.enabled = false;
         }
     }
 

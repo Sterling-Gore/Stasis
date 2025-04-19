@@ -6,7 +6,7 @@ using UnityEngine;
 public class DrawerInteraction : Interactable
 {
     // Start is called before the first frame update
-    Animator animation;
+    public Animator animation;
     public GameObject Player;
     public GameObject Key;
     bool unlocked = false;
@@ -16,7 +16,8 @@ public class DrawerInteraction : Interactable
     public GameObject Sparkle;
     void Start()
     {
-        animation = GetComponent<Animator>();
+        if(animation == null)
+            animation = GetComponent<Animator>();
     }
 
     public override string GetDescription()
@@ -43,14 +44,19 @@ public class DrawerInteraction : Interactable
     {
         if (Player.GetComponent<UI_Controller>().inventory.IsItemInList(Key.GetComponent<Item>()))
         {
-            Sparkle.SetActive(false);
-            unlocked = true;
-            animation.SetBool("Opened", true);
-            audioSource.enabled = true;
-            Player.GetComponent<UI_Controller>().inventory.DeleteItem(Key.GetComponent<Item>());
+            openDrawer();
             //Player.GetComponent<UI_Controller>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(3);
         }
 
+    }
+
+    public void openDrawer()
+    {
+        Sparkle.SetActive(false);
+        unlocked = true;
+        animation.SetBool("Opened", true);
+        audioSource.enabled = true;
+        Player.GetComponent<UI_Controller>().inventory.DeleteItem(Key.GetComponent<Item>());
     }
 
     /*public override void Load(JObject state)
