@@ -34,15 +34,20 @@ public class ValveDeposit : Interactable
     {
         if (player.GetComponent<Interactor>().holdingName == "Busted Valve")
         {
-            holdableValve.GetComponent<ValveHoldable>().DropObject();
-            holdableValve.GetComponent<ValveHoldable>().StopGlowEffect();
-            holdableValve.SetActive(false);
-            if(sparkle != null)
-                sparkle.SetActive(false);
-            fixedValve.SetActive(true);
-            ValvePlugin.Play();
-            gameObject.SetActive(false);
+            deposit();
             
         }
+    }
+
+    public void deposit()
+    {
+        holdableValve.GetComponent<ValveHoldable>().DropObject();
+        holdableValve.GetComponent<ValveHoldable>().StopGlowEffect();
+        holdableValve.SetActive(false);
+        if(sparkle != null)
+            sparkle.SetActive(false);
+        fixedValve.SetActive(true);
+        ValvePlugin.Play();
+        gameObject.SetActive(false);
     }
 }

@@ -48,6 +48,9 @@ public class researchLevelStart : MonoBehaviour
     public GameObject plant;
     public GameObject antidote;
 
+    [Header("Lab Puzzle Deliverables")]
+    public labManager lab_manager;
+
     [Header("Extra Audios")]
     public AudioSource elevatorEntrance;
 
@@ -137,6 +140,8 @@ public class researchLevelStart : MonoBehaviour
     void SpawnInLab()
     {
         researchSavePoint = ResearchSavePoint.lab;
+
+        lab_manager.complete_for_awake();
 
         sceneStart.delayAudio = true;
         player_rb.position = labPosition;

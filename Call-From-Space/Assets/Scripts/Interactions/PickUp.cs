@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PickUp : Interactable
 {
-    Item item;
+    public Item item;
     public GameObject player;
-    UI_Controller ui_controller;
+    public UI_Controller ui_controller;
     public GameObject JournalPlayer;
     public GameObject ItemGlow;
     public AudioClip PickUpSound;
@@ -29,8 +29,10 @@ public class PickUp : Interactable
     override protected void Awake()
     {
         base.Awake();
-        item = GetComponent<Item>();
-        ui_controller = player.GetComponent<UI_Controller>();
+        if(item == null)
+            item = GetComponent<Item>();
+        if(ui_controller == null)
+            ui_controller = player.GetComponent<UI_Controller>();
 
         //Physics.IgnoreCollision(transform.Find("Collider").GetComponent<Collider>(), player.transform.Find("Player Model").GetComponent<Collider>(), true);
     }

@@ -11049,7 +11049,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1820998650}
   PickUpSound: {fileID: 8300000, guid: 85d29c38f0c396447abccaa847a3b97f, type: 3}
@@ -11212,7 +11214,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1882936375}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -22018,7 +22022,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 963699573}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -37400,7 +37406,7 @@ MonoBehaviour:
   objName: Busted Valve
   weight: 0
   ItemGlow: {fileID: 245386943}
-  interactor: {fileID: 0}
+  interactor: {fileID: 362943810}
   audioSource: {fileID: 237180581}
   PickUp: {fileID: 8300000, guid: 74ddddcdc5206034997e971f0178b174, type: 3}
   Drop: {fileID: 8300000, guid: a401bd1db168c4a44966b3660a81938a, type: 3}
@@ -70845,7 +70851,6 @@ GameObject:
   - component: {fileID: 362943810}
   - component: {fileID: 362943814}
   - component: {fileID: 362943817}
-  - component: {fileID: 362943821}
   m_Layer: 11
   m_Name: player
   m_TagString: Player
@@ -71101,19 +71106,6 @@ MonoBehaviour:
   standardScreen: {fileID: 1768321878}
   IsSpaceSuitOn: 1
   UI_Value: 0
---- !u!114 &362943821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362943805}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f880093136a03d4b868c1c0c06b1db6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMovementState: 0
 --- !u!1 &364128907
 GameObject:
   m_ObjectHideFlags: 0
@@ -98022,7 +98014,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 869982564}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -153000,7 +152994,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1319526274}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -158466,7 +158462,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1487725167}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -163799,7 +163797,7 @@ MonoBehaviour:
   camera: {fileID: 963194228}
   player_rb: {fileID: 362943807}
   elevatorPosition: {x: 105.92, y: 33.18324, z: 28.63}
-  labPosition: {x: 0, y: 0, z: 0}
+  labPosition: {x: 105.92, y: 33.18324, z: 28.63}
   LaserPosition: {x: 0, y: 0, z: 0}
   simonSaysPosition: {x: 0, y: 0, z: 0}
   bossPosition: {x: 0, y: 0, z: 0}
@@ -163815,6 +163813,7 @@ MonoBehaviour:
   valve: {fileID: 237180580}
   plant: {fileID: 1146164133}
   antidote: {fileID: 574724506}
+  lab_manager: {fileID: 1865120449}
   elevatorEntrance: {fileID: 0}
 --- !u!1001 &1061211096
 PrefabInstance:
@@ -165044,7 +165043,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 1076359100}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 362943820}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 144065484}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -175888,7 +175889,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1955070668}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -181711,7 +181714,7 @@ MonoBehaviour:
   objName: Foreign Plant
   weight: 0
   ItemGlow: {fileID: 2013797803}
-  interactor: {fileID: 0}
+  interactor: {fileID: 362943810}
   audioSource: {fileID: 1146164135}
   PickUp: {fileID: 8300000, guid: 74ddddcdc5206034997e971f0178b174, type: 3}
   Drop: {fileID: 8300000, guid: a401bd1db168c4a44966b3660a81938a, type: 3}
@@ -181962,7 +181965,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 118089440}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -187726,7 +187731,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1673943275}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -196268,7 +196275,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 40135878}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -200174,7 +200183,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 799419389}
   PickUpSound: {fileID: 8300000, guid: 320b483e64fb6b4489aed4792a600481, type: 3}
@@ -201035,7 +201046,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1989263525}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -236986,7 +236999,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1371930166}
   PickUpSound: {fileID: 8300000, guid: 320b483e64fb6b4489aed4792a600481, type: 3}
@@ -240546,7 +240561,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 70888899}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -242296,7 +242313,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1477182817}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -257803,7 +257822,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1521535881}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -270488,7 +270509,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1211031975}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -291735,7 +291758,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 643067490}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -311884,7 +311909,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 1862085588}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 362943820}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1892272649}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -312292,6 +312319,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1865120448}
+  - component: {fileID: 1865120449}
   m_Layer: 0
   m_Name: LabPuzzles
   m_TagString: Untagged
@@ -312316,6 +312344,29 @@ Transform:
   - {fileID: 322111281}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1865120449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865120447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12ce665c7f72cf45890be11b1fec13c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  completed: 0
+  player_ui: {fileID: 362943820}
+  saveManager: {fileID: 1644451611}
+  plant_depo: {fileID: 1655136089}
+  valve_depo: {fileID: 679213618}
+  plantLabScreen: {fileID: 647339164}
+  bloodLabScreen: {fileID: 2077638477}
+  plantValve: {fileID: 59107491}
+  bloodValve: {fileID: 1913372735}
+  plantVial: {fileID: 1076359100}
+  bloodVial: {fileID: 1862085588}
 --- !u!1 &1867866487
 GameObject:
   m_ObjectHideFlags: 0

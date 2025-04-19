@@ -24,17 +24,22 @@ public class plant_deposit : Interactable
     {
         if (player.GetComponent<Interactor>().holdingName == "Foreign Plant")
         {
-            holdablePlant.GetComponent<ValveHoldable>().DropObject();
-            holdablePlant.GetComponent<ValveHoldable>().StopGlowEffect();
-            holdablePlant.SetActive(false);
-            if(sparkle != null)
-                sparkle.SetActive(false);
-            plant.SetActive(true);
-            placeDownAudio.Play();
-            valve.holdableReady = true;
-
-            gameObject.SetActive(false);
+            deposit();
             
         }
+    }
+
+    public void deposit()
+    {
+        holdablePlant.GetComponent<ValveHoldable>().DropObject();
+        holdablePlant.GetComponent<ValveHoldable>().StopGlowEffect();
+        holdablePlant.SetActive(false);
+        if(sparkle != null)
+            sparkle.SetActive(false);
+        plant.SetActive(true);
+        placeDownAudio.Play();
+        valve.holdableReady = true;
+
+        gameObject.SetActive(false);
     }
 }
