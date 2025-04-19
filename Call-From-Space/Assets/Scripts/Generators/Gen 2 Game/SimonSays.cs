@@ -40,10 +40,12 @@ public class SimonSays : MonoBehaviour
     public AudioClip valid;
 
     public AudioClip inValid;
-    
-    public GameObject player;
 
     public AudioSource audioSource;
+
+    [Header("Screen")]
+    public SimonSaysScreemInteraction screen; 
+    public UI_Controller PlayerUI;
 
     void Start()
     {
@@ -149,6 +151,8 @@ public class SimonSays : MonoBehaviour
             audioSource.PlayOneShot(valid);
             if(level == 3)
             {
+                screen.finishPuzzle();
+                StartCoroutine(ExitScreen());
                 won = true;
                 enableButtons(false);
                 FuelDepositSparkle.SetActive(true);
@@ -156,7 +160,7 @@ public class SimonSays : MonoBehaviour
                 audioSource.PlayOneShot(valid);
                 gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
                 gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
-                player.GetComponent<UI_Controller>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(6);
+                //player.GetComponent<UI_Controller>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(6);
             }
             else
             {
@@ -166,5 +170,12 @@ public class SimonSays : MonoBehaviour
                 StartCoroutine(ColorOrder());
             }
         }
+    }
+
+    IEnumerator ExitScreen()
+    {
+        yield return new WaitForSeconds(2f);
+        if(PlayerUI.UI_Value  == UI_Controller.UI_Types.inventory_or_puzzle)
+            PlayerUI.ESCAPE();
     }
 }
