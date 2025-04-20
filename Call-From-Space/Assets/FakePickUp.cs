@@ -28,11 +28,7 @@ public class FakePickUp : Interactable
     public override void Interact()
     {
         Debug.Log("Activate");
-        originalPlayerPosition = playerRB.position;
-        originalPlayerRotation = playerCamera.transform.localEulerAngles;
-        originalPlayerRotation.x = 0;
-        playerRB.position = teleportPoint.position;
-        cameraController.AlignRotation(teleportPoint.localEulerAngles);
+        InsanityMeter.Instance.IncreaseInsanity(100f);
         transform.parent.gameObject.SetActive(false);
     }
 

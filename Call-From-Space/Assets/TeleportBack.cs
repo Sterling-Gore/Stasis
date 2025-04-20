@@ -4,46 +4,54 @@ using UnityEngine;
 
 public class TeleportBack : Interactable
 {
-    public FakePickUp originPickUp;
+    ShadowRealm shadowRealmController;
     Rigidbody playerRB;
     HealthSystem healthSystem;
+    CameraController cameraController;
     
     public GameObject itemGlow;
-
-    int caughtCount;
-    int timesInteracted;
 
     public Light spotlight;
 
     public string[] descriptions;
+
+    int timesInteracted;
+
     public override string GetDescription()
     {
         return descriptions[timesInteracted];
+        
     }
 
     public override void Interact()
     {
-        float damageTaken = ((timesInteracted+1) / 5f) * healthSystem.healthLevel;
-
-        spotlight.spotAngle -= 7;
-        
+        float damageTaken = ((++timesInteracted) /(float) InsanityMeter.Instance.maxCaught) * healthSystem.healthLevel;
         healthSystem.TakeDamage(damageTaken);
-        //playerRB.position = originPickUp.originalPlayerPosition;
-        //playerRB.isKinematic = true;
-        //playerRB.isKinematic = false;
-        //originPickUp.cameraController.AlignRotation(originPickUp.originalPlayerRotation);
-        timesInteracted++;
+
+        Debug.Log(InsanityMeter.Instance.timesCaught + " : " + timesInteracted);
+        spotlight.spotAngle -= 10;
+        if(timesInteracted == InsanityMeter.Instance.timesCaught)
+        {
+            playerRB.position = shadowRealmController.originalPlayerPosition;
+            playerRB.isKinematic = true;
+            playerRB.isKinematic = false;
+            cameraController.AlignRotation(shadowRealmController.originalPlayerRotation);
+            timesInteracted = 0;
+        }
+
+            
     }
 
     private void Awake()
     {
-        timesInteracted = 0;
-        caughtCount = 5;
-
         playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        shadowRealmController = FindObjectOfType<ShadowRealm>();
+        cameraController = FindObjectOfType<CameraController>();
         healthSystem = playerRB.GetComponent<HealthSystem>();
         itemGlow = Instantiate(itemGlow, transform, true);
         itemGlow.transform.position = this.transform.position;
+        timesInteracted = 0;
+
     }
 
 
