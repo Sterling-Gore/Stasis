@@ -20,14 +20,16 @@ public class ShadowRealm : MonoBehaviour
 
         playerCamera = FindObjectOfType<Camera>();
         cameraController = FindObjectOfType<CameraController>();
-        InsanityMeter.Instance.MaxInsanity += TeleportToShadowRealm;
     }
 
     // Update is called once per frame
 
-    void TeleportToShadowRealm()
+    public void TeleportToShadowRealm()
     {
         Debug.Log("Activate");
+
+        InsanityMeter.Instance.acceptingInsanityIncrease = false;
+
         originalPlayerPosition = playerRB.position;
         originalPlayerRotation = playerCamera.transform.localEulerAngles;
         originalPlayerRotation.x = 0;

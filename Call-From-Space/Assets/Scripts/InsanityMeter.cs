@@ -18,6 +18,8 @@ public class InsanityMeter : MonoBehaviour
 
     int minimumTimesCaught;
 
+    public bool acceptingInsanityIncrease;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -29,6 +31,7 @@ public class InsanityMeter : MonoBehaviour
             _instance = this;
         }
 
+        acceptingInsanityIncrease = true;
         maxCaught = 3;
         minimumTimesCaught = 0;
     }
@@ -46,6 +49,8 @@ public class InsanityMeter : MonoBehaviour
 
     public void IncreaseInsanity(float insanityIncrease)
     {
+        if (!acceptingInsanityIncrease) return;
+
         currentInsanity = Mathf.Clamp(currentInsanity + insanityIncrease, 0, 100);
         Debug.Log("Current Insanity: " + currentInsanity);
         if (currentInsanity == 100)
@@ -57,6 +62,7 @@ public class InsanityMeter : MonoBehaviour
 
     void OnMaxInsanity()
     {
+        acceptingInsanityIncrease = false;
         timesCaught++;
         MaxInsanity?.Invoke();
     }

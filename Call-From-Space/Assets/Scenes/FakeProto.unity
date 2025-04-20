@@ -6886,7 +6886,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1820998650}
   PickUpSound: {fileID: 8300000, guid: 85d29c38f0c396447abccaa847a3b97f, type: 3}
@@ -7049,7 +7051,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1882936375}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -16017,7 +16021,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 963699573}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -32183,15 +32189,10 @@ MonoBehaviour:
   special: 0
   interactionType: 0
   fakeItemName: Orange Key Card
-  player: {fileID: 362943806}
-  ItemGlow: {fileID: 1955070668}
-  PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
-  audioSource: {fileID: 1612930178}
-  teleportPoint: {fileID: 2019393974}
-  cameraController: {fileID: 1868686645}
-  playerCamera: {fileID: 963194227}
-  originalPlayerPosition: {x: 0, y: 0, z: 0}
-  originalPlayerRotation: {x: 0, y: 0, z: 0}
+  ItemGlow: {fileID: 1466151430535757111, guid: c6f8c1883eaee4d418117e7634be1e30, type: 3}
+  PickUpSound: {fileID: 0}
+  audioSource: {fileID: 0}
+  blackSmokeParticlesPrefab: {fileID: 8082955346807519687, guid: c56174a775193f74094efde831eeb6b0, type: 3}
 --- !u!114 &259831093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38968,6 +38969,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 128
+  laserHum: {fileID: 0}
 --- !u!120 &276068433
 LineRenderer:
   serializedVersion: 2
@@ -53281,6 +53283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aa6ae22350a7854a827ec435bd99e52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acceptingInsanityIncrease: 0
 --- !u!1 &363022749
 GameObject:
   m_ObjectHideFlags: 0
@@ -81740,7 +81743,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 869982564}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -88168,6 +88173,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 128
+  laserHum: {fileID: 0}
 --- !u!120 &607461930
 LineRenderer:
   serializedVersion: 2
@@ -101500,6 +101506,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 0
+  laserHum: {fileID: 0}
 --- !u!65 &686564107
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -126574,6 +126581,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 884ab486a37aed1438e2a5b3f34c6d9e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 780231262}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 884ab486a37aed1438e2a5b3f34c6d9e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 780231264}
     - targetCorrespondingSourceObject: {fileID: -516098083770646512, guid: 884ab486a37aed1438e2a5b3f34c6d9e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 172415766}
@@ -126666,6 +126676,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &780231264
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780231258}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 1.86, y: 9.76, z: 1.96}
+  m_Center: {x: 0, y: 4.67, z: 0}
 --- !u!1 &780547842
 GameObject:
   m_ObjectHideFlags: 0
@@ -131798,8 +131829,9 @@ MonoBehaviour:
   rightSound: {fileID: 8300000, guid: 13f12287961774d118ff8d5ad753fa33, type: 3}
   valid: {fileID: 8300000, guid: f8a576311016b4dc98ef90b584000a3b, type: 3}
   inValid: {fileID: 8300000, guid: 2377f539afbfc409da8e5010a0dbb197, type: 3}
-  player: {fileID: 362943805}
   audioSource: {fileID: 824259525}
+  screen: {fileID: 0}
+  PlayerUI: {fileID: 0}
 --- !u!82 &824259525
 AudioSource:
   m_ObjectHideFlags: 0
@@ -150557,7 +150589,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1319526274}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -151251,7 +151285,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 91358893}
   PickUpSound: {fileID: 8300000, guid: 3d4b0021d7f2c704f8b71ecd90119675, type: 3}
@@ -168217,7 +168253,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1487725167}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -187875,7 +187913,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1955070668}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -188690,7 +188730,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 118089440}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -194881,7 +194923,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1673943275}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -204612,7 +204656,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 40135878}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -210298,7 +210344,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 799419389}
   PickUpSound: {fileID: 8300000, guid: 320b483e64fb6b4489aed4792a600481, type: 3}
@@ -211146,7 +211194,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1989263525}
   PickUpSound: {fileID: 8300000, guid: fcd82a1d0798a60439bdcf94bd6c8d17, type: 3}
@@ -231628,6 +231678,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 128
+  laserHum: {fileID: 0}
 --- !u!120 &1346691342
 LineRenderer:
   serializedVersion: 2
@@ -254739,7 +254790,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 0}
   ItemGlow: {fileID: 1371930166}
   PickUpSound: {fileID: 8300000, guid: 320b483e64fb6b4489aed4792a600481, type: 3}
@@ -256603,6 +256656,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 0
+  laserHum: {fileID: 0}
 --- !u!120 &1432654326
 LineRenderer:
   serializedVersion: 2
@@ -258790,6 +258844,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 128
+  laserHum: {fileID: 0}
 --- !u!120 &1444834629
 LineRenderer:
   serializedVersion: 2
@@ -262695,7 +262750,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1477182817}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -286780,6 +286837,7 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  animation: {fileID: 0}
   Player: {fileID: 362943805}
   Key: {fileID: 1165636120}
   audioSource: {fileID: 1602105207}
@@ -288163,7 +288221,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1521535881}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -303799,7 +303859,9 @@ MonoBehaviour:
   fullName: 
   special: 0
   interactionType: 0
+  item: {fileID: 0}
   player: {fileID: 362943805}
+  ui_controller: {fileID: 0}
   JournalPlayer: {fileID: 1081132878}
   ItemGlow: {fileID: 1211031975}
   PickUpSound: {fileID: 8300000, guid: d39adc480bd240f4090d004e60458487, type: 3}
@@ -340034,6 +340096,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 0
+  laserHum: {fileID: 0}
 --- !u!54 &1765370009
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -355362,6 +355425,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 128
+  laserHum: {fileID: 0}
 --- !u!120 &1859572953
 LineRenderer:
   serializedVersion: 2
@@ -363226,6 +363290,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 128
+  laserHum: {fileID: 0}
 --- !u!120 &1881550758
 LineRenderer:
   serializedVersion: 2
@@ -375092,6 +375157,7 @@ MonoBehaviour:
   alienCollider:
     serializedVersion: 2
     m_Bits: 0
+  laserHum: {fileID: 0}
 --- !u!120 &1941856708
 LineRenderer:
   serializedVersion: 2
@@ -423979,6 +424045,7 @@ SceneRoots:
   - {fileID: 1318733164}
   - {fileID: 683798437}
   - {fileID: 72923193}
+  - {fileID: 1972651499}
   - {fileID: 1737537479}
   - {fileID: 63572189}
   - {fileID: 1519303531}
@@ -423996,4 +424063,3 @@ SceneRoots:
   - {fileID: 1767471341}
   - {fileID: 1469712665}
   - {fileID: 967014551}
-  - {fileID: 1972651499}

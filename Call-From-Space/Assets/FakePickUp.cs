@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -7,33 +8,33 @@ public class FakePickUp : Interactable
 {
 
     public string fakeItemName;
-    public Transform player;
     public GameObject ItemGlow;
     public AudioClip PickUpSound;
     public AudioSource audioSource;
-    public Transform teleportPoint;
-    public CameraController cameraController;
-    public Camera playerCamera;
-    public Vector3 originalPlayerPosition;
-    public Vector3 originalPlayerRotation;
 
     Rigidbody playerRB;
+
+    [SerializeField] 
+    GameObject blackSmokeParticlesPrefab;
     override protected void Awake()
     {
         base.Awake();
         ItemGlow = Instantiate(ItemGlow, transform, true);
+        ItemGlow.transform.parent = transform;
         ItemGlow.transform.position = this.transform.position;
-        playerRB = player.gameObject.GetComponent<Rigidbody>();
     }
     public override void Interact()
     {
         Debug.Log("Activate");
-        InsanityMeter.Instance.IncreaseInsanity(100f);
-        transform.parent.gameObject.SetActive(false);
+        GameObject blackSmoke = Instantiate(blackSmokeParticlesPrefab, transform.position, Quaternion.identity);
+        ItemGlow.SetActive(false);
+        InsanityMeter.Instance.IncreaseInsanity(50f);
+        Destroy(gameObject);
     }
 
     public override string GetDescription()
     {
         return ("Press [E] to pick up " + fakeItemName);
     }
+
 }
