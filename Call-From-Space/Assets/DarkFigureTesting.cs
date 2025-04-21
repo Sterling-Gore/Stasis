@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Device;
@@ -9,13 +10,19 @@ using Screen = UnityEngine.Screen;
 
 public class DarkFigureTesting : MonoBehaviour
 {
-    [SerializeField] Transform player, teleportAround;
+    [SerializeField] Transform player, teleportAround, darkFigureHead, LOSPointsTransform;
+
+    [SerializeField]
+    Transform[] losPoints;
 
     ShadowRealm shadowRealmController;
     LOSChecker los;
     NavMeshAgent NMA;
     Collider caughtCollider;
     bool hunting;
+    LayerMask surfacesMask;
+
+    Vector3 currentUp;
     
     // Start is called before the first frame update
     void Start()
@@ -25,40 +32,42 @@ public class DarkFigureTesting : MonoBehaviour
         InsanityMeter.Instance.MaxInsanity += StartHunting;
         shadowRealmController = FindObjectOfType<ShadowRealm>();
         caughtCollider = GetComponent<Collider>();
-        caughtCollider.enabled = false;
+        caughtCollider.enabled = true;
         hunting = false;
+        surfacesMask = LayerMask.GetMask("Surfaces");
+        currentUp = Vector3.up;
+        
+        losPoints = LOSPointsTransform.Cast<Transform>().ToArray();
+
+        Vector3 test = Quaternion.FromToRotation(Vector3.up, Vector3.forward) * Vector3.forward;
+        Debug.Log(test);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(player.position);
+        darkFigureHead.LookAt(player.position+Vector3.up*2);
 
-        //if (!los.visibleAndOnScreen)
-        //{
-        //    int rng = Random.Range(1, 200);
-        //    if (rng <= 1)
-        //    {
-        //        NothingPersonal();
-        //        Debug.Log("woosh");
-        //    }
-        //}
 
-        if (!los.isOnScreen())
+        if (losPoints.All(point => !los.isOnScreen(point.position)))
         {
             int rng = Random.Range(1, 200);
             if (rng == 1)
             {
-                NothingPersonal();
+                while (!FindRandomSurface()) ;
             }
+            //Debug.Log("Where is it");
         }
+        //else
+            //Debug.Log("I See it");
+
 
 
         if (hunting)
         {
-            
+            transform.LookAt(player.position);
             float range = 1f;
-
+            
             Vector3 randomCirclePointXY = Random.insideUnitCircle;
             Vector3 randomCirclePointXZ = new Vector3(randomCirclePointXY.x, 0f, randomCirclePointXY.y);
             Vector3 randomPoint = teleportAround.position + randomCirclePointXZ * range;
@@ -81,6 +90,7 @@ public class DarkFigureTesting : MonoBehaviour
         if (NavMesh.SamplePosition(proposedPosition, out hit, 1f, NavMesh.AllAreas))
         {
             NMA.Warp(hit.position);
+            transform.LookAt(player.position);
             //Debug.DrawLine(randomPoint, randomPoint + Vector3.up * 100, Color.yellow, Mathf.Infinity);
         }
     }
@@ -98,5 +108,36 @@ public class DarkFigureTesting : MonoBehaviour
         shadowRealmController.TeleportToShadowRealm();
         caughtCollider.enabled = false;
         hunting = false;
+    }
+
+    //makes sure there is enough space in 2 units of 5 directions
+    bool isEnoughSpace(Vector3 targetPosition, Vector3 normal)
+    {
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, normal);
+      
+        return new[] { Vector3.up, Vector3.left, Vector3.right, Vector3.forward, Vector3.back }
+                    .Select(direction => rotation * direction)
+                    .Select(direction => { Debug.DrawRay(targetPosition, direction * 2f, Color.yellow, 3f); return direction; })
+                    .All(direction => !Physics.Raycast(targetPosition, direction, 2f));
+    }
+
+    bool FindRandomSurface()
+    {
+        RaycastHit hit;
+        Vector3 rng = Random.onUnitSphere;
+        Debug.DrawRay(player.position + Vector3.up * 2, rng * 100, Color.red, 3f);
+        if (Physics.Raycast(player.position + Vector3.up * 2, rng, out hit, Mathf.Infinity, surfacesMask) 
+            && !los.isOnScreen(hit.point + hit.normal) 
+            && isEnoughSpace(hit.point + hit.normal, hit.normal))
+        {
+            Debug.Log(hit.point + " : " + hit.normal);
+            currentUp = hit.normal;
+            transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+            transform.position = hit.point;
+
+            //transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, hit.normal) * transform.rotation;
+            return true;
+        }
+        return false;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Device;
 using Screen = UnityEngine.Screen;
 
@@ -17,6 +18,9 @@ public class LOSChecker : MonoBehaviour
     ZoomCamera zoom;
     Renderer darkFigureRenderer;
 
+    [SerializeField]
+    Transform figureCenter;
+
     Coroutine lookingInsanityIncreaseCoroutine;
 
     private void Start()
@@ -26,6 +30,7 @@ public class LOSChecker : MonoBehaviour
         wallMask = LayerMask.GetMask("Surfaces");
         zoom = FindObjectOfType<ZoomCamera>();
         switchFlag = false;
+        StartCoroutine(CheckIfLooking());
     }
 
     private void Update()
@@ -44,16 +49,21 @@ public class LOSChecker : MonoBehaviour
         }
     }
 
-    private IEnumerator OnBecameVisible()
+    private IEnumerator CheckIfLooking()
     {
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
 
-        while(darkFigureRenderer.isVisible)
+        while(true)
         {
             yield return new WaitForSeconds(0.1f);
 
-            if (hasWallsInPath() || !isCameraFocused())
+
+            if (hasWallsInPath(figureCenter.position) || !isCameraFocused())
             {
+                if (!playerSeesMonster)
+                {
+                    yield return new WaitForSeconds(0.2f); //buffer for first focus on monster
+                }
                 playerSeesMonster = false;
                 continue;
             }
@@ -61,29 +71,29 @@ public class LOSChecker : MonoBehaviour
         }  
     }
 
-    private void OnBecameInvisible()
-    {
-        playerSeesMonster = false;
-    }
 
     bool isCameraFocused()
     {
-        float angleBetweenCameraAndMonster = Vector3.Angle(mainCamera.transform.rotation * Vector3.forward, transform.position - mainCamera.transform.position);
+        float angleBetweenCameraAndMonster = Vector3.Angle(mainCamera.transform.rotation * Vector3.forward, figureCenter.position - mainCamera.transform.position);
+
         return angleBetweenCameraAndMonster < maximumLOSFocusAngle;
     }
 
-    public bool isOnScreen() 
+    public bool isOnScreen(Vector3 position)
     {
-        Vector2 screenPos = mainCamera.WorldToScreenPoint(transform.position);
-
-        return screenPos.x > 0f && screenPos.x < Screen.width && screenPos.y  > 0f && screenPos.y  < Screen.height;
+        Vector2 screenPos = mainCamera.WorldToScreenPoint(position);
+        float angleBetweenCameraAndPosition = Vector3.Angle(mainCamera.transform.rotation * Vector3.forward, position - mainCamera.transform.position);
+        
+        return screenPos.x > 0f && screenPos.x < Screen.width && screenPos.y  > 0f && screenPos.y  < Screen.height 
+            && !hasWallsInPath(position) 
+            && angleBetweenCameraAndPosition < 90;
     }
 
-    bool hasWallsInPath()
+    public bool hasWallsInPath(Vector3 position)
     {
         Vector3 cameraPosition = mainCamera.transform.position;
 
-        return Physics.Raycast(cameraPosition, transform.position - cameraPosition, Vector3.Distance(cameraPosition, transform.position), wallMask);
+        return Physics.Raycast(cameraPosition, position - cameraPosition, Vector3.Distance(cameraPosition, position), wallMask);
     }
 
     IEnumerator LookingInsanityIncrease()
@@ -91,7 +101,7 @@ public class LOSChecker : MonoBehaviour
         while (true)
         {
             InsanityMeter.Instance.IncreaseInsanity(10f);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
         }
     }
 }
