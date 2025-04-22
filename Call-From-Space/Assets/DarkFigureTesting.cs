@@ -23,7 +23,8 @@ public class DarkFigureTesting : MonoBehaviour
     LayerMask surfacesMask;
 
     Vector3 currentUp;
-    
+    [SerializeField] float minimumPlayerTeleportDistance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -121,6 +122,11 @@ public class DarkFigureTesting : MonoBehaviour
                     .All(direction => !Physics.Raycast(targetPosition, direction, 2f));
     }
 
+    bool IsNotNearPlayer(Vector3 targetPosition)
+    {
+        return Vector3.Distance(targetPosition, player.transform.position) > minimumPlayerTeleportDistance;
+    }
+
     bool FindRandomSurface()
     {
         RaycastHit hit;
@@ -128,12 +134,29 @@ public class DarkFigureTesting : MonoBehaviour
         Debug.DrawRay(player.position + Vector3.up * 2, rng * 100, Color.red, 3f);
         if (Physics.Raycast(player.position + Vector3.up * 2, rng, out hit, Mathf.Infinity, surfacesMask) 
             && !los.isOnScreen(hit.point + hit.normal) 
-            && isEnoughSpace(hit.point + hit.normal, hit.normal))
+            && isEnoughSpace(hit.point + hit.normal, hit.normal)
+            && IsNotNearPlayer(hit.point))
         {
             Debug.Log(hit.point + " : " + hit.normal);
+
+            Vector3 offset = (hit.normal == Vector3.up) ? Vector3.zero : -hit.normal;
+
+            Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+
             currentUp = hit.normal;
-            transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-            transform.position = hit.point;
+            transform.rotation = rotation;
+            transform.position = hit.point + offset;
+
+            Vector3 monsterToPlayer = player.transform.position - transform.position;
+            Vector3.OrthoNormalize(ref currentUp, ref monsterToPlayer);
+
+            float angle = -Vector3.Angle(monsterToPlayer, transform.forward);
+
+            Debug.Log("before angle: " + transform.rotation.eulerAngles + " | " + "angle calc: " + angle);
+
+            transform.rotation = Quaternion.AngleAxis(angle, hit.normal) * transform.rotation;
+
+            //transform.LookAt(player.transform.position + Vector3.up);
 
             //transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, hit.normal) * transform.rotation;
             return true;
