@@ -8,6 +8,7 @@ public class ShadowRealm : MonoBehaviour
 {
     [SerializeField] Rigidbody playerRB;
     [SerializeField] Transform teleportPoint;
+    public AudioSource scaryAmbient;
 
     CameraController cameraController;
     Camera playerCamera;
@@ -17,7 +18,7 @@ public class ShadowRealm : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        scaryAmbient = GetComponentInChildren<AudioSource>();
         playerCamera = FindObjectOfType<Camera>();
         cameraController = FindObjectOfType<CameraController>();
     }
@@ -28,6 +29,7 @@ public class ShadowRealm : MonoBehaviour
     {
         Debug.Log("Activate");
 
+        scaryAmbient.Play();
         InsanityMeter.Instance.acceptingInsanityIncrease = false;
 
         originalPlayerPosition = playerRB.position;

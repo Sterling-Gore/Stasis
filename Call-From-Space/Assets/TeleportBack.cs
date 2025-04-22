@@ -32,6 +32,8 @@ public class TeleportBack : Interactable
         spotlight.spotAngle -= 10;
         if(timesInteracted == InsanityMeter.Instance.timesCaught)
         {
+            shadowRealmController.scaryAmbient.Stop();
+            InsanityMeter.Instance.acceptingInsanityIncrease = true;
             playerRB.position = shadowRealmController.originalPlayerPosition;
             playerRB.isKinematic = true;
             playerRB.isKinematic = false;

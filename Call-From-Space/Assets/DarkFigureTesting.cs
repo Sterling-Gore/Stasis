@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Schema;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Device;
@@ -11,7 +12,7 @@ using Screen = UnityEngine.Screen;
 public class DarkFigureTesting : MonoBehaviour
 {
     [SerializeField] Transform player, teleportAround, darkFigureHead, LOSPointsTransform;
-
+    [SerializeField] GameObject scareImage, blackBackground;
     [SerializeField]
     Transform[] losPoints;
 
@@ -21,9 +22,11 @@ public class DarkFigureTesting : MonoBehaviour
     Collider caughtCollider;
     bool hunting;
     LayerMask surfacesMask;
+    AudioSource scaryNoise;
 
     Vector3 currentUp;
     [SerializeField] float minimumPlayerTeleportDistance;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,12 +36,14 @@ public class DarkFigureTesting : MonoBehaviour
         InsanityMeter.Instance.MaxInsanity += StartHunting;
         shadowRealmController = FindObjectOfType<ShadowRealm>();
         caughtCollider = GetComponent<Collider>();
-        caughtCollider.enabled = true;
+        caughtCollider.enabled = false;
         hunting = false;
         surfacesMask = LayerMask.GetMask("Surfaces");
         currentUp = Vector3.up;
         
         losPoints = LOSPointsTransform.Cast<Transform>().ToArray();
+
+        scaryNoise = teleportAround.GetComponentInChildren<AudioSource>();
 
         Vector3 test = Quaternion.FromToRotation(Vector3.up, Vector3.forward) * Vector3.forward;
         Debug.Log(test);
@@ -47,8 +52,6 @@ public class DarkFigureTesting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        darkFigureHead.LookAt(player.position+Vector3.up*2);
-
 
         if (losPoints.All(point => !los.isOnScreen(point.position)))
         {
@@ -61,14 +64,19 @@ public class DarkFigureTesting : MonoBehaviour
         }
         //else
             //Debug.Log("I See it");
+    }
 
+    private void LateUpdate()
+    {
+        darkFigureHead.LookAt(player.position + Vector3.up * 2);
+    }
 
-
+    private void FixedUpdate()
+    {
         if (hunting)
         {
             transform.LookAt(player.position);
             float range = 1f;
-            
             Vector3 randomCirclePointXY = Random.insideUnitCircle;
             Vector3 randomCirclePointXZ = new Vector3(randomCirclePointXY.x, 0f, randomCirclePointXY.y);
             Vector3 randomPoint = teleportAround.position + randomCirclePointXZ * range;
@@ -78,26 +86,18 @@ public class DarkFigureTesting : MonoBehaviour
                 NMA.Warp(hit.position);
                 //Debug.DrawLine(randomPoint, randomPoint + Vector3.up * 100, Color.yellow, Mathf.Infinity);
             }
-            teleportAround.Translate((player.position - teleportAround.position).normalized * 0.025f);
-        }
-
-    }
-
-    void NothingPersonal()
-    {
-        Vector3 proposedPosition = (player.transform.position + player.rotation * Vector3.back * 3);
-
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(proposedPosition, out hit, 1f, NavMesh.AllAreas))
-        {
-            NMA.Warp(hit.position);
-            transform.LookAt(player.position);
-            //Debug.DrawLine(randomPoint, randomPoint + Vector3.up * 100, Color.yellow, Mathf.Infinity);
+            teleportAround.Translate((player.position - teleportAround.position).normalized * 0.12f);
         }
     }
 
     void StartHunting()
     {
+        int iterationLimit = 1000;
+        int iterations = 0;
+        while (!RandomTelportChasingObject(30f) && iterations++ < iterationLimit) ;
+        scaryNoise.Play();
+
+        if (iterationLimit > 999) Debug.LogWarning("Iteration limit reached for random teleport");
         caughtCollider.enabled = true;
         hunting = true;
     }
@@ -105,10 +105,24 @@ public class DarkFigureTesting : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-
-        shadowRealmController.TeleportToShadowRealm();
         caughtCollider.enabled = false;
         hunting = false;
+        scaryNoise.Stop();
+        StartCoroutine(CatchSequence());
+
+    }
+
+    IEnumerator CatchSequence()
+    {
+        CameraController _camera = FindObjectOfType<CameraController>();
+        _camera.enabled = false;
+        scareImage.SetActive(true);
+        //blackBackground.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        _camera.enabled = true;
+        scareImage.SetActive(false);
+        //blackBackground.SetActive(false);
+        shadowRealmController.TeleportToShadowRealm();
     }
 
     //makes sure there is enough space in 2 units of 5 directions
@@ -132,13 +146,12 @@ public class DarkFigureTesting : MonoBehaviour
         RaycastHit hit;
         Vector3 rng = Random.onUnitSphere;
         Debug.DrawRay(player.position + Vector3.up * 2, rng * 100, Color.red, 3f);
+
         if (Physics.Raycast(player.position + Vector3.up * 2, rng, out hit, Mathf.Infinity, surfacesMask) 
             && !los.isOnScreen(hit.point + hit.normal) 
             && isEnoughSpace(hit.point + hit.normal, hit.normal)
             && IsNotNearPlayer(hit.point))
         {
-            Debug.Log(hit.point + " : " + hit.normal);
-
             Vector3 offset = (hit.normal == Vector3.up) ? Vector3.zero : -hit.normal;
 
             Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
@@ -152,15 +165,27 @@ public class DarkFigureTesting : MonoBehaviour
 
             float angle = -Vector3.Angle(monsterToPlayer, transform.forward);
 
-            Debug.Log("before angle: " + transform.rotation.eulerAngles + " | " + "angle calc: " + angle);
-
             transform.rotation = Quaternion.AngleAxis(angle, hit.normal) * transform.rotation;
 
-            //transform.LookAt(player.transform.position + Vector3.up);
-
-            //transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, hit.normal) * transform.rotation;
             return true;
         }
+        return false;
+    }
+
+    bool RandomTelportChasingObject(float teleportRange)
+    {
+        Vector3 randomCirclePointXY = Random.insideUnitCircle.normalized;
+        Vector3 randomCirclePointXZ = new Vector3(randomCirclePointXY.x, 0f, randomCirclePointXY.y);
+        Vector3 randomPoint = player.transform.position + randomCirclePointXZ * teleportRange;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, 1f, NavMesh.AllAreas))
+        {
+            Debug.Log(hit.position);
+            teleportAround.position = hit.position;
+            return true;
+        }
+
         return false;
     }
 }
