@@ -11,10 +11,16 @@ using Screen = UnityEngine.Screen;
 
 public class DarkFigureTesting : MonoBehaviour
 {
-    [SerializeField] Transform player, teleportAround, darkFigureHead, LOSPointsTransform;
-    [SerializeField] GameObject scareImage, blackBackground;
+    [SerializeField] 
+    Transform player, teleportAround, darkFigureHead, LOSPointsTransform;
+    [SerializeField] 
+    GameObject scareImage, blackBackground;
     [SerializeField]
     Transform[] losPoints;
+    [SerializeField]
+    AudioClip jumpscareNoise;
+    [SerializeField] 
+    float minimumPlayerTeleportDistance;
 
     ShadowRealm shadowRealmController;
     LOSChecker los;
@@ -22,10 +28,12 @@ public class DarkFigureTesting : MonoBehaviour
     Collider caughtCollider;
     bool hunting;
     LayerMask surfacesMask;
-    AudioSource scaryNoise;
+    AudioSource scaryNoiseSource;
+    AudioSource jumpscareNoiseSource;
+    
 
     Vector3 currentUp;
-    [SerializeField] float minimumPlayerTeleportDistance;
+    
 
 
     // Start is called before the first frame update
@@ -43,7 +51,8 @@ public class DarkFigureTesting : MonoBehaviour
         
         losPoints = LOSPointsTransform.Cast<Transform>().ToArray();
 
-        scaryNoise = teleportAround.GetComponentInChildren<AudioSource>();
+        scaryNoiseSource = teleportAround.GetComponentInChildren<AudioSource>();
+        jumpscareNoiseSource = GetComponent<AudioSource>();
 
         Vector3 test = Quaternion.FromToRotation(Vector3.up, Vector3.forward) * Vector3.forward;
         Debug.Log(test);
@@ -95,7 +104,7 @@ public class DarkFigureTesting : MonoBehaviour
         int iterationLimit = 1000;
         int iterations = 0;
         while (!RandomTelportChasingObject(30f) && iterations++ < iterationLimit) ;
-        scaryNoise.Play();
+        scaryNoiseSource.Play();
 
         if (iterationLimit > 999) Debug.LogWarning("Iteration limit reached for random teleport");
         caughtCollider.enabled = true;
@@ -105,9 +114,7 @@ public class DarkFigureTesting : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        caughtCollider.enabled = false;
-        hunting = false;
-        scaryNoise.Stop();
+        
         StartCoroutine(CatchSequence());
 
     }
@@ -117,8 +124,14 @@ public class DarkFigureTesting : MonoBehaviour
         CameraController _camera = FindObjectOfType<CameraController>();
         _camera.enabled = false;
         scareImage.SetActive(true);
+        caughtCollider.enabled = false;
+        hunting = false;
+        scaryNoiseSource.Stop();
+        jumpscareNoiseSource.PlayOneShot(jumpscareNoise);
         //blackBackground.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+
+        yield return new WaitForSeconds(0.7f);
+
         _camera.enabled = true;
         scareImage.SetActive(false);
         //blackBackground.SetActive(false);

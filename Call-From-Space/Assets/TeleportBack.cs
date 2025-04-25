@@ -25,23 +25,7 @@ public class TeleportBack : Interactable
 
     public override void Interact()
     {
-        float damageTaken = ((++timesInteracted) /(float) InsanityMeter.Instance.maxCaught) * healthSystem.healthLevel;
-        healthSystem.TakeDamage(damageTaken);
-
-        Debug.Log(InsanityMeter.Instance.timesCaught + " : " + timesInteracted);
-        spotlight.spotAngle -= 10;
-        if(timesInteracted == InsanityMeter.Instance.timesCaught)
-        {
-            shadowRealmController.scaryAmbient.Stop();
-            InsanityMeter.Instance.acceptingInsanityIncrease = true;
-            playerRB.position = shadowRealmController.originalPlayerPosition;
-            playerRB.isKinematic = true;
-            playerRB.isKinematic = false;
-            cameraController.AlignRotation(shadowRealmController.originalPlayerRotation);
-            timesInteracted = 0;
-        }
-
-            
+        shadowRealmController.ItemInteraction();      
     }
 
     private void Awake()
@@ -52,7 +36,7 @@ public class TeleportBack : Interactable
         healthSystem = playerRB.GetComponent<HealthSystem>();
         itemGlow = Instantiate(itemGlow, transform, true);
         itemGlow.transform.position = this.transform.position;
-        timesInteracted = 0;
+        
 
     }
 
