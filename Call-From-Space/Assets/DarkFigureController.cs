@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 using Application = UnityEngine.Application;
 using Screen = UnityEngine.Screen;
 
-public class DarkFigureTesting : MonoBehaviour
+public class DarkFigureController : MonoBehaviour
 {
     [SerializeField] 
     Transform player, teleportAround, darkFigureHead, LOSPointsTransform;
@@ -53,14 +53,12 @@ public class DarkFigureTesting : MonoBehaviour
 
         scaryNoiseSource = teleportAround.GetComponentInChildren<AudioSource>();
         jumpscareNoiseSource = GetComponent<AudioSource>();
-
-        Vector3 test = Quaternion.FromToRotation(Vector3.up, Vector3.forward) * Vector3.forward;
-        Debug.Log(test);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale == 0 || !InsanityMeter.Instance.acceptingInsanityIncrease) return;
 
         if (losPoints.All(point => !los.isOnScreen(point.position)))
         {
@@ -69,10 +67,7 @@ public class DarkFigureTesting : MonoBehaviour
             {
                 while (!FindRandomSurface()) ;
             }
-            //Debug.Log("Where is it");
         }
-        //else
-            //Debug.Log("I See it");
     }
 
     private void LateUpdate()
