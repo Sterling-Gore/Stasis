@@ -20,6 +20,7 @@ public class ShadowRealm : MonoBehaviour
     AudioSource scaryAmbient;
     CameraController cameraController;
     Camera playerCamera;
+    DarkFigureController darkFigureController;
 
     float initialSpotangle;
     
@@ -32,6 +33,7 @@ public class ShadowRealm : MonoBehaviour
         cameraController = FindObjectOfType<CameraController>();
         healthSystem = playerRB.GetComponent<HealthSystem>();
         eyeRotator = GetComponentInChildren<CubeEyeRotate>();
+        darkFigureController = FindObjectOfType<DarkFigureController>();
 
         timesInteracted = 0;
         initialSpotangle = spotlight.spotAngle;
@@ -63,14 +65,20 @@ public class ShadowRealm : MonoBehaviour
         spotlight.spotAngle -= 10;
         if (timesInteracted == InsanityMeter.Instance.timesCaught)
         {
-            scaryAmbient.Stop();
-            spotlight.spotAngle = initialSpotangle;
-            InsanityMeter.Instance.acceptingInsanityIncrease = true;
-            playerRB.position = originalPlayerPosition;
-            playerRB.isKinematic = true;
-            playerRB.isKinematic = false;
-            cameraController.AlignRotation(originalPlayerRotation);
-            timesInteracted = 0;
+            TeleportToPreviousPosition();
         }
+    }
+
+    public void TeleportToPreviousPosition()
+    {
+        darkFigureController.SendToTimeout(30f);
+        scaryAmbient.Stop();
+        spotlight.spotAngle = initialSpotangle;
+        InsanityMeter.Instance.acceptingInsanityIncrease = true;
+        playerRB.position = originalPlayerPosition;
+        playerRB.isKinematic = true;
+        playerRB.isKinematic = false;
+        cameraController.AlignRotation(originalPlayerRotation);
+        timesInteracted = 0;
     }
 }

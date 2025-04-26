@@ -11,26 +11,34 @@ using Screen = UnityEngine.Screen;
 
 public class DarkFigureController : MonoBehaviour
 {
-    [SerializeField] 
-    Transform player, teleportAround, darkFigureHead, LOSPointsTransform;
-    [SerializeField] 
-    GameObject scareImage, blackBackground;
+   
+    [Header("Position Tracking")]
     [SerializeField]
-    Transform[] losPoints;
+    Transform player;
     [SerializeField]
-    AudioClip jumpscareNoise;
+    Transform darkFigureHead, LOSPointsTransform, timeOutSquare;
+
+    [Header("Hunting")]
+    [SerializeField]
+    Transform teleportAround;
     [SerializeField] 
     float minimumPlayerTeleportDistance;
+
+    [Header("Jumpscare")]
+    [SerializeField]
+    AudioClip jumpscareNoise;
+    [SerializeField]
+    GameObject scareImage;
 
     ShadowRealm shadowRealmController;
     LOSChecker los;
     NavMeshAgent NMA;
     Collider caughtCollider;
-    bool hunting;
+    bool hunting, inTimeout;
     LayerMask surfacesMask;
-    AudioSource scaryNoiseSource;
-    AudioSource jumpscareNoiseSource;
-    
+    AudioSource scaryNoiseSource, jumpscareNoiseSource;
+    Transform[] losPoints;
+
 
     Vector3 currentUp;
     
@@ -58,14 +66,14 @@ public class DarkFigureController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 0 || !InsanityMeter.Instance.acceptingInsanityIncrease) return;
+        if (Time.timeScale == 0 || !InsanityMeter.Instance.acceptingInsanityIncrease || inTimeout) return;
 
         if (losPoints.All(point => !los.isOnScreen(point.position)))
         {
             int rng = Random.Range(1, 200);
             if (rng == 1)
             {
-                while (!FindRandomSurface()) ;
+                while (!TryJumpRandomSurface()) ;
             }
         }
     }
@@ -102,6 +110,7 @@ public class DarkFigureController : MonoBehaviour
         scaryNoiseSource.Play();
 
         if (iterationLimit > 999) Debug.LogWarning("Iteration limit reached for random teleport");
+
         caughtCollider.enabled = true;
         hunting = true;
     }
@@ -117,20 +126,20 @@ public class DarkFigureController : MonoBehaviour
     IEnumerator CatchSequence()
     {
         CameraController _camera = FindObjectOfType<CameraController>();
+
         _camera.enabled = false;
         scareImage.SetActive(true);
         caughtCollider.enabled = false;
         hunting = false;
         scaryNoiseSource.Stop();
         jumpscareNoiseSource.PlayOneShot(jumpscareNoise);
-        //blackBackground.SetActive(true);
 
         yield return new WaitForSeconds(0.7f);
 
         _camera.enabled = true;
         scareImage.SetActive(false);
-        //blackBackground.SetActive(false);
         shadowRealmController.TeleportToShadowRealm();
+        transform.position = timeOutSquare.position;
     }
 
     //makes sure there is enough space in 2 units of 5 directions
@@ -149,7 +158,7 @@ public class DarkFigureController : MonoBehaviour
         return Vector3.Distance(targetPosition, player.transform.position) > minimumPlayerTeleportDistance;
     }
 
-    bool FindRandomSurface()
+    bool TryJumpRandomSurface()
     {
         RaycastHit hit;
         Vector3 rng = Random.onUnitSphere;
@@ -195,5 +204,15 @@ public class DarkFigureController : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void SendToTimeout(float duration) => StartCoroutine(Timeout(duration));
+
+    IEnumerator Timeout(float duration)
+    {
+        inTimeout = true;
+        for (float time = 0f; time < duration; time += Time.deltaTime)
+            yield return new WaitForFixedUpdate();
+        inTimeout = false;
     }
 }
