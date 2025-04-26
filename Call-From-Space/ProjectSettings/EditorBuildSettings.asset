@@ -44,4 +44,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UseableScenes/intro.unity
     guid: aee34ef23f6716c4cac3ecad8c709f6c
+  - enabled: 1
+    path: Assets/Scenes/UseableScenes/Research.unity
+    guid: eefedf6fa3c2fcd4bae0102affbc2611
   m_configObjects: {}
