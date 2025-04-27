@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CubeEyeRotate : MonoBehaviour
 {
@@ -22,4 +26,10 @@ public class CubeEyeRotate : MonoBehaviour
             child.rotation = child.rotation * rotation;
         }
     }
+    public void DeactivateAllEyes() => transform.Cast<Transform>()
+        .ToList().ForEach(child => child.gameObject.SetActive(false));
+
+    public void RandomlyActivateEyes(float percent) => transform.Cast<Transform>()
+        .Where(child => Random.Range(0f, 1f) < percent)
+        .ToList().ForEach(child => child.gameObject.SetActive(true));
 }

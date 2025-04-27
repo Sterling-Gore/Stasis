@@ -11,7 +11,10 @@ using Screen = UnityEngine.Screen;
 
 public class DarkFigureController : MonoBehaviour
 {
-   
+    [Header("Jumping")]
+    [SerializeField]
+    float maxJumpRangeFromPlayer;
+
     [Header("Position Tracking")]
     [SerializeField]
     Transform player;
@@ -109,7 +112,7 @@ public class DarkFigureController : MonoBehaviour
         while (!RandomTelportChasingObject(30f) && iterations++ < iterationLimit) ;
         scaryNoiseSource.Play();
 
-        if (iterationLimit > 999) Debug.LogWarning("Iteration limit reached for random teleport");
+        if (iterations > 999) Debug.LogWarning("Iteration limit reached for random teleport");
 
         caughtCollider.enabled = true;
         hunting = true;
@@ -164,12 +167,12 @@ public class DarkFigureController : MonoBehaviour
         Vector3 rng = Random.onUnitSphere;
         Debug.DrawRay(player.position + Vector3.up * 2, rng * 100, Color.red, 3f);
 
-        if (Physics.Raycast(player.position + Vector3.up * 2, rng, out hit, Mathf.Infinity, surfacesMask) 
+        if (Physics.Raycast(player.position + Vector3.up * 2, rng, out hit, maxJumpRangeFromPlayer, surfacesMask) 
             && !los.isOnScreen(hit.point + hit.normal) 
             && isEnoughSpace(hit.point + hit.normal, hit.normal)
             && IsNotNearPlayer(hit.point))
         {
-            Vector3 offset = (hit.normal == Vector3.up) ? Vector3.zero : -hit.normal;
+            Vector3 offset = (Vector3.Angle(Vector3.up, hit.normal) < 10) ? Vector3.zero : -hit.normal;
 
             Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
 

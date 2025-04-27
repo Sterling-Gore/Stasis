@@ -13,7 +13,7 @@ public class ShadowRealm : MonoBehaviour
 
     [NonSerialized]
     public Vector3 originalPlayerPosition, originalPlayerRotation;
-    int timesInteracted;
+    public int timesInteracted;
 
     HealthSystem healthSystem;
     CubeEyeRotate eyeRotator;
@@ -46,6 +46,7 @@ public class ShadowRealm : MonoBehaviour
     {
         Debug.Log("Activate");
 
+        RegenerateEyes();
         scaryAmbient.Play();
         InsanityMeter.Instance.acceptingInsanityIncrease = false;
         eyeRotator.enabled = true;
@@ -80,5 +81,12 @@ public class ShadowRealm : MonoBehaviour
         playerRB.isKinematic = false;
         cameraController.AlignRotation(originalPlayerRotation);
         timesInteracted = 0;
+    }
+
+    void RegenerateEyes()
+    {
+        Debug.Log(InsanityMeter.Instance.timesCaught);
+        eyeRotator.DeactivateAllEyes();
+        eyeRotator.RandomlyActivateEyes((float)InsanityMeter.Instance.timesCaught/InsanityMeter.Instance.maxCaught);
     }
 }

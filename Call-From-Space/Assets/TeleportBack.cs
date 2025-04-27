@@ -15,11 +15,10 @@ public class TeleportBack : Interactable
 
     public string[] descriptions;
 
-    int timesInteracted;
 
     public override string GetDescription()
     {
-        return descriptions[timesInteracted];
+        return descriptions[shadowRealmController.timesInteracted];
         
     }
 
