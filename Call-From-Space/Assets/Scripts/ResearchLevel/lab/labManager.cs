@@ -33,7 +33,9 @@ public class labManager : MonoBehaviour
 
     public void complete_for_awake()
     {
-        //completed = true;
+        completed = true;
+        plantDoorAnimator.SetTrigger("Open");
+        bloodDoorAnimator.SetTrigger("Open");
         
         plant_depo.deposit();
         valve_depo.deposit();

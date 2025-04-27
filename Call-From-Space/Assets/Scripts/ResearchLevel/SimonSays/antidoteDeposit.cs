@@ -6,6 +6,7 @@ public class antidoteDeposit : Interactable
 {
     // Start is called before the first frame update
     public GameObject holdableAntidote;
+    public GameObject viewingAntidote;
     public GameObject player;
     public GameObject antidoteDepositSparkle;
     public GameObject simonSaysSparkles;
@@ -32,6 +33,7 @@ public class antidoteDeposit : Interactable
                 simonSaysSparkles.SetActive(true);
             placeDownAudio.Play();
             SimonSaysScreen.antidotePrepared = true;
+            viewingAntidote.SetActive(true);
 
             gameObject.SetActive(false);
             

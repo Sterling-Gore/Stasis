@@ -25,17 +25,33 @@ public class laserPuzzleManager : MonoBehaviour
     public GameObject bloodVial;
     public GameObject plantVial;
     public GameObject battery;
+    public GameObject emptyVials;
 
 
     [Header("Antidote")]
-    public Collider antidoteCollider;
-    public Renderer antidoteMeshRenderer;
-    public Rigidbody antidoteRigidBody;
+    public GameObject viewAntidote;
+    public GameObject holdAntidote;
 
     [Header("Manager")]
     public bool puzzleIsCompleted = false;
     public bool spawnAntidote = false;
     public GameObject deposits;
+
+    [Header("Lights")]
+    public Color lightOnColor;
+    public Material LightOn; 
+    public Color lightOffColor;
+    public Material LightOff;
+    public Renderer Light1Bulb;
+    public Light Light1;
+    public Renderer Light2Bulb;
+    public Light Light2;
+    public Renderer Light3Bulb;
+    public Light Light3;
+
+    bool wall1EndOn = false;
+    bool wall2EndOn = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +60,7 @@ public class laserPuzzleManager : MonoBehaviour
         if(puzzleIsCompleted)
         {
             insertAll();
+            allRed();
             despawnAllColliders();
         }
         if(spawnAntidote)
@@ -57,10 +74,37 @@ public class laserPuzzleManager : MonoBehaviour
     {
         if(!puzzleIsCompleted)
         {
+            if(!wall1EndOn && endpoint1.GetComponent<LaserScript>().on)
+            {
+                wall1EndOn = true;
+                Light2Bulb.material = LightOn;
+                Light2.color = lightOnColor;
+            }
+            else if(wall1EndOn && !endpoint1.GetComponent<LaserScript>().on)
+            {
+                wall1EndOn = false;
+                Light2Bulb.material = LightOff;
+                Light2.color = lightOffColor;
+            }
+            if(!wall2EndOn && endpoint2.GetComponent<LaserScript>().on)
+            {
+                wall2EndOn = true;
+                Light3Bulb.material = LightOn;
+                Light3.color = lightOnColor;
+            }
+            else if(wall2EndOn && !endpoint2.GetComponent<LaserScript>().on)
+            {
+                wall2EndOn = false;
+                Light3Bulb.material = LightOff;
+                Light3.color = lightOffColor;
+            }
             if(CheckCompletion())
             {
                 puzzleIsCompleted = true;
                 despawnAllLasers();
+                emptyVials.SetActive(true);
+                bloodVial.SetActive(false);
+                plantVial.SetActive(false);
                 despawnAllColliders();
                 createAntidote();
                 saveManager.UpdateSave(SavePointID.research3);
@@ -91,8 +135,9 @@ public class laserPuzzleManager : MonoBehaviour
 
     public void insertAll()
     {
-        bloodVial.SetActive(true);
-        plantVial.SetActive(true);
+        emptyVials.SetActive(true);
+        //bloodVial.SetActive(true);
+        //plantVial.SetActive(true);
         battery.SetActive(true);
         deposits.SetActive(false);
     }
@@ -102,6 +147,8 @@ public class laserPuzzleManager : MonoBehaviour
         if(enterBloodVial && enterPlantVial)
         {
             wall1Origin.on = true;
+            Light1Bulb.material = LightOn;
+            Light1.color = lightOnColor;
             if(enterBattery)
             {
                 wall2Origin.on = true;
@@ -151,7 +198,17 @@ public class laserPuzzleManager : MonoBehaviour
 
     void createAntidote()
     {
-        antidoteCollider.enabled = true;
-        antidoteRigidBody.isKinematic = false;
+        viewAntidote.SetActive(false);
+        holdAntidote.SetActive(true);
+    }
+
+    void allRed()
+    {
+        Light1Bulb.material = LightOff;
+        Light1.color = lightOffColor;
+        Light2Bulb.material = LightOff;
+        Light2.color = lightOffColor;
+        Light3Bulb.material = LightOff;
+        Light3.color = lightOffColor;
     }
 }

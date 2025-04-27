@@ -9,6 +9,9 @@ public class SimonSaysScreemInteraction : Interactable
     public bool finished = false;
     public bool antidotePrepared = false;
     public GameObject sparkle;
+
+    [Header("SimonSaysManger")]
+    public SimonSaysManager manager;
     // Start is called before the first frame update
   
     public override string GetDescription()
@@ -35,5 +38,6 @@ public class SimonSaysScreemInteraction : Interactable
     {
         finished = true;
         sparkle.SetActive(false);
+        manager.completePuzzle();
     }
 }

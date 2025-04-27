@@ -61,6 +61,10 @@ public class researchLevelStart : MonoBehaviour
     public laserPuzzleManager laser_manager;
     public DrawerInteraction drawer;
 
+    [Header("Simon Says Puzzle Deliverables")]
+    public SimonSaysManager simon_says_manager;
+    
+
     [Header("Extra Audios")]
     public AudioSource elevatorEntrance;
 
@@ -187,9 +191,13 @@ public class researchLevelStart : MonoBehaviour
         elevatorDoorAnimation.SetTrigger("open");
         researchSavePoint = ResearchSavePoint.simonSays;
 
-        sceneStart.delayAudio = true;
+        lab_manager.complete_for_awake();
         bloodLabVial.SetActive(false);
         plantLabVial.SetActive(false);
+        laser_manager.puzzleIsCompleted = true;
+        simon_says_manager.puzzleIsCompleted = true;
+
+        sceneStart.delayAudio = true;
         player_rb.position = simonSaysPosition;
         camera.rotation = Quaternion.Euler(simonSaysRotation.x, simonSaysRotation.y, simonSaysRotation.z);
     }
