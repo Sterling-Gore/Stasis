@@ -167,7 +167,7 @@ public class DarkFigureController : MonoBehaviour
         Vector3 rng = Random.onUnitSphere;
         Debug.DrawRay(player.position + Vector3.up * 2, rng * 100, Color.red, 3f);
 
-        if (Physics.Raycast(player.position + Vector3.up * 2, rng, out hit, maxJumpRangeFromPlayer, surfacesMask) 
+        if (Physics.Raycast(player.position + Vector3.up * 2, rng, out hit, Mathf.Infinity, surfacesMask) 
             && !los.isOnScreen(hit.point + hit.normal) 
             && isEnoughSpace(hit.point + hit.normal, hit.normal)
             && IsNotNearPlayer(hit.point))
