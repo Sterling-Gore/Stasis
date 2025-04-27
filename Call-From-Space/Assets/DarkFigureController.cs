@@ -74,9 +74,18 @@ public class DarkFigureController : MonoBehaviour
         if (losPoints.All(point => !los.isOnScreen(point.position)))
         {
             int rng = Random.Range(1, 200);
+            int iterationLimit = 5000;
+            int iterations = 0;
             if (rng == 1)
             {
-                while (!TryJumpRandomSurface()) ;
+
+                while (!TryJumpRandomSurface() && iterations++ < iterationLimit);
+                if (iterations > 4999) 
+                {
+                    Debug.LogWarning("Iteration limit reached for TryJumpRandomSurface");
+                    SendToTimeout(10f);
+                }
+                
             }
         }
     }
@@ -109,10 +118,10 @@ public class DarkFigureController : MonoBehaviour
     {
         int iterationLimit = 1000;
         int iterations = 0;
-        while (!RandomTelportChasingObject(30f) && iterations++ < iterationLimit) ;
+        while (!RandomTeleportChasingObject(30f) && iterations++ < iterationLimit) ;
         scaryNoiseSource.Play();
 
-        if (iterations > 999) Debug.LogWarning("Iteration limit reached for random teleport");
+        if (iterations > 999) Debug.LogWarning("Iteration limit reached for RandomTeleportChasingObject");
 
         caughtCollider.enabled = true;
         hunting = true;
@@ -192,7 +201,7 @@ public class DarkFigureController : MonoBehaviour
         return false;
     }
 
-    bool RandomTelportChasingObject(float teleportRange)
+    bool RandomTeleportChasingObject(float teleportRange)
     {
         Vector3 randomCirclePointXY = Random.insideUnitCircle.normalized;
         Vector3 randomCirclePointXZ = new Vector3(randomCirclePointXY.x, 0f, randomCirclePointXY.y);
