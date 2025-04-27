@@ -23,11 +23,17 @@ public class labManager : MonoBehaviour
     [Header("Vials")]
     public Item plantVial;
     public Item bloodVial;
+
+    [Header("Doors")]
+    public Animator plantDoorAnimator;
+    public Animator bloodDoorAnimator;
+    public AudioSource plantDoorAudio;
+    public AudioSource bloodDoorAudio;
     // Start is called before the first frame update
 
     public void complete_for_awake()
     {
-        completed = true;
+        //completed = true;
         
         plant_depo.deposit();
         valve_depo.deposit();
@@ -61,5 +67,9 @@ public class labManager : MonoBehaviour
     {
         completed = true;
         saveManager.UpdateSave(SavePointID.research2);
+        plantDoorAnimator.SetTrigger("Open");
+        plantDoorAudio.Play();
+        bloodDoorAnimator.SetTrigger("Open");
+        bloodDoorAudio.Play();
     }
 }
