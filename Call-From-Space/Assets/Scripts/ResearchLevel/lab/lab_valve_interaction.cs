@@ -11,16 +11,33 @@ public class lab_valve_interaction : Interactable
     public bool isComplete = false;
     public bool puzzleReady = false;
     public bool holdableReady = false;
+    public int tertiaryBoolForValve = 0;
+    
+
 
 
     public GameObject sparkle;
     public PrepareVial prepareVial;
+
+    
     // Start is called before the first frame update
     void Start()
     {
         if( isComplete )
         {
             sparkle.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        if(tertiaryBoolForValve == 0)
+        {
+            if(puzzleReady && holdableReady)
+            {
+                tertiaryBoolForValve = 1;
+                StartCoroutine(closeVat());
+            }
         }
     }
 
@@ -31,7 +48,7 @@ public class lab_valve_interaction : Interactable
         {
             return "";
         }
-        if(puzzleReady && holdableReady)
+        if(tertiaryBoolForValve == 2)
         {
             return "<color=red>Press [E]</color=red> to turn the valve";
         }
@@ -43,7 +60,7 @@ public class lab_valve_interaction : Interactable
 
     public override void Interact()
     {
-        if (!isComplete && puzzleReady && holdableReady)
+        if (!isComplete && tertiaryBoolForValve == 2)
         {
             isComplete = true;
             valveCollider.enabled = false;
@@ -65,5 +82,13 @@ public class lab_valve_interaction : Interactable
             audioSource.clip = randomClip;
             audioSource.Play();
         }
+    }
+
+    IEnumerator closeVat()
+    {
+        prepareVial.closeVat();
+        yield return new WaitForSeconds(4f);
+        tertiaryBoolForValve = 2;
+
     }
 }

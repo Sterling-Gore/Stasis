@@ -48,8 +48,14 @@ public class researchLevelStart : MonoBehaviour
     public GameObject plant;
     public GameObject antidote;
 
+    [Header("Elevator Deliverables")]
+    public Animator elevatorDoorAnimation;
+    public AudioSource elevatorMusic;
+
     [Header("Lab Puzzle Deliverables")]
     public labManager lab_manager;
+    public GameObject bloodLabVial;
+    public GameObject plantLabVial;
 
     [Header("Laser Puzzle Deliverables")]
     public laserPuzzleManager laser_manager;
@@ -94,7 +100,11 @@ public class researchLevelStart : MonoBehaviour
 
     void onStart(ResearchSavePoint savePoint)
     {
-        if(savePoint == ResearchSavePoint.lab)
+        if(savePoint == ResearchSavePoint.elevator)
+        {
+            StartCoroutine(elevatorSequence());
+        }
+        else if(savePoint == ResearchSavePoint.lab)
         {
             bloodVial.pickUp();
             plantVial.pickUp();
@@ -143,9 +153,12 @@ public class researchLevelStart : MonoBehaviour
 
     void SpawnInLab()
     {
+        elevatorDoorAnimation.SetTrigger("open");
         researchSavePoint = ResearchSavePoint.lab;
 
         lab_manager.complete_for_awake();
+        bloodLabVial.SetActive(false);
+        plantLabVial.SetActive(false);
 
         sceneStart.delayAudio = true;
         player_rb.position = labPosition;
@@ -154,9 +167,12 @@ public class researchLevelStart : MonoBehaviour
 
     void SpawnInLaser()
     {
+        elevatorDoorAnimation.SetTrigger("open");
         researchSavePoint = ResearchSavePoint.laser;
 
         lab_manager.complete_for_awake();
+        bloodLabVial.SetActive(false);
+        plantLabVial.SetActive(false);
         laser_manager.puzzleIsCompleted = true;
         laser_manager.spawnAntidote = true;
         drawer.openDrawer();
@@ -168,9 +184,12 @@ public class researchLevelStart : MonoBehaviour
 
     void SpawnInSimonSays()
     {
+        elevatorDoorAnimation.SetTrigger("open");
         researchSavePoint = ResearchSavePoint.simonSays;
 
         sceneStart.delayAudio = true;
+        bloodLabVial.SetActive(false);
+        plantLabVial.SetActive(false);
         player_rb.position = simonSaysPosition;
         camera.rotation = Quaternion.Euler(simonSaysRotation.x, simonSaysRotation.y, simonSaysRotation.z);
     }
@@ -182,5 +201,17 @@ public class researchLevelStart : MonoBehaviour
         sceneStart.delayAudio = true;
         player_rb.position = bossPosition;
         camera.rotation = Quaternion.Euler(bossPosition.x, bossPosition.y, bossPosition.z);
+    }
+
+
+
+
+    IEnumerator elevatorSequence()
+    {
+        yield return new WaitForSeconds(.1f);
+        elevatorMusic.Play();
+        yield return new WaitForSeconds(9f);
+        elevatorDoorAnimation.SetTrigger("open");
+
     }
 }
