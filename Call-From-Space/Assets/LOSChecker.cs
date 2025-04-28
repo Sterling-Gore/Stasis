@@ -20,18 +20,17 @@ public class LOSChecker : MonoBehaviour
     Camera mainCamera;
     LayerMask wallMask;
     ZoomCamera zoom;
-    Renderer darkFigureRenderer;
 
     [SerializeField]
     Transform figureCenter;
     [SerializeField]
     GameObject StaticUI;
 
+    float staticTimer;
     Coroutine lookingInsanityIncreaseCoroutine;
 
     private void Awake()
     {
-        darkFigureRenderer = GetComponent<Renderer>();
         mainCamera = FindObjectOfType<Camera>();
         wallMask = LayerMask.GetMask("Surfaces");
         zoom = FindObjectOfType<ZoomCamera>();
@@ -67,13 +66,14 @@ public class LOSChecker : MonoBehaviour
 
             if (hasWallsInPath(figureCenter.position) || !isCameraFocused())
             {
-                if (!playerSeesMonster)
-                {
-                    yield return new WaitForSeconds(0.2f); //buffer for first focus on monster
-                }
                 playerSeesMonster = false;
+                staticTimer = 0f;
                 continue;
             }
+            //if (!playerSeesMonster)
+            //{
+            //    yield return new WaitForSeconds(0.2f); //buffer for first focus on monster
+            //}
             playerSeesMonster = true;
         }  
     }
@@ -118,12 +118,18 @@ public class LOSChecker : MonoBehaviour
         Color materialColor = staticMaterial.color;
         while (isActiveAndEnabled)
         {
+            if (playerSeesMonster)
+                staticTimer += Time.deltaTime;
+            if (staticTimer > 3f)
+                transform.parent.GetComponent<DarkFigureController>().SendToTimeout(7f);
+
+            //Debug.Log(staticTimer);
             float angleBetweenCameraAndCenter = Vector3.Angle(mainCamera.transform.rotation * Vector3.forward, figureCenter.position - mainCamera.transform.position);
             float alpha;
             if (!isOnScreen(figureCenter.transform.position))
                 alpha = 0f;
             else
-                alpha = Mathf.Lerp(0f, 1f, (40f - angleBetweenCameraAndCenter)/160f);
+                alpha = Mathf.Lerp(0f, 1f, (40f - angleBetweenCameraAndCenter)/160f) + staticTimer/5f;
             staticMaterial.color = new Color(materialColor.r, materialColor.g, materialColor.b, alpha);
             yield return new WaitForFixedUpdate();
         }

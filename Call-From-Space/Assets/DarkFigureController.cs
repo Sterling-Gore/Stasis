@@ -151,7 +151,6 @@ public class DarkFigureController : MonoBehaviour
         _camera.enabled = true;
         scareImage.SetActive(false);
         shadowRealmController.TeleportToShadowRealm();
-        transform.position = timeOutSquare.position;
     }
 
     //makes sure there is enough space in 2 units of 5 directions
@@ -218,7 +217,11 @@ public class DarkFigureController : MonoBehaviour
         return false;
     }
 
-    public void SendToTimeout(float duration) => StartCoroutine(Timeout(duration));
+    public void SendToTimeout(float duration)
+    {
+        transform.position = timeOutSquare.position;
+        StartCoroutine(Timeout(duration));
+    }
 
     IEnumerator Timeout(float duration)
     {
