@@ -11,17 +11,15 @@ public class FakePickUp : Interactable
     public GameObject ItemGlow;
     public AudioClip PickUpSound;
     public AudioSource audioSource;
-
+    public GameObject blackSmokeParticlesPrefab;
     Rigidbody playerRB;
 
-    [SerializeField] 
-    GameObject blackSmokeParticlesPrefab;
     override protected void Awake()
     {
         base.Awake();
-        ItemGlow = Instantiate(ItemGlow, transform, true);
-        ItemGlow.transform.parent = transform;
-        ItemGlow.transform.position = this.transform.position;
+        //ItemGlow = Instantiate(ItemGlow, transform, true);
+        //ItemGlow.transform.parent = transform;
+        //ItemGlow.transform.position = this.transform.position;
     }
     public override void Interact()
     {
