@@ -16,6 +16,10 @@ public class SimonSaysManager : MonoBehaviour
     [Header("screen")]
     public SimonSaysScreemInteraction screen;
 
+    [Header("InfiniteHallway")]
+    public GameObject savepointCollider;
+    public GameObject teleportCollider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +28,8 @@ public class SimonSaysManager : MonoBehaviour
             screen.finished = true;
             screenSparkle.SetActive(false);
             antidoteDeposit.SetActive(false);
+            savepointCollider.SetActive(false);
+            teleportCollider.SetActive(false);
         }
     }
 
@@ -43,5 +49,7 @@ public class SimonSaysManager : MonoBehaviour
     {
         puzzleIsCompleted = true;
         emptyTheCanister();
+        teleportCollider.SetActive(false);
+        savepointCollider.SetActive(true);
     }
 }
