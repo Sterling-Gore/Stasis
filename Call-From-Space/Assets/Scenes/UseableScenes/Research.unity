@@ -73944,6 +73944,7 @@ MonoBehaviour:
   initialRumbleWaitPeriod: 2
   underPlayerWaitPeriod: 3
   timeAfterStabbing: 1.5
+  damageCollider: {fileID: 578910543}
   percentageOfAttacking: 0.5
   timeToWaitBetweenEachChance: 0.1
   timerBetweenEachChance: 0
@@ -156375,6 +156376,75 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 118839316}
   m_SourcePrefab: {fileID: 100100000, guid: ede5f28ba99272542a2f2c194e057d92, type: 3}
+--- !u!1 &578910540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 578910541}
+  - component: {fileID: 578910543}
+  - component: {fileID: 578910542}
+  m_Layer: 0
+  m_Name: DamageCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &578910541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578910540}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.139, y: 0.425, z: 11.153}
+  m_LocalScale: {x: 0.760552, y: 0.8148876, z: 0.7313}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 738269933}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &578910542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578910540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d4a96f73fb5334e9a9fe67a417e15d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 10
+  damageIncrease: 10
+  playerHealth: {fileID: 362943817}
+--- !u!65 &578910543
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578910540}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &579750733
 GameObject:
   m_ObjectHideFlags: 0
@@ -188848,6 +188918,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 447702990}
+  - {fileID: 578910541}
   m_Father: {fileID: 269604809}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!95 &738269934

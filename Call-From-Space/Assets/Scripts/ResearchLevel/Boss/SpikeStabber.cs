@@ -22,6 +22,7 @@ public class SpikeStabber : MonoBehaviour
     public float initialRumbleWaitPeriod = .25f;
     public float underPlayerWaitPeriod = .75f;
     public float timeAfterStabbing = 1.5f;
+    public Collider damageCollider;
 
     [Header("Attack Chance")]
     public float percentageOfAttacking = .5f;
@@ -33,7 +34,7 @@ public class SpikeStabber : MonoBehaviour
 
     void Start()
     {
-        
+        damageCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -90,8 +91,10 @@ public class SpikeStabber : MonoBehaviour
 
         yield return new WaitForSeconds(underPlayerWaitPeriod);
         //stab audio
+        damageCollider.enabled = true;
         spikeStabAnimation.SetTrigger("Stab");
         yield return new WaitForSeconds(0.2f);
+        damageCollider.enabled = false;
 
 
         yield return new WaitForSeconds(timeAfterStabbing);

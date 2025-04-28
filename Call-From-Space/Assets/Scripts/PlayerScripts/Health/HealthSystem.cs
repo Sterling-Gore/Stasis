@@ -22,6 +22,7 @@ public class HealthSystem : Loadable
 
     bool HealthDelay;
     float HealthDelayTimer = 0f;
+    float i_frames = 0f;
 
     float startWidth;
     float healthBarStartX;
@@ -40,6 +41,8 @@ public class HealthSystem : Loadable
         //pos.x = healthBarStartX + ((startWidth - curWidth) / 4);
         //healthBar.rectTransform.position = pos;
         //healthBarRectTransform.sizeDelta = new Vector2(curWidth, healthBarRectTransform.sizeDelta.y);
+        i_frames = Mathf.Clamp(i_frames-Time.deltaTime, 0, 4f); 
+
         healthBar.fillAmount = healthLevel / maxHealth;
 
         if(HealthDelayTimer > 0)
@@ -87,43 +90,47 @@ public class HealthSystem : Loadable
 
     public void TakeDamage(float damageAmount, damageType whoDamaged = damageType.oxygen)
     {
-        HealthDelay = true;
-        HealthDelayTimer = 6f;
-        healthLevel -= damageAmount;
-        healthLevel = Mathf.Clamp(healthLevel, 0, maxHealth); // Ensure health level stays within bounds
-        Debug.Log("DAMAGED: " + damageAmount);
-
-        if(healthLevel > 0)
+        if(i_frames <= 0f)
         {
-            playeraudio.AudibleDamage(whoDamaged);
-            if (cameraShake != null)
-            {
-                Debug.Log("Shaking");
-                float randomDuration = 0f;
-                float randomMagnitude = 0f;
+            i_frames = 0.25f;
+            HealthDelay = true;
+            HealthDelayTimer = 6f;
+            healthLevel -= damageAmount;
+            healthLevel = Mathf.Clamp(healthLevel, 0, maxHealth); // Ensure health level stays within bounds
+            Debug.Log("DAMAGED: " + damageAmount);
 
-                if(whoDamaged == damageType.experiment87)
-                {
-                    randomDuration = Random.Range(0.35f, 0.75f);
-                    randomMagnitude = Random.Range(0.50f, 0.75f);
-                }
-                else if(whoDamaged == damageType.oxygen)
-                {
-                    randomDuration = Random.Range(0.25f, 0.45f);
-                    randomMagnitude = Random.Range(0.05f, 0.1f);
-                }
-                cameraShake.StartShake(randomDuration, randomMagnitude);
-            }
-
-            if (cameraVHS != null)
+            if(healthLevel > 0)
             {
-                cameraVHS.enabled = true;
-                StartCoroutine(DisableScriptAfterDelay(cameraVHS, 1f)); // Enable VHS effect and disable it after 3 seconds
+                playeraudio.AudibleDamage(whoDamaged);
+                if (cameraShake != null)
+                {
+                    Debug.Log("Shaking");
+                    float randomDuration = 0f;
+                    float randomMagnitude = 0f;
+
+                    if(whoDamaged == damageType.experiment87)
+                    {
+                        randomDuration = Random.Range(0.35f, 0.75f);
+                        randomMagnitude = Random.Range(0.50f, 0.75f);
+                    }
+                    else if(whoDamaged == damageType.oxygen)
+                    {
+                        randomDuration = Random.Range(0.25f, 0.45f);
+                        randomMagnitude = Random.Range(0.05f, 0.1f);
+                    }
+                    cameraShake.StartShake(randomDuration, randomMagnitude);
+                }
+
+                if (cameraVHS != null)
+                {
+                    cameraVHS.enabled = true;
+                    StartCoroutine(DisableScriptAfterDelay(cameraVHS, 1f)); // Enable VHS effect and disable it after 3 seconds
+                }
             }
-        }
-        else
-        {
-            //death scene
+            else
+            {
+                //death scene
+            }
         }
     }
 
