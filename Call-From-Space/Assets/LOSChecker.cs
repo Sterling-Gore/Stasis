@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Device;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Color = UnityEngine.Color;
 using Screen = UnityEngine.Screen;
 
 public class LOSChecker : MonoBehaviour
@@ -20,10 +24,12 @@ public class LOSChecker : MonoBehaviour
 
     [SerializeField]
     Transform figureCenter;
+    [SerializeField]
+    GameObject StaticUI;
 
     Coroutine lookingInsanityIncreaseCoroutine;
 
-    private void Start()
+    private void Awake()
     {
         darkFigureRenderer = GetComponent<Renderer>();
         mainCamera = FindObjectOfType<Camera>();
@@ -31,6 +37,7 @@ public class LOSChecker : MonoBehaviour
         zoom = FindObjectOfType<ZoomCamera>();
         switchFlag = false;
         StartCoroutine(CheckIfLooking());
+        StartCoroutine(StaticBasedOnSight());
     }
 
     private void Update()
@@ -103,5 +110,23 @@ public class LOSChecker : MonoBehaviour
             InsanityMeter.Instance.IncreaseInsanity(10f);
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    IEnumerator StaticBasedOnSight()
+    {
+        RawImage staticMaterial = StaticUI.GetComponent<RawImage>();
+        Color materialColor = staticMaterial.color;
+        while (isActiveAndEnabled)
+        {
+            float angleBetweenCameraAndCenter = Vector3.Angle(mainCamera.transform.rotation * Vector3.forward, figureCenter.position - mainCamera.transform.position);
+            float alpha;
+            if (!isOnScreen(figureCenter.transform.position))
+                alpha = 0f;
+            else
+                alpha = Mathf.Lerp(0f, 1f, (40f - angleBetweenCameraAndCenter)/160f);
+            staticMaterial.color = new Color(materialColor.r, materialColor.g, materialColor.b, alpha);
+            yield return new WaitForFixedUpdate();
+        }
+        
     }
 }
