@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fire
-  m_Shader: {fileID: 10720, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 2100000, guid: 87cc936a423e30f42b88351455ca22bf, type: 2}
+  m_Name: PetalCharred 3
+  m_Shader: {fileID: 4800000, guid: f15d6bf5a4212b14b92532ea5fcdfa8d, type: 3}
+  m_Parent: {fileID: 2100000, guid: e5bb5e2421caf6d48b0d07597a4068c2, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -22,7 +22,11 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: ee41d9a7f0dcbfe4f8588374873b4b2b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats: []
     m_Colors: []

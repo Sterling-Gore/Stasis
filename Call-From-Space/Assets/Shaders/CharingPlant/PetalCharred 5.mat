@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PetalCharred 3
-  m_Shader: {fileID: 4800000, guid: f15d6bf5a4212b14b92532ea5fcdfa8d, type: 3}
+  m_Name: PetalCharred 5
+  m_Shader: {fileID: 4800000, guid: 3f2defb2b68a228498eee1ff609b6c42, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BurnTex:
-        m_Texture: {fileID: 2800000, guid: 76771e7a1c0326949ba57db93d82a555, type: 3}
+        m_Texture: {fileID: 2800000, guid: 82cdd7892b2738f4db0a7dfe4a34f3bd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -45,6 +45,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FadeNoiseTex:
+        m_Texture: {fileID: 2800000, guid: 8745af563c3b9704a895840c0f7cc04d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -66,7 +70,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
-    - _BurnThreshold: 0
+    - _BurnThreshold: 1.0000323
     - _Cutoff: 0.0001
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
