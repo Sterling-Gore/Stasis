@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
@@ -24,7 +25,7 @@ public class PickUp : Interactable
     public ManagerDarkFigure DarkFigureForPurpleKey;
     public AlienController alienController;
 
-
+    public event EventHandler<PickUpEventArgs> ItemPickedUp;
 
     override protected void Awake()
     {
@@ -91,6 +92,7 @@ public class PickUp : Interactable
 
     public void pickUp()
     {
+        OnPickUp();
         gameObject.SetActive(false);
         if (item.isItem)
         {
@@ -123,5 +125,19 @@ public class PickUp : Interactable
         /*
         base.Save(ref state);
         state[fullName]["isActive"] = gameObject.activeSelf; */
+    }
+
+    void OnPickUp()
+    {
+        ItemPickedUp?.Invoke(this, new PickUpEventArgs(gameObject));
+    }
+}
+
+public class PickUpEventArgs : EventArgs
+{
+    public GameObject pickUpItem;
+    public PickUpEventArgs(GameObject pickUpItem)
+    {
+        this.pickUpItem = pickUpItem;
     }
 }
