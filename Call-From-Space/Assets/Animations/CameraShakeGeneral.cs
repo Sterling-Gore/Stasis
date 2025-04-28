@@ -11,7 +11,8 @@ public class CameraShakeGeneral : MonoBehaviour
     public bool isShaking = false;
 
     public MoveCamera movecamera;
-
+ 
+    public float previousMagnitude = 0f;
 
 
     void Update()
@@ -28,10 +29,11 @@ public class CameraShakeGeneral : MonoBehaviour
     {
         shakeDuration = duration;
         shakeMagnitude = magnitude;
-        if (!isShaking)
+        if (!isShaking || magnitude > previousMagnitude)
         {
             StartCoroutine(Shake());
         }
+        previousMagnitude = magnitude;
     }
 
     private IEnumerator Shake()

@@ -7,6 +7,8 @@ public class PlasmaGun : Holdable
 
     public GameObject Laser;
     public AudioSource audioSource;
+    [Header("Camera Shake")]
+    public CameraShakeGeneral cameraShake;
 
     // Update is called once per frame
     void Update()
@@ -24,6 +26,7 @@ public class PlasmaGun : Holdable
         }
         if (player.GetComponent<Interactor>().holdingName == objName &&  Input.GetKey(KeyCode.Mouse0))
         {
+            cameraShake.StartShake(0.02f, 0.1f);
             Laser.SetActive(true);
             audioSource.enabled = true;
             Ray ray = new Ray(transform.position, transform.right);
