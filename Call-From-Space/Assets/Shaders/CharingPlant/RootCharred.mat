@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SkullCharred
+  m_Name: RootCharred
   m_Shader: {fileID: 4800000, guid: 3f2defb2b68a228498eee1ff609b6c42, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -48,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeNoiseTex:
-        m_Texture: {fileID: 2800000, guid: 8745af563c3b9704a895840c0f7cc04d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 76771e7a1c0326949ba57db93d82a555, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 70b7e79aea6533543b7f0305afec904d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1d024550849143946aade0c03ffadf70, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
