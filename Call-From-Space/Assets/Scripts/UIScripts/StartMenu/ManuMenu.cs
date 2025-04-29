@@ -8,6 +8,9 @@ public class StartingMenu : MonoBehaviour
     public SavePointID TestSavePoint;
     public GameObject optionsMenuUI;
     public GameObject regularScreenUI;
+    public GameObject playTesterSceenUI;
+
+    public SavePointID[] allSavePoints;
 
     void Start()
     {
@@ -37,10 +40,28 @@ public class StartingMenu : MonoBehaviour
         optionsMenuUI.SetActive(true);
     }
 
+    public void PlayTestScreen()
+    {
+        regularScreenUI.SetActive(false);
+        playTesterSceenUI.SetActive(true);
+    }
+
     public void TestSave()
     {
         saveManager.UpdateSave(TestSavePoint);
         sceneLoader.LoadSceneFromSavePoint();
+    }
+
+    public void loadSpecificScene(int loadingSave)
+    {
+        saveManager.UpdateSave(allSavePoints[loadingSave]);
+        sceneLoader.LoadSceneFromSavePoint();
+    }
+
+    public void exitPlayTestScreen()
+    {
+        playTesterSceenUI.SetActive(false);
+        regularScreenUI.SetActive(true);
     }
 
     public void TestAI()
@@ -58,6 +79,7 @@ public class StartingMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) )
         {
             optionsMenuUI.SetActive(false);
+            playTesterSceenUI.SetActive(false);
             regularScreenUI.SetActive(true);
         }
     }
