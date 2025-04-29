@@ -103016,7 +103016,7 @@ MonoBehaviour:
   isItem: 1
   AudioLog: 0
   itemName: Translation Papers
-  itemImage: {fileID: 21300000, guid: dffa995d6d58ab04ca6d2a669b1a33e9, type: 3}
+  itemImage: {fileID: 21300000, guid: 21ba69897629c2740926ee3e7715690f, type: 3}
   obj: {fileID: 330590586}
 --- !u!54 &330590591
 Rigidbody:
@@ -245509,7 +245509,7 @@ MonoBehaviour:
   isItem: 1
   AudioLog: 0
   itemName: Vial of Foreign Matter
-  itemImage: {fileID: 21300000, guid: dffa995d6d58ab04ca6d2a669b1a33e9, type: 3}
+  itemImage: {fileID: 21300000, guid: 184708adb8fadc445898620dba79cb8f, type: 3}
   obj: {fileID: 1076359097}
 --- !u!54 &1076359102
 Rigidbody:
@@ -326394,7 +326394,7 @@ MonoBehaviour:
   isItem: 1
   AudioLog: 0
   itemName: Laser Battery
-  itemImage: {fileID: 21300000, guid: dffa995d6d58ab04ca6d2a669b1a33e9, type: 3}
+  itemImage: {fileID: 21300000, guid: 52cc675a2659f154e91833ff5d0c75b7, type: 3}
   obj: {fileID: 1462833318}
 --- !u!54 &1462833323
 Rigidbody:
@@ -384644,8 +384644,8 @@ Transform:
   m_GameObject: {fileID: 1735009033}
   serializedVersion: 2
   m_LocalRotation: {x: 0.026239078, y: -0.002535654, z: 0.096155085, w: 0.99501723}
-  m_LocalPosition: {x: 9.16, y: -6.292328, z: -7.71}
-  m_LocalScale: {x: 0.13629, y: 0.13629, z: 0.13629}
+  m_LocalPosition: {x: 9.1579, y: -6.291, z: -7.7044}
+  m_LocalScale: {x: 0.10263374, y: 0.10263374, z: 0.10263374}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 476925226}
@@ -384694,7 +384694,7 @@ MonoBehaviour:
   isItem: 1
   AudioLog: 0
   itemName: Drawer Key
-  itemImage: {fileID: 21300000, guid: dffa995d6d58ab04ca6d2a669b1a33e9, type: 3}
+  itemImage: {fileID: 21300000, guid: 9a2bfc337c8d95140807c12a41e6d246, type: 3}
   obj: {fileID: 1735009033}
 --- !u!54 &1735009038
 Rigidbody:
@@ -409130,7 +409130,7 @@ MonoBehaviour:
   isItem: 1
   AudioLog: 0
   itemName: Vial of Blood
-  itemImage: {fileID: 21300000, guid: dffa995d6d58ab04ca6d2a669b1a33e9, type: 3}
+  itemImage: {fileID: 21300000, guid: 1f96df60791d478418e118985a33dec4, type: 3}
   obj: {fileID: 1862085585}
 --- !u!54 &1862085590
 Rigidbody:
