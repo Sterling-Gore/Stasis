@@ -30,6 +30,7 @@ public class DarkFigureController : MonoBehaviour
     Transform teleportAround;
     [SerializeField] 
     float minimumPlayerTeleportDistance;
+    public bool hunting, inTimeout;
 
     [Header("Jumpscare")]
     [SerializeField]
@@ -41,7 +42,7 @@ public class DarkFigureController : MonoBehaviour
     LOSChecker los;
     NavMeshAgent NMA;
     Collider caughtCollider;
-    bool hunting, inTimeout;
+    
     LayerMask surfacesMask;
     AudioSource scaryNoiseSource, jumpscareNoiseSource;
     Transform[] losPoints;
@@ -251,6 +252,19 @@ public class DarkFigureController : MonoBehaviour
         for (float time = 0f; time < duration; time += Time.deltaTime)
             yield return new WaitForFixedUpdate();
         inTimeout = false;
+        ForceTeleport();
+    }
+
+    public void ForceTeleport()
+    {
+        int iterationLimit = 1000;
+        int iterations = 0;
+        while (!TryJumpRandomSurface() && iterations++ < iterationLimit) ;
+        if (iterations >= iterationLimit - 1)
+        {
+            Debug.LogWarning("Iteration limit reached for TryJumpRandomSurface");
+            SendToTimeout(10f);
+        }
     }
 
     void Initialize(object sender, SaveEventArgs saveArgs)

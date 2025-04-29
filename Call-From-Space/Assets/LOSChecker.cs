@@ -26,8 +26,14 @@ public class LOSChecker : MonoBehaviour
 
     [SerializeField]
     Transform figureCenter;
+
+    [Header("Static Effect")]
     [SerializeField]
     GameObject StaticUI;
+    [SerializeField]
+    AudioSource staticAudio;
+    [SerializeField]
+    AudioLowPassFilter staticAudioFilter;
     
 
     float staticTimer;
@@ -39,6 +45,10 @@ public class LOSChecker : MonoBehaviour
         wallMask = LayerMask.GetMask("Surfaces");
         zoom = FindObjectOfType<ZoomCamera>();
         switchFlag = false;
+        
+    }
+    private void Start()
+    {
         StartCoroutine(CheckIfLooking());
         StartCoroutine(StaticBasedOnSight());
     }
@@ -135,10 +145,23 @@ public class LOSChecker : MonoBehaviour
 
     IEnumerator StaticBasedOnSight()
     {
+        
+
         RawImage staticMaterial = StaticUI.GetComponent<RawImage>();
         Color materialColor = staticMaterial.color;
         while (isActiveAndEnabled)
         {
+            if (transform.parent.GetComponent<DarkFigureController>().hunting 
+                || !InsanityMeter.Instance.acceptingInsanityIncrease 
+                || !transform.parent.GetComponent<DarkFigureController>().enabled
+                || transform.parent.GetComponent<DarkFigureController>().inTimeout)
+            {
+                yield return new WaitForFixedUpdate();
+                staticAudio.volume = 0;
+                staticMaterial.color = new Color(materialColor.r, materialColor.g, materialColor.b, 0f);
+                continue;
+            }
+
             if (playerSeesMonster)
                 staticTimer += Time.deltaTime;
             if (staticTimer > 3f)
@@ -146,12 +169,15 @@ public class LOSChecker : MonoBehaviour
 
             //Debug.Log(staticTimer);
             float angleBetweenCameraAndCenter = Vector3.Angle(mainCamera.transform.rotation * Vector3.forward, figureCenter.position - mainCamera.transform.position);
-            float alpha;
-            if (!isOnScreen(figureCenter.transform.position))
-                alpha = 0f;
-            else
-                alpha = Mathf.Lerp(0f, 0.05f, (50-angleBetweenCameraAndCenter)/50) + staticTimer / 30f; 
+
+            float alpha = Mathf.Lerp(0f, 0.02f, (50 - angleBetweenCameraAndCenter) / 50) + staticTimer / 30f;
+            staticAudio.volume = Mathf.Lerp(0.2f, 1f, (50 - angleBetweenCameraAndCenter) / 50);
+            staticAudioFilter.lowpassResonanceQ = Mathf.Lerp(0f, 7f, (50 - angleBetweenCameraAndCenter) / 50) + staticTimer;
+
             staticMaterial.color = new Color(materialColor.r, materialColor.g, materialColor.b, alpha);
+
+            
+
             yield return new WaitForFixedUpdate();
         }
         
