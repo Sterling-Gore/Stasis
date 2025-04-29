@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Schema;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Device;
 using UnityEngine.UIElements;
 using Application = UnityEngine.Application;
+using Random = UnityEngine.Random;
 using Screen = UnityEngine.Screen;
 
 public class DarkFigureController : MonoBehaviour
@@ -14,6 +17,7 @@ public class DarkFigureController : MonoBehaviour
     [Header("Jumping")]
     [SerializeField]
     float maxJumpRangeFromPlayer;
+    public bool isHarmless;
 
     [Header("Position Tracking")]
     [SerializeField]
@@ -41,11 +45,14 @@ public class DarkFigureController : MonoBehaviour
     LayerMask surfacesMask;
     AudioSource scaryNoiseSource, jumpscareNoiseSource;
     Transform[] losPoints;
-
-
-    Vector3 currentUp;
     
 
+    Vector3 currentUp;
+
+    private void Awake()
+    {
+        FindObjectOfType<SaveManager>().SaveRecieved += Initialize;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +70,7 @@ public class DarkFigureController : MonoBehaviour
         losPoints = LOSPointsTransform.Cast<Transform>().ToArray();
 
         scaryNoiseSource = teleportAround.GetComponentInChildren<AudioSource>();
-        jumpscareNoiseSource = GetComponent<AudioSource>();
+        jumpscareNoiseSource = GetComponent<AudioSource>(); 
     }
 
     // Update is called once per frame
@@ -74,13 +81,13 @@ public class DarkFigureController : MonoBehaviour
         if (losPoints.All(point => !los.isOnScreen(point.position)))
         {
             int rng = Random.Range(1, 200);
-            int iterationLimit = 5000;
+            int iterationLimit = 1000;
             int iterations = 0;
             if (rng == 1)
             {
 
                 while (!TryJumpRandomSurface() && iterations++ < iterationLimit);
-                if (iterations > 4999) 
+                if (iterations >= iterationLimit-1) 
                 {
                     Debug.LogWarning("Iteration limit reached for TryJumpRandomSurface");
                     SendToTimeout(10f);
@@ -175,25 +182,27 @@ public class DarkFigureController : MonoBehaviour
         Vector3 rng = Random.onUnitSphere;
         Debug.DrawRay(player.position + Vector3.up * 2, rng * 100, Color.red, 3f);
 
-        if (Physics.Raycast(player.position + Vector3.up * 2, rng, out hit, Mathf.Infinity, surfacesMask) 
-            && !los.isOnScreen(hit.point + hit.normal) 
-            && isEnoughSpace(hit.point + hit.normal, hit.normal)
-            && IsNotNearPlayer(hit.point))
-        {
-            Vector3 offset = (Vector3.Angle(Vector3.up, hit.normal) < 10) ? Vector3.zero : -hit.normal;
+        float jumpDistance = maxJumpRangeFromPlayer;
+        if (isHarmless) jumpDistance = 3f;
 
+
+        if (Physics.Raycast(player.position + Vector3.up * 2, rng, out hit, jumpDistance, surfacesMask)
+            //&& !hit.transform.gameObject.CompareTag("SecurityCamera") //im just using this cause its not on anything else and Im too lazy to make a new one
+            && Vector3.Angle(Vector3.up, hit.normal) < 10
+            && IsNotNearPlayer(hit.point)
+            && !los.isOnScreen(hit.point + hit.normal) 
+            && isEnoughSpace(hit.point + hit.normal, hit.normal))
+        {
             Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
 
             currentUp = hit.normal;
             transform.rotation = rotation;
-            transform.position = hit.point + offset;
+            transform.position = hit.point;
 
             Vector3 monsterToPlayer = player.transform.position - transform.position;
             Vector3.OrthoNormalize(ref currentUp, ref monsterToPlayer);
 
-            float angle = -Vector3.Angle(monsterToPlayer, transform.forward);
-
-            transform.rotation = Quaternion.AngleAxis(angle, hit.normal) * transform.rotation;
+            transform.rotation = Quaternion.LookRotation(monsterToPlayer);// * transform.rotation;
 
             return true;
         }
@@ -217,6 +226,19 @@ public class DarkFigureController : MonoBehaviour
         return false;
     }
 
+    public void SetActivelyHunting(bool activelyHunting)
+    {
+        if (activelyHunting)
+        {
+            enabled = true;
+        }
+        else
+        {
+            enabled = false;
+            SendToTimeout(0f);
+        }
+    }
+
     public void SendToTimeout(float duration)
     {
         transform.position = timeOutSquare.position;
@@ -229,5 +251,34 @@ public class DarkFigureController : MonoBehaviour
         for (float time = 0f; time < duration; time += Time.deltaTime)
             yield return new WaitForFixedUpdate();
         inTimeout = false;
+    }
+
+    void Initialize(object sender, SaveEventArgs saveArgs)
+    {
+        SavePointID savepoint = saveArgs.savepoint;
+        if(savepoint == SavePointID.research1)
+        {
+            SendToTimeout(10f);
+            SetActivelyHunting(true);
+            isHarmless = true;
+        }
+        else if (savepoint == SavePointID.research2)
+        {
+            SetActivelyHunting(true);
+            isHarmless = false;
+        }
+        else if (savepoint == SavePointID.research3)
+        {
+            SetActivelyHunting(true);
+            isHarmless = false;
+        }
+        else if (savepoint == SavePointID.research4)
+        {
+            SetActivelyHunting(false);
+        }
+        else if (savepoint == SavePointID.research5)
+        {
+            SetActivelyHunting(false);
+        }
     }
 }

@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public class SaveManager : MonoBehaviour
 {
-
+    public event EventHandler<SaveEventArgs> SaveRecieved;
     SaveData heldData = null;
     string GetSavePath(int slot = 1)
     {
@@ -21,6 +22,7 @@ public class SaveManager : MonoBehaviour
         heldData = data;
         File.WriteAllText(Application.persistentDataPath + "/savefile_" + slot + ".json", json);
         Debug.Log("Game saved at " + savePoint);
+        OnSaveRecieved(savePoint);
     }
 
     public void UpdateSettings(float Volume, float Sensitivity, int slot = 1)
@@ -47,6 +49,7 @@ public class SaveManager : MonoBehaviour
         {
             DownloadSave(slot);
         }
+        OnSaveRecieved(heldData.savepoint);
         return heldData.savepoint;
     }
 
@@ -93,7 +96,11 @@ public class SaveManager : MonoBehaviour
         //UpdateSave(SavePointID.tutorial);
         //return SavePointID.tutorial; // Default if no save exists
     }
-
+    
+    void OnSaveRecieved(SavePointID savepoint)
+    {
+        SaveRecieved?.Invoke(this, new SaveEventArgs(savepoint));
+    }
 }
 
 public class SaveData
@@ -116,4 +123,13 @@ public enum SavePointID
     research3,
     research4,
     research5
+}
+
+public class SaveEventArgs
+{
+    public SavePointID savepoint;
+    public SaveEventArgs(SavePointID savepoint)
+    {
+        this.savepoint = savepoint;
+    }
 }
