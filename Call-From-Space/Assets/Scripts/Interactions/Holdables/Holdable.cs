@@ -47,7 +47,17 @@ public abstract class Holdable : Interactable
             interactor = player.GetComponent<Interactor>();
     }
 
+    private void Start()
+    {
+        if (InsanityMeter.Instance != null)
+            InsanityMeter.Instance.MaxInsanity += DropObjectWrapper;
+    }
 
+    private void DropObjectWrapper()
+    {
+        if (localHold)
+            DropObject();
+    }
 
 
     public override string GetDescription()
