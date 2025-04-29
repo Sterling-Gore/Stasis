@@ -33477,7 +33477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &111799349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89946,6 +89946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxJumpRangeFromPlayer: 0
+  isHarmless: 0
   player: {fileID: 0}
   darkFigureHead: {fileID: 1806264588}
   LOSPointsTransform: {fileID: 1477933384}
@@ -167394,7 +167395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d944aed51010a449d796ee6301fe8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumpRangeFromPlayer: 10
+  maxJumpRangeFromPlayer: 7
+  isHarmless: 0
   player: {fileID: 362943806}
   darkFigureHead: {fileID: 1393534173}
   LOSPointsTransform: {fileID: 92253817}
@@ -262610,7 +262612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1118110959
 Transform:
   m_ObjectHideFlags: 0
@@ -356260,9 +356262,9 @@ GameObject:
   - component: {fileID: 1529248133}
   - component: {fileID: 1529248132}
   - component: {fileID: 1529248131}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube.350
-  m_TagString: Untagged
+  m_TagString: SecurityCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442160,9 +442162,9 @@ GameObject:
   - component: {fileID: 1918036327}
   - component: {fileID: 1918036326}
   - component: {fileID: 1918036325}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube.384
-  m_TagString: Untagged
+  m_TagString: SecurityCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442305,7 +442307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSeesMonster: 0
-  maximumLOSFocusAngle: 20
+  normalLOSFocusAngle: 0
+  harmlessLOSFocusAngle: 0
   figureCenter: {fileID: 1851048145}
   StaticUI: {fileID: 0}
 --- !u!137 &1919527615
@@ -463101,7 +463104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSeesMonster: 0
-  maximumLOSFocusAngle: 20
+  normalLOSFocusAngle: 25
+  harmlessLOSFocusAngle: 35
   figureCenter: {fileID: 1616435224}
   StaticUI: {fileID: 373612958}
 --- !u!1 &1991860444

@@ -15,7 +15,10 @@ public class LOSChecker : MonoBehaviour
     bool switchFlag;
 
     [SerializeField]
-    float maximumLOSFocusAngle;
+    float normalLOSFocusAngle;
+    [SerializeField]
+    float harmlessLOSFocusAngle;
+    float currentFocusAngle;
 
     Camera mainCamera;
     LayerMask wallMask;
@@ -25,6 +28,7 @@ public class LOSChecker : MonoBehaviour
     Transform figureCenter;
     [SerializeField]
     GameObject StaticUI;
+    
 
     float staticTimer;
     Coroutine lookingInsanityIncreaseCoroutine;
@@ -41,8 +45,25 @@ public class LOSChecker : MonoBehaviour
 
     private void Update()
     {
+        bool isHarmless = transform.parent.GetComponent<DarkFigureController>().isHarmless;
+        if (isHarmless)
+        {
+            currentFocusAngle = harmlessLOSFocusAngle;
+            StaticUI.SetActive(false);
+        }
+        else
+        {
+            currentFocusAngle = normalLOSFocusAngle;
+            StaticUI.SetActive(true);
+        }
+        
         if (playerSeesMonster && switchFlag)
         {
+            if (isHarmless)
+            {
+                transform.parent.GetComponent<DarkFigureController>().SendToTimeout(0f);
+                return;
+            }
             zoom.StartZoomIn();
             lookingInsanityIncreaseCoroutine = StartCoroutine(LookingInsanityIncrease());
             switchFlag = !switchFlag;
@@ -83,7 +104,7 @@ public class LOSChecker : MonoBehaviour
     {
         float angleBetweenCameraAndMonster = Vector3.Angle(mainCamera.transform.rotation * Vector3.forward, figureCenter.position - mainCamera.transform.position);
 
-        return angleBetweenCameraAndMonster < maximumLOSFocusAngle;
+        return angleBetweenCameraAndMonster < currentFocusAngle;
     }
 
     public bool isOnScreen(Vector3 position)
@@ -129,7 +150,7 @@ public class LOSChecker : MonoBehaviour
             if (!isOnScreen(figureCenter.transform.position))
                 alpha = 0f;
             else
-                alpha = Mathf.Lerp(0f, 1f, (40f - angleBetweenCameraAndCenter)/160f) + staticTimer/5f;
+                alpha = Mathf.Lerp(0f, 1f, (40f - angleBetweenCameraAndCenter)/160f) + staticTimer/15f;
             staticMaterial.color = new Color(materialColor.r, materialColor.g, materialColor.b, alpha);
             yield return new WaitForFixedUpdate();
         }
