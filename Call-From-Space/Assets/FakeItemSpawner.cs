@@ -15,6 +15,9 @@ public class FakeItemSpawner : MonoBehaviour
     [SerializeField]
     GameObject blackSmokeParticlesPrefab;
 
+    public bool deleteFakes = false;
+    public List<GameObject> fakeItems = new List<GameObject>();
+
     LOSChecker los;
 
     void Awake()
@@ -55,8 +58,22 @@ public class FakeItemSpawner : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
         }
-        
-        fakeItem.SetActive(true);
+        if(!deleteFakes)
+        {
+            fakeItem.SetActive(true);
+            fakeItems.Add(fakeItem);
+        }
+    }
+
+    public void deleteAllFakes()
+    {
+        deleteFakes = true;
+        for (int i = fakeItems.Count - 1; i >= 0; i--)
+        {
+            GameObject fakeItem = fakeItems[i];
+            fakeItems.RemoveAt(i);
+            Destroy(fakeItem);
+        }
     }
 }
 

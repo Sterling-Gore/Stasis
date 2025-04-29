@@ -246,6 +246,13 @@ public class DarkFigureController : MonoBehaviour
         StartCoroutine(Timeout(duration));
     }
 
+    public void SendToPermanentTimeout()
+    {
+        transform.position = timeOutSquare.position;
+        inTimeout = true;
+        enabled = false;
+    }
+
     IEnumerator Timeout(float duration)
     {
         inTimeout = true;
@@ -272,7 +279,7 @@ public class DarkFigureController : MonoBehaviour
         SavePointID savepoint = saveArgs.savepoint;
         if(savepoint == SavePointID.research1)
         {
-            SendToTimeout(10f);
+            SendToTimeout(20f);
             SetActivelyHunting(true);
             isHarmless = true;
         }
