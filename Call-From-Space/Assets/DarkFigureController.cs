@@ -288,6 +288,7 @@ public class DarkFigureController : MonoBehaviour
             SetActivelyHunting(true);
             isHarmless = false;
             InsanityMeter.Instance.setMinimumTimesCaught(1);
+            InsanityMeter.Instance.Reset();
             
         }
         else if (savepoint == SavePointID.research3)
@@ -295,6 +296,7 @@ public class DarkFigureController : MonoBehaviour
             SetActivelyHunting(true);
             isHarmless = false;
             InsanityMeter.Instance.setMinimumTimesCaught(2);
+            InsanityMeter.Instance.Reset();
         }
         else if (savepoint == SavePointID.research4)
         {

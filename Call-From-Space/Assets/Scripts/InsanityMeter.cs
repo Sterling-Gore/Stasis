@@ -38,7 +38,7 @@ public class InsanityMeter : MonoBehaviour
 
     public void setMinimumTimesCaught(int minimumTimesCaught)
     {
-        minimumTimesCaught = this.minimumTimesCaught;
+        this.minimumTimesCaught = minimumTimesCaught;
     }
 
     public void Reset()
