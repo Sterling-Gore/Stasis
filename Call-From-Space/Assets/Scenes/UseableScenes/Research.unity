@@ -214970,6 +214970,7 @@ MonoBehaviour:
   inTimeout: 0
   jumpscareNoise: {fileID: 8300000, guid: f7515f166ff92de479522115947d8d89, type: 3}
   scareImage: {fileID: 0}
+  holdingItmes: []
 --- !u!95 &797602505
 Animator:
   serializedVersion: 5
@@ -275541,6 +275542,11 @@ MonoBehaviour:
   inTimeout: 0
   jumpscareNoise: {fileID: 8300000, guid: f7515f166ff92de479522115947d8d89, type: 3}
   scareImage: {fileID: 1107672036}
+  holdingItmes:
+  - {fileID: 237180580}
+  - {fileID: 1146164133}
+  - {fileID: 574724506}
+  - {fileID: 1080451023}
 --- !u!1 &1163058191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -558752595268880706, guid: c9aae9c82a0d7a747bf21acdc6da4a3e, type: 3}
