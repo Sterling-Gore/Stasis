@@ -7,13 +7,26 @@ public class PlasmaGun : Holdable
 
     public GameObject Laser;
     public AudioSource audioSource;
+    public bool done = false;
     [Header("Camera Shake")]
     public CameraShakeGeneral cameraShake;
 
+    public override string GetDescription()
+    {
+        if(done)
+            return ("Out of power");
+        return ("Press [E] to grab the " + objName);
+    }
+
+    public override void Interact()
+    {
+        if(!done)
+            PickUpObject();
+    }
     // Update is called once per frame
     void Update()
     {
-       if(gameObject.activeSelf && ItemGlow.activeSelf)
+       if(gameObject.activeSelf && ItemGlow.activeSelf && !done)
             ItemGlow.transform.position = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
         if (localHold)
         {

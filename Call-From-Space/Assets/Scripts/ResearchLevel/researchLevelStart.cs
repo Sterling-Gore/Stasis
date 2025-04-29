@@ -63,6 +63,9 @@ public class researchLevelStart : MonoBehaviour
 
     [Header("Simon Says Puzzle Deliverables")]
     public SimonSaysManager simon_says_manager;
+
+    [Header("Boss Room Deliverables")]
+    public BossRoomManager bossRoomManager;
     
 
     [Header("Extra Audios")]
@@ -205,6 +208,8 @@ public class researchLevelStart : MonoBehaviour
     void SpawnInBoss()
     {
         researchSavePoint = ResearchSavePoint.boss;
+
+        bossRoomManager.puzzleIsDone();
 
         sceneStart.delayAudio = true;
         player_rb.position = bossPosition;

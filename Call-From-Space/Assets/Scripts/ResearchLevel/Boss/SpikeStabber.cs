@@ -11,7 +11,7 @@ public class SpikeStabber : MonoBehaviour
 
     [Header("Cooldown")] 
     public bool spikeUnderCoolDown = false;
-    public float spikeCoolDownTimer = 5f;
+    public float spikeCoolDownTimer = 9f;
     public float spikeCoolDown = 0f;
 
     [Header("Camera Shake")]
@@ -19,8 +19,8 @@ public class SpikeStabber : MonoBehaviour
 
     [Header("Spike Attack Stats")]
     public bool currentyAttacking = false;
-    public float initialRumbleWaitPeriod = .25f;
-    public float underPlayerWaitPeriod = .75f;
+    public float initialRumbleWaitPeriod = 2f;
+    public float underPlayerWaitPeriod = 3f;
     public float timeAfterStabbing = 1.5f;
     public Collider damageCollider;
 
@@ -40,7 +40,7 @@ public class SpikeStabber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!currentyAttacking)
+        if(!currentyAttacking && isActive)
         {
             if(spikeUnderCoolDown)
             {
@@ -78,10 +78,10 @@ public class SpikeStabber : MonoBehaviour
     IEnumerator attack()
     {
         //start audio
-        cameraShake.StartShake(initialRumbleWaitPeriod, 0.04f);
+        cameraShake.StartShake(initialRumbleWaitPeriod+.5f, 0.1f);
         yield return new WaitForSeconds(initialRumbleWaitPeriod);
         // strengthen audio
-        cameraShake.StartShake(0.2f + underPlayerWaitPeriod, .1f);
+        //cameraShake.StartShake(0.2f + underPlayerWaitPeriod, .1f);
 
         //teleport under player
         transform.position = new Vector3(PlayerPosition.position.x + 2.05f, PlayerPosition.position.y - 14.2f, PlayerPosition.position.z + .67f);

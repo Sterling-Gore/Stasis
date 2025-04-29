@@ -6,9 +6,12 @@ using UnityEngine.UI;
 public class OverideElectircPanel : Interactable
 {
     private bool waitingForKey = false; 
+    public SpikeStabber spikeStabber;
+
 
     public GameObject Sparkle;
-    bool PuzzleCompleted = false;
+    public GameObject panelLightning;
+    public bool PuzzleCompleted = false;
     public GameObject PuzzleUI;
     public GameObject player;
     bool breakTheRoutine = false;
@@ -139,6 +142,7 @@ public class OverideElectircPanel : Interactable
 
     void finishedPuzzle()
     {
+        panelLightning.SetActive(false);
         vineBurner.startBurn();
         if(isFinal)
             FinalScreech.Play();
@@ -146,6 +150,10 @@ public class OverideElectircPanel : Interactable
             PlantScreech.Play();
         LightningBolt.Play();
         cameraShake.StartShake(2f, 0.05f);
+
+        spikeStabber.spikeCoolDownTimer -= 2.33f;
+        spikeStabber.initialRumbleWaitPeriod *= .25f;
+        spikeStabber.underPlayerWaitPeriod -= .5f;
     }
     
 }

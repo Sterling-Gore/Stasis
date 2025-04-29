@@ -17,6 +17,9 @@ public class BurningSpecimen : MonoBehaviour
     public float burnAmount = 0f;
     Coroutine burnCoroutine;
 
+    public SaveManager saveManager;
+    public PlasmaGun gun;
+
     void Start()
     {
         doneBurning = false;
@@ -28,6 +31,11 @@ public class BurningSpecimen : MonoBehaviour
 
     void Update()
     {
+        if(burnAmount > .5f && !doneBurning)
+        {
+            completeBurning();
+            turnOffElectricity();
+        }
         if(isBurning != burnChecker)
         {
             if(isBurning)
@@ -53,8 +61,10 @@ public class BurningSpecimen : MonoBehaviour
                 }
                 //vineMaterial.SetFloat("_BurnThreshold", burnAmount);
             }
-            else   
+            else
+            {
                 completeBurning();
+            }
         }
     }
 
@@ -68,6 +78,9 @@ public class BurningSpecimen : MonoBehaviour
     {
         doneBurning = true;
         isBurning = false;
+        gun.done = true;
+        gun.ItemGlow.transform.position = new Vector3(0f,0f,0f);
+        saveManager.UpdateSave(SavePointID.research5);
         StartCoroutine(AudioOff());
         StartCoroutine(FadeAway());
     }
