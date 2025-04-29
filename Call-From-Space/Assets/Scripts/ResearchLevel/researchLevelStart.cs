@@ -70,7 +70,8 @@ public class researchLevelStart : MonoBehaviour
     
 
     [Header("Extra Audios")]
-    public AudioSource elevatorEntrance;
+    public AudioSource WarpDriveDetected;
+    public AudioSource ToxinsInTank;
 
 
     void Awake()
@@ -228,8 +229,11 @@ public class researchLevelStart : MonoBehaviour
     {
         yield return new WaitForSeconds(.1f);
         elevatorMusic.Play();
-        yield return new WaitForSeconds(9f);
+        yield return new WaitForSeconds(2f);
+        ToxinsInTank.Play();
+        yield return new WaitForSeconds(7f);
         elevatorDoorAnimation.SetTrigger("open");
+        WarpDriveDetected.Play();
 
     }
 }

@@ -15,6 +15,8 @@ public class BasementFlickeringLights : MonoBehaviour
 
     public bool isComplete = false;
 
+    public float duration = 2f;
+
     [Header("Lights On")]
     public Material lightsOnMaterial;
     public Color lightsOnColor ;
@@ -46,7 +48,7 @@ public class BasementFlickeringLights : MonoBehaviour
 
     private System.Collections.IEnumerator Flicker(bool toOff)
     {
-        float duration = 3f;
+        //float duration = 3f;
         float time = 0f;
 
         float startAngle = toOff ? originalSpotAngle : 1f;

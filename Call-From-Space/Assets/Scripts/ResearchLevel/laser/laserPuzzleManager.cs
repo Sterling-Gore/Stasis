@@ -49,6 +49,11 @@ public class laserPuzzleManager : MonoBehaviour
     public Renderer Light3Bulb;
     public Light Light3;
 
+    [Header("Audios")]
+    public AudioSource dingAudio;
+    public AudioSource mixingAudio;
+    public AudioSource completionAudio;
+
     bool wall1EndOn = false;
     bool wall2EndOn = false;
 
@@ -101,15 +106,25 @@ public class laserPuzzleManager : MonoBehaviour
             if(CheckCompletion())
             {
                 puzzleIsCompleted = true;
-                despawnAllLasers();
-                emptyVials.SetActive(true);
-                bloodVial.SetActive(false);
-                plantVial.SetActive(false);
-                despawnAllColliders();
-                createAntidote();
-                saveManager.UpdateSave(SavePointID.research3);
+                StartCoroutine(StartMixing());
             }
         }
+    }
+
+    IEnumerator StartMixing()
+    {
+        dingAudio.Play();
+        yield return new WaitForSeconds(.5f);
+        mixingAudio.Play();
+        yield return new WaitForSeconds(6f);
+        completionAudio.Play();
+        despawnAllLasers();
+        emptyVials.SetActive(true);
+        bloodVial.SetActive(false);
+        plantVial.SetActive(false);
+        despawnAllColliders();
+        createAntidote();
+        saveManager.UpdateSave(SavePointID.research3);
     }
 
     public void insertBloodVial()
@@ -147,11 +162,14 @@ public class laserPuzzleManager : MonoBehaviour
         if(enterBloodVial && enterPlantVial)
         {
             wall1Origin.on = true;
+            wall1Origin.laserHum.enabled = true;
             Light1Bulb.material = LightOn;
             Light1.color = lightOnColor;
+            dingAudio.Play();
             if(enterBattery)
             {
                 wall2Origin.on = true;
+                wall2Origin.laserHum.enabled = true;
             }
         }
     }

@@ -7,6 +7,7 @@ public class SimonSaysManager : MonoBehaviour
     [Header("Manager")]
     public bool puzzleIsCompleted = false;
     public BasementFlickeringLights lights;
+    public BasementSirens sirens;
 
     [Header("GameObjects")]
     public GameObject screenSparkle;
@@ -26,6 +27,11 @@ public class SimonSaysManager : MonoBehaviour
     public DarkFigureController darkFigure;
     public FakeItemSpawner fakeItems;
 
+    [Header("Audios")]
+    public AudioSource steam;
+    public AudioSource ding;
+    public AudioSource AI_antidote_dispersed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +44,7 @@ public class SimonSaysManager : MonoBehaviour
             teleportCollider.SetActive(false);
             vcr.SetActive(true);
             lights.CompleteLights();
+            sirens.complete();
         }
     }
 
@@ -63,11 +70,17 @@ public class SimonSaysManager : MonoBehaviour
 
     IEnumerator delayBetweenCompletion()
     {
-        yield return new WaitForSeconds(2f);
+        steam.Play();
+        yield return new WaitForSeconds(4f);
+        steam.Stop();
+        ding.Play();
         emptyTheCanister();
         teleportCollider.SetActive(false);
         savepointCollider.SetActive(true);
         vcr.SetActive(true);
         lights.CompleteLights();
+        sirens.complete();
+        yield return new WaitForSeconds(2f);
+        AI_antidote_dispersed.Play();
     }
 }

@@ -29,6 +29,10 @@ public class SpikeStabber : MonoBehaviour
     public float timeToWaitBetweenEachChance = .1f;
     public float timerBetweenEachChance = 0f;
 
+    [Header("Audios")]
+    public AudioSource rumble;
+    public AudioSource stab;
+
 
 
 
@@ -79,6 +83,7 @@ public class SpikeStabber : MonoBehaviour
     {
         //start audio
         cameraShake.StartShake(initialRumbleWaitPeriod+.5f, 0.1f);
+        rumble.Play();
         yield return new WaitForSeconds(initialRumbleWaitPeriod);
         // strengthen audio
         //cameraShake.StartShake(0.2f + underPlayerWaitPeriod, .1f);
@@ -90,9 +95,11 @@ public class SpikeStabber : MonoBehaviour
 
 
         yield return new WaitForSeconds(underPlayerWaitPeriod);
+        rumble.Stop();
         //stab audio
         damageCollider.enabled = true;
         spikeStabAnimation.SetTrigger("Stab");
+        stab.Play();
         yield return new WaitForSeconds(0.2f);
         damageCollider.enabled = false;
 

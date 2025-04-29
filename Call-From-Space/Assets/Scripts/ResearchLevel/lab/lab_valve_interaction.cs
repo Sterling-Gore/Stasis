@@ -86,8 +86,8 @@ public class lab_valve_interaction : Interactable
 
     IEnumerator closeVat()
     {
-        prepareVial.closeVat();
-        yield return new WaitForSeconds(4f);
+        prepareVial.closeVat(isComplete);
+        yield return new WaitForSeconds(12f);
         tertiaryBoolForValve = 2;
 
     }

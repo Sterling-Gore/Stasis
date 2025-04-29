@@ -11,6 +11,8 @@ public class PrepareVial : MonoBehaviour
     [Header("vat")]
     public Animator vatClose;
     public AudioSource vatCloseAudio;
+    public AudioSource blendAudio;
+    public AudioSource ding;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +28,29 @@ public class PrepareVial : MonoBehaviour
     public void createVial()
     {
         liquidFillingUp.Play();
+        StartCoroutine(SpawnVial());
+    }
+
+    public void closeVat(bool spawnFromSave)
+    {
+        vatClose.SetTrigger("closed");
+        if(!spawnFromSave)
+            StartCoroutine(PlayAudio());
+        //vatCloseAudio.Play();
+    }
+
+    IEnumerator SpawnVial()
+    {
+        yield return new WaitForSeconds(2f);
         visualVial.SetActive(false);
         pickUpVial.SetActive(true);
     }
-
-    public void closeVat()
+    IEnumerator PlayAudio()
     {
-        vatClose.SetTrigger("closed");
         vatCloseAudio.Play();
+        yield return new WaitForSeconds(2f);
+        blendAudio.Play();
+        yield return new WaitForSeconds(10f);
+        ding.Play();
     }
 }

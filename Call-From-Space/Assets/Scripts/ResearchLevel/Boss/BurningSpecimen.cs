@@ -20,6 +20,13 @@ public class BurningSpecimen : MonoBehaviour
     public SaveManager saveManager;
     public PlasmaGun gun;
 
+    [Header("Audios")]
+    public AudioSource electricLoop;
+    public AudioSource plant_dies;
+    public AudioSource plant_sounds;
+    public AudioSource AI_Plant_is_dead;
+    public AudioSource Boss_siren;
+
     void Start()
     {
         doneBurning = false;
@@ -41,11 +48,13 @@ public class BurningSpecimen : MonoBehaviour
             if(isBurning)
             {
                 turnOnElectricity();
+                electricLoop.Play();
                 burnChecker = true;
             }
             else
             {
                 turnOffElectricity();
+                electricLoop.Pause();
                 burnChecker = false;
             }
         }
@@ -117,8 +126,11 @@ public class BurningSpecimen : MonoBehaviour
 
     IEnumerator FadeAway()
     {
+        plant_dies.Play();
         while(burnAmount < 1f)
         {
+            plant_sounds.volume = burnAmount;
+            Boss_siren.volume = burnAmount;
             burnAmount += Time.deltaTime * burnSpeed;
             foreach( Material mat in charredPlants)
             {
@@ -127,10 +139,14 @@ public class BurningSpecimen : MonoBehaviour
             yield return null;
 
         }
+        plant_sounds.enabled = false;
+        Boss_siren.Stop();
         foreach( GameObject plant in plantObjects)
         {
             plant.SetActive(false);
         }
+
+        AI_Plant_is_dead.Play();
 
     }
 

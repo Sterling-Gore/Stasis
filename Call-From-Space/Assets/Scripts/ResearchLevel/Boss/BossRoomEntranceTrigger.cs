@@ -7,6 +7,8 @@ public class BossRoomEntranceTrigger : MonoBehaviour
     // Start is called before the first frame update
     public GameObject DoorCollider;
     public SpikeStabber spikeStabber;
+    public AudioSource plantYell;
+    public AudioSource AI_warns_plant;
     void Start()
     {
         
@@ -24,8 +26,18 @@ public class BossRoomEntranceTrigger : MonoBehaviour
         {
             spikeStabber.isActive = true;
             DoorCollider.SetActive(false);
-            gameObject.SetActive(false);
+            plantYell.Play();
+            //AI_warns_plant.Play();
+            StartCoroutine(delayAudio());
+            //gameObject.SetActive(false);
+            gameObject.GetComponent<Collider>().enabled = false;
 
         }
+    }
+
+    IEnumerator delayAudio()
+    {
+        yield return new WaitForSeconds(4f);
+        AI_warns_plant.Play();
     }
 }

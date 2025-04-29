@@ -8,6 +8,8 @@ public class PlasmaGun : Holdable
     public GameObject Laser;
     public AudioSource audioSource;
     public bool done = false;
+    public bool grabbed = false;
+    public AudioSource AI_Gun_Acquired;
     [Header("Camera Shake")]
     public CameraShakeGeneral cameraShake;
 
@@ -21,7 +23,14 @@ public class PlasmaGun : Holdable
     public override void Interact()
     {
         if(!done)
+        {
             PickUpObject();
+            if(!grabbed)
+            {
+                grabbed = true;
+                AI_Gun_Acquired.Play();
+            }
+        }
     }
     // Update is called once per frame
     void Update()

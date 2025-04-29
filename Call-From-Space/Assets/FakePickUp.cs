@@ -32,7 +32,7 @@ public class FakePickUp : Interactable
 
     public override string GetDescription()
     {
-        return ("Press [E] to pick up " + fakeItemName);
+        return ("Press [E] to pick up ??" + fakeItemName + " ??");
     }
 
 }
