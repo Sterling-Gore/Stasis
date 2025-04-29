@@ -46,6 +46,9 @@ public class DarkFigureController : MonoBehaviour
     LayerMask surfacesMask;
     AudioSource scaryNoiseSource, jumpscareNoiseSource;
     Transform[] losPoints;
+
+    [Header("Holdables")]
+    public GameObject[] holdingItmes;
     
 
     Vector3 currentUp;
@@ -154,11 +157,20 @@ public class DarkFigureController : MonoBehaviour
         scaryNoiseSource.Stop();
         jumpscareNoiseSource.PlayOneShot(jumpscareNoise);
 
+        foreach(GameObject item in holdingItmes)
+        {
+            if(item.activeSelf)
+            {
+                item.GetComponent<Holdable>().DropObject();
+            }
+            //item.DropObject();
+        }
+        shadowRealmController.TeleportToShadowRealm();
         yield return new WaitForSeconds(0.7f);
 
         _camera.enabled = true;
         scareImage.SetActive(false);
-        shadowRealmController.TeleportToShadowRealm();
+        //shadowRealmController.TeleportToShadowRealm();
     }
 
     //makes sure there is enough space in 2 units of 5 directions
