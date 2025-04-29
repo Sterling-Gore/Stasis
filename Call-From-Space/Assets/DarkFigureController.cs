@@ -168,8 +168,8 @@ public class DarkFigureController : MonoBehaviour
       
         return new[] { Vector3.up, Vector3.left, Vector3.right, Vector3.forward, Vector3.back }
                     .Select(direction => rotation * direction)
-                    .Select(direction => { Debug.DrawRay(targetPosition, direction * 2f, Color.yellow, 3f); return direction; })
-                    .All(direction => !Physics.Raycast(targetPosition, direction, 2f));
+                    .Select(direction => { Debug.DrawRay(targetPosition, direction * 1f, Color.yellow, 3f); return direction; })
+                    .All(direction => !Physics.Raycast(targetPosition, direction, 1f));
     }
 
     bool IsNotNearPlayer(Vector3 targetPosition)
@@ -259,7 +259,8 @@ public class DarkFigureController : MonoBehaviour
         for (float time = 0f; time < duration; time += Time.deltaTime)
             yield return new WaitForFixedUpdate();
         inTimeout = false;
-        ForceTeleport();
+        if(enabled)
+            ForceTeleport();
     }
 
     public void ForceTeleport()

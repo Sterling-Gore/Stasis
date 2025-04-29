@@ -71,7 +71,7 @@ public class LOSChecker : MonoBehaviour
         {
             if (isHarmless)
             {
-                transform.parent.GetComponent<DarkFigureController>().SendToTimeout(0f);
+                transform.parent.GetComponent<DarkFigureController>().SendToTimeout(15f);
                 return;
             }
             zoom.StartZoomIn();
