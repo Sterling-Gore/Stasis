@@ -107,6 +107,7 @@ public class PickUp : Interactable
 
     public void deletedPickUp()
     {
+        OnPickUp();
         gameObject.SetActive(false);
         ItemGlow.SetActive(false);
     }

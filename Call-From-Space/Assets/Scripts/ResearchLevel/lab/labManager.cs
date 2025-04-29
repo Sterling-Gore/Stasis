@@ -61,6 +61,10 @@ public class labManager : MonoBehaviour
             {
                 finishPuzzle();
             }
+            if (player_ui.inventory.IsItemInList(plantVial) || player_ui.inventory.IsItemInList(bloodVial))
+            { 
+                FindObjectOfType<DarkFigureController>().isHarmless = false;
+            }
         }
     }
 

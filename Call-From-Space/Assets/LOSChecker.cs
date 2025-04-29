@@ -150,7 +150,7 @@ public class LOSChecker : MonoBehaviour
             if (!isOnScreen(figureCenter.transform.position))
                 alpha = 0f;
             else
-                alpha = Mathf.Lerp(0f, 1f, (40f - angleBetweenCameraAndCenter)/180f) + staticTimer/20f;
+                alpha = Mathf.Lerp(0f, 0.05f, (50-angleBetweenCameraAndCenter)/50) + staticTimer / 30f; 
             staticMaterial.color = new Color(materialColor.r, materialColor.g, materialColor.b, alpha);
             yield return new WaitForFixedUpdate();
         }

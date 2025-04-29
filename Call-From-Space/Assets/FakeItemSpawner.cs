@@ -17,7 +17,7 @@ public class FakeItemSpawner : MonoBehaviour
 
     LOSChecker los;
 
-    void Start()
+    void Awake()
     {
         los = FindObjectOfType<LOSChecker>();
         allPickupsToFake.ToList().ForEach(pickup => pickup.ItemPickedUp += ReadySpawn);

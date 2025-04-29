@@ -266,11 +266,14 @@ public class DarkFigureController : MonoBehaviour
         {
             SetActivelyHunting(true);
             isHarmless = false;
+            InsanityMeter.Instance.setMinimumTimesCaught(1);
+            
         }
         else if (savepoint == SavePointID.research3)
         {
             SetActivelyHunting(true);
             isHarmless = false;
+            InsanityMeter.Instance.setMinimumTimesCaught(2);
         }
         else if (savepoint == SavePointID.research4)
         {
