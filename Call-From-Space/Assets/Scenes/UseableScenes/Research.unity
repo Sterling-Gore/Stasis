@@ -288551,7 +288551,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 603ae5b1c6dfdec4281dbb61625ead7f, type: 2}
   m_BuildHeightMesh: 0
 --- !u!65 &1222736727
 BoxCollider:
@@ -371222,6 +371222,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1689730049}
+  - component: {fileID: 1689730050}
   m_Layer: 0
   m_Name: Doors
   m_TagString: Untagged
@@ -371246,6 +371247,25 @@ Transform:
   - {fileID: 96800685}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1689730050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689730048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1689749314
 GameObject:
   m_ObjectHideFlags: 0
