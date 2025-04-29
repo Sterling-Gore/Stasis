@@ -41,7 +41,8 @@ public class researchLevelStart : MonoBehaviour
     public PickUp bloodVial; 
     public PickUp plantVial; 
     public PickUp drawerKey; 
-    public PickUp reflector; 
+    public PickUp battery;
+    public PickUp translation; 
 
     [Header("Holdables")]
     public GameObject valve; 
@@ -115,6 +116,7 @@ public class researchLevelStart : MonoBehaviour
         {
             bloodVial.pickUp();
             plantVial.pickUp();
+            translation.pickUp();
             valve.SetActive(false);
             plant.SetActive(false);
         }
@@ -122,7 +124,8 @@ public class researchLevelStart : MonoBehaviour
         {
             bloodVial.deletedPickUp();
             plantVial.deletedPickUp();
-            reflector.deletedPickUp();
+            translation.pickUp();
+            battery.deletedPickUp();
             drawerKey.deletedPickUp();
             valve.SetActive(false);
             plant.SetActive(false);
@@ -131,7 +134,8 @@ public class researchLevelStart : MonoBehaviour
         {
             bloodVial.deletedPickUp();
             plantVial.deletedPickUp();
-            reflector.deletedPickUp();
+            translation.pickUp();
+            battery.deletedPickUp();
             drawerKey.deletedPickUp();
             valve.SetActive(false);
             plant.SetActive(false);
@@ -141,7 +145,8 @@ public class researchLevelStart : MonoBehaviour
         {
             bloodVial.deletedPickUp();
             plantVial.deletedPickUp();
-            reflector.deletedPickUp();
+            translation.pickUp();
+            battery.deletedPickUp();
             drawerKey.deletedPickUp();
             valve.SetActive(false);
             plant.SetActive(false);

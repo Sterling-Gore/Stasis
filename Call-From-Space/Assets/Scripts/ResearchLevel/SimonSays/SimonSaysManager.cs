@@ -19,6 +19,7 @@ public class SimonSaysManager : MonoBehaviour
     [Header("InfiniteHallway")]
     public GameObject savepointCollider;
     public GameObject teleportCollider;
+    public GameObject vcr;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class SimonSaysManager : MonoBehaviour
             antidoteDeposit.SetActive(false);
             savepointCollider.SetActive(false);
             teleportCollider.SetActive(false);
+            vcr.SetActive(true);
         }
     }
 
@@ -51,5 +53,6 @@ public class SimonSaysManager : MonoBehaviour
         emptyTheCanister();
         teleportCollider.SetActive(false);
         savepointCollider.SetActive(true);
+        vcr.SetActive(true);
     }
 }
