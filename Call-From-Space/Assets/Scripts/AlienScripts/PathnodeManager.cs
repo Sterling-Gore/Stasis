@@ -28,6 +28,7 @@ public class PathnodeManager : MonoBehaviour
             door.DoorActivated += ActivateNodes;
         }
         currentGoToPlayerChance = defaultGoToPlayerChance;
+        UpdatePathNodes();
     }
 
     void ActivateNodes(object sender, DoorEventArgs e)
